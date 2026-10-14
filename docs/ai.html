@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Как подключить ИИ - Larchik</title>
+<meta name="description" content="Пошаговая инструкция: где взять API-ключ для Larchik - cloud.ru (GigaChat), Алиса AI, DeepSeek или своя модель. Цены и скриншоты.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<link rel="canonical" href="https://belart16.github.io/larchik/ai.html">
+<link rel="icon" type="image/png" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<link rel="stylesheet" href="site.css">
+<style>
+  .prose > .callout:first-of-type { margin-bottom: 48px; }
+  .prose section + section { margin-top: 72px; }
+  .prose section > h2:first-child { margin-top: 0; }
+
+  .pick { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 4px; }
+  .pick-card {
+    display: flex; flex-direction: column; gap: 8px; padding: 20px; color: var(--text-2);
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow);
+    transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, border-color .22s ease;
+  }
+  .pick-card:hover { text-decoration: none; }
+  .pick-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .pick-top b { color: var(--text); font-size: 17px; font-weight: 650; }
+  .pick-text { font-size: 15px; line-height: 1.5; }
+  .pick-need { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); font-size: 14px; font-weight: 600; color: var(--text); }
+  .badge { font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; line-height: 1.3; background: var(--accent-soft); color: var(--accent); }
+  .badge-green { background: rgba(48,209,88,.14); color: #1fa846; }
+  @media (prefers-color-scheme: dark) { .badge-green { color: var(--green); } }
+
+  .prose .facts { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .prose .facts li { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 12px; border-radius: 999px;
+              background: var(--surface); border: 1px solid var(--border); font-size: 14px; margin: 0; }
+  .facts span { color: var(--text-3); }
+  .facts b { color: var(--text); font-weight: 600; }
+
+  .prose h3.steps-title { margin: 36px 0 6px; }
+  .steps-note { font-size: 15px; color: var(--text-3); }
+
+  /* steps: a number on a thin line, text and screenshot on the right */
+  .prose .steps { list-style: none; margin: 24px 0 28px; padding: 0; }
+  .prose .step { position: relative; padding: 0 0 36px 48px; margin: 0; }
+  .step::before { content: ""; position: absolute; left: 15px; top: 36px; bottom: 4px; width: 2px; border-radius: 2px; background: var(--border); }
+  .prose .step:last-child { padding-bottom: 0; }
+  .step:last-child::before { display: none; }
+  .prose .step h3 { position: relative; margin: 0 0 10px; font-size: 18px; line-height: 32px; }
+  .step .num { position: absolute; left: -48px; top: 0; width: 32px; height: 32px; border-radius: 50%;
+               display: grid; place-items: center; background: var(--accent); color: #fff; font-size: 15px; font-weight: 700; line-height: 1; }
+  .step p:last-of-type { margin-bottom: 0; }
+
+  .shot { margin: 18px 0 0; }
+  .shot-frame {
+    display: flex; justify-content: center; width: 100%; padding: 12px; margin: 0; cursor: zoom-in;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow);
+    font: inherit; color: inherit;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .shot-frame img { display: block; width: 100%; height: auto; border-radius: 8px; }
+  .shot figcaption { margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--text-3); }
+  @media (hover: hover) and (pointer: fine) {
+    .shot-frame:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+    .pick-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); }
+  }
+
+  details.more { margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
+  details.more summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+                         padding: 16px 20px; font-weight: 600; color: var(--text); font-size: 16px; }
+  details.more summary::-webkit-details-marker { display: none; }
+  details.more summary::after { content: ""; flex: none; width: 9px; height: 9px; border-right: 2px solid var(--text-3); border-bottom: 2px solid var(--text-3);
+                                transform: rotate(45deg) translate(-2px, -2px); transition: transform .2s ease; }
+  details.more[open] summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+  .more-body { padding: 0 20px 6px; font-size: 15.5px; }
+
+  /* full-size screenshot */
+  dialog.zoom { padding: 0; border: 0; background: transparent; max-width: 96vw; max-height: 94vh; overflow: visible; }
+  dialog.zoom::backdrop { background: rgba(0,0,0,.78); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+  dialog.zoom img { display: block; max-width: 96vw; max-height: 86vh; width: auto; height: auto; border-radius: 12px; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+  dialog.zoom p { margin: 12px 0 0; color: rgba(255,255,255,.8); text-align: center; font-size: 14.5px; }
+  dialog.zoom[open] { animation: zoom-in .2s cubic-bezier(.2,.8,.2,1); }
+  @keyframes zoom-in { from { opacity: 0; transform: scale(.97); } }
+
+  @media (max-width: 600px) {
+    .pick { grid-template-columns: 1fr; }
+    .pick-card { padding: 18px; }
+    .prose .step { padding-left: 42px; padding-bottom: 32px; }
+    .step::before { left: 13px; top: 32px; }
+    .step .num { left: -42px; width: 28px; height: 28px; font-size: 14px; top: 2px; }
+    .prose .step h3 { font-size: 17px; }
+    .shot-frame { padding: 8px; border-radius: 12px; }
+    .prose section + section { margin-top: 56px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pick-card, .shot-frame { transition: none; } .pick-card:hover { transform: none; } dialog.zoom[open] { animation: none; }
+  }
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="img/icon.png" alt="" width="28" height="28">Larchik</a>
+    <nav class="nav-links" aria-label="Разделы">
+      <a href="ai.html" aria-current="page">Подключить ИИ</a>
+      <a href="./#faq">Вопросы</a>
+      <a href="feedback.html">Обратная связь</a>
+      <a class="nav-cta" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Скачать</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head stack">
+    <h1>Как подключить ИИ к Larchik</h1>
+    <p class="lead">ИИ в Larchik работает через твой API-ключ одного из сервисов. Ключ вставляется только в окно Larchik (Настройки → ИИ → «Подключение»), хранится на этом компьютере в зашифрованном виде и никуда, кроме выбранного сервиса, не уходит.</p>
+  </div>
+
+  <div class="doc">
+  <aside class="toc" aria-label="Содержание">
+    <p class="toc-title">Содержание</p>
+    <ol>
+      <li><a href="#choose">Какой сервис выбрать</a></li>
+      <li><a href="#price">Сколько это стоит</a></li>
+      <li><a href="#cloudru">cloud.ru</a></li>
+      <li><a href="#yandex">Алиса AI - Яндекс</a></li>
+      <li><a href="#deepseek">DeepSeek</a></li>
+      <li><a href="#local">Своя модель</a></li>
+      <li><a href="#help">Не получилось?</a></li>
+    </ol>
+  </aside>
+  <article class="prose">
+    <details class="toc-mobile">
+      <summary>Содержание</summary>
+      <ol>
+      <li><a href="#choose">Какой сервис выбрать</a></li>
+      <li><a href="#price">Сколько это стоит</a></li>
+      <li><a href="#cloudru">cloud.ru</a></li>
+      <li><a href="#yandex">Алиса AI - Яндекс</a></li>
+      <li><a href="#deepseek">DeepSeek</a></li>
+      <li><a href="#local">Своя модель</a></li>
+      <li><a href="#help">Не получилось?</a></li>
+      </ol>
+    </details>
+<div class="callout warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><div><p>Никому не пересылай ключ - ни в чат, ни в поддержку. Если ключ куда-то утёк, удали его в кабинете сервиса и создай новый.</p></div></div>
+
+    <section id="choose">
+      <h2>Какой сервис выбрать</h2>
+      <p>Подходит любой из четырёх. Если сомневаешься - бери cloud.ru: работает в России, оплата в рублях, хороший русский язык.</p>
+      <div class="pick">
+        <a class="pick-card" href="#cloudru">
+          <span class="pick-top"><b>cloud.ru</b><span class="badge">Рекомендуем</span></span>
+          <span class="pick-text">GigaChat и десятки других моделей под одним ключом. Хорошо пишет по-русски.</span>
+          <span class="pick-need">Аккаунт cloud.ru и баланс от 100 ₽</span>
+        </a>
+        <a class="pick-card" href="#yandex">
+          <span class="pick-top"><b>Алиса AI - Яндекс</b></span>
+          <span class="pick-text">Сильный русский язык, данные остаются в России.</span>
+          <span class="pick-need">Аккаунт Yandex Cloud, ключ и ID каталога</span>
+        </a>
+        <a class="pick-card" href="#deepseek">
+          <span class="pick-top"><b>DeepSeek</b></span>
+          <span class="pick-text">Логика, код и подробные объяснения. Компания из Китая.</span>
+          <span class="pick-need">Баланс в долларах, зарубежная карта</span>
+        </a>
+        <a class="pick-card" href="#local">
+          <span class="pick-top"><b>Своя модель</b><span class="badge badge-green">Бесплатно</span></span>
+          <span class="pick-text">Модель работает на твоём компьютере - текст никуда не уходит.</span>
+          <span class="pick-need">Ollama или LM Studio и мощный ПК</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="price">
+      <h2>Сколько это стоит</h2>
+      <p>Larchik бесплатный, а за ИИ платишь сервису напрямую - по факту, за объём текста. Его считают в <strong>токенах</strong>: для русского текста 1 токен ≈ 3-4 символа, то есть страница A4 ≈ 1 000-1 500 токенов. Платишь и за то, что отправил (вход), и за ответ (выход). Обычный запрос в Larchik - «перепиши абзац», «переведи письмо» - это примерно 1-3 тыс. токенов.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Сервис</th><th>Чем платить</th><th>С чего начать</th><th>Где смотреть цены</th></tr></thead>
+          <tbody>
+            <tr><td><strong>cloud.ru</strong></td><td>рубли, баланс в кабинете</td><td>пополнить на 100-300 ₽</td><td><a href="https://cloud.ru/products/evolution-ai-factory/catalog-foundation-models" target="_blank" rel="noopener">каталог моделей</a> - цена в карточке модели</td></tr>
+            <tr><td><strong>Алиса AI</strong></td><td>рубли, платёжный аккаунт Yandex Cloud</td><td>стартовый грант новым аккаунтам</td><td><a href="https://aistudio.yandex.ru/docs/ru/ai-studio/pricing" target="_blank" rel="noopener">тарифы AI Studio</a></td></tr>
+            <tr><td><strong>DeepSeek</strong></td><td>доллары, баланс на сайте</td><td>пополнить на $2-5</td><td><a href="https://api-docs.deepseek.com/quick_start/pricing" target="_blank" rel="noopener">цены DeepSeek</a></td></tr>
+            <tr><td><strong>Своя модель</strong></td><td>бесплатно</td><td>мощный компьютер</td><td>-</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Цены меняются - перед пополнением сверяйся с ценами по ссылке. Ниже в разделе каждого сервиса - ориентиры на октябрь 2026.</p>
+      <div class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1.1 2V16h5v-.2c.1-.8.5-1.5 1.1-2A6 6 0 0 0 12 3z"/></svg><div><p><strong>Совет:</strong> в каждом сервисе есть модели в десятки раз дороже других. Самые дорогие - внешние модели (Claude, GPT, Gemini) у агрегаторов. Для повседневных задач Larchik хватает недорогих моделей.</p></div></div>
+    </section>
+
+    <section id="cloudru">
+      <h2>cloud.ru - GigaChat, Claude, GPT и другие</h2>
+      <ul class="facts"><li><span>Оплата</span><b>рубли</b></li><li><span>Для начала</span><b>100 ₽</b></li><li><span>Займёт</span><b>5-10 минут</b></li></ul>
+      <p><strong>Платный агрегатор</strong>: десятки моделей под одним ключом, оплата в рублях с баланса. Без денег на счёте сервис отвечает «Недостаточно средств», поэтому сначала пополни баланс - для начала хватит 100 ₽.</p>
+<p><strong>Сколько это:</strong> модель по умолчанию в Larchik - GigaChat3-10B - стоит около 12 ₽ за 1 млн токенов (и на вход, и на выход). 100 ₽ ≈ 8 млн токенов ≈ несколько тысяч обычных запросов. Модели мощнее стоят в 5-50 раз дороже: GigaChat-3-Pro ≈ 73 ₽ вход / 176 ₽ выход, внешние модели - ещё дороже. Актуальная цена - в <a href="https://cloud.ru/products/evolution-ai-factory/catalog-foundation-models" target="_blank" rel="noopener">каталоге моделей</a>: открой карточку модели, строки «Входные токены, 1 млн» и «Генерируемые токены, 1 млн». Расход видно в кабинете cloud.ru в разделе баланса и детализации.</p>
+      <h3 class="steps-title">Пошагово</h3>
+      <p class="steps-note">На скриншотах кнопки обведены красным, важные поля - синим. Нажми на картинку, чтобы увеличить.</p>
+    <ol class="steps">
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">1</span>Войди или зарегистрируйся</h3>
+        <p>Открой <a href="https://console.cloud.ru" target="_blank" rel="noopener">console.cloud.ru</a>. Войти можно по почте или через Сбер ID, T-Банк и другие способы.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Страница входа cloud.ru">
+            <img src="img/ai-keys/cloudru-01-login.png" alt="Страница входа cloud.ru" width="492" height="916" style="max-width:min(100%, 290px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Вход по Cloud.ru ID. Новый аккаунт - кнопка «Зарегистрироваться».</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">2</span>Пополни баланс и открой «Пользователи»</h3>
+        <p>На главной странице консоли справа - карточка «Баланс»: нажми <strong>«Пополнить баланс»</strong> и положи 100-300 ₽. Без денег на счёте ИИ отвечать не будет. Затем нажми <strong>«Пользователи»</strong>.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Главная страница консоли cloud.ru">
+            <img src="img/ai-keys/cloudru-02-console.png" alt="Главная страница консоли cloud.ru" width="1919" height="916" style="max-width:min(100%, 1131px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Платформа Evolution: «Пользователи» - слева вверху, «Пополнить баланс» - в карточке «Баланс» справа.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">3</span>Перейди в «Сервисные аккаунты»</h3>
+        <p>Это отдельный «пользователь» для программ: ключ Larchik будет привязан к нему, а не к твоему личному входу.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Раздел «Пользователи»">
+            <img src="img/ai-keys/cloudru-03-users.png" alt="Раздел «Пользователи»" width="1300" height="520" style="max-width:min(100%, 1300px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Меню слева → «Сервисные аккаунты».</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">4</span>Создай сервисный аккаунт</h3>
+        <p>Нажми <strong>«Создать аккаунт»</strong> справа вверху.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Список сервисных аккаунтов">
+            <img src="img/ai-keys/cloudru-04-service-accounts.png" alt="Список сервисных аккаунтов" width="1589" height="700" style="max-width:min(100%, 1226px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Если аккаунтов ещё нет, список пустой - это нормально.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">5</span>Заполни данные аккаунта</h3>
+        <p>Название - например, <code>Larchik</code>, описание - любое. Уровень аккаунта - <strong>«Проект»</strong>. Нажми <strong>«Продолжить»</strong>.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Данные сервисного аккаунта">
+            <img src="img/ai-keys/cloudru-05-create-account.png" alt="Данные сервисного аккаунта" width="1150" height="800" style="max-width:min(100%, 776px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Уровень «Проект»: аккаунт получит доступ только к одному проекту - так безопаснее.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">6</span>Выдай роль</h3>
+        <p>В поле «Роли внутри проекта» отметь только <strong>«Пользователь проекта»</strong> - этого достаточно, чтобы ключ работал с моделями. Административные роли не нужны: чем меньше прав у ключа, тем безопаснее, если он вдруг утечёт. Затем нажми кнопку внизу формы, чтобы создать аккаунт.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Роли сервисного аккаунта">
+            <img src="img/ai-keys/cloudru-06-roles.png" alt="Роли сервисного аккаунта" width="917" height="819" style="max-width:min(100%, 605px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Достаточно одной роли - «Пользователь проекта».</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">7</span>Открой созданный аккаунт</h3>
+        <p>Он появится в списке со статусом «Активен» - нажми на его название.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Созданный сервисный аккаунт">
+            <img src="img/ai-keys/cloudru-07-account-list.png" alt="Созданный сервисный аккаунт" width="1919" height="350" style="max-width:min(100%, 1919px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Нажми на название аккаунта, чтобы открыть его настройки.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">8</span>Создай API-ключ</h3>
+        <p>В блоке «Учётные данные доступа» на вкладке <strong>«API-ключи»</strong> нажми <strong>«Создать API-ключ»</strong>. Вкладка «Ключи доступа» не нужна: такой ключ Larchik не примет.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Карточка сервисного аккаунта">
+            <img src="img/ai-keys/cloudru-08-create-key.png" alt="Карточка сервисного аккаунта" width="1240" height="705" style="max-width:min(100%, 950px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Вкладка «API-ключи» → «Создать API-ключ».</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">9</span>Настрой ключ</h3>
+        <p>Название и описание - любые. В поле <strong>«Сервисы»</strong> обязательно выбери <strong>Foundation Models</strong> - без этого ключ не даст доступа к моделям. Поля «Адреса» оставь пустыми. Нажми «Создать» и <strong>сразу скопируй ключ</strong>: cloud.ru показывает его только один раз.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Настройки API-ключа">
+            <img src="img/ai-keys/cloudru-09-key-settings.png" alt="Настройки API-ключа" width="820" height="840" style="max-width:min(100%, 527px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Главное - сервис Foundation Models (обведён синим).</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">10</span>Подключи в Larchik</h3>
+        <p>Настройки → ИИ → «Подключение» → провайдер <strong>cloud.ru - много моделей</strong> → вставь ключ в поле «API-ключ» → <strong>«Проверить и подключить»</strong>. Модель по умолчанию - GigaChat; кнопка «Список» покажет все модели платформы.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Окно подключения ИИ в Larchik">
+            <img src="img/ai-keys/cloudru-10-larchik.png" alt="Окно подключения ИИ в Larchik" width="522" height="746" style="max-width:min(100%, 378px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Если выбрать внешнюю модель (здесь - GPT), Larchik предупредит, что текст уйдёт за рубеж и это дороже.</figcaption>
+        </figure>
+      </li>
+    </ol>
+      <p>Модели с пометкой <strong>«внешняя»</strong> (Claude, GPT, Gemini) cloud.ru перепродаёт: текст уходит их разработчику за рубеж, а цена обычно заметно выше - сверь её в прайсе cloud.ru. Для личных и рабочих данных лучше GigaChat или открытые модели без пометки.</p>
+      <div class="callout warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><div><p>Ключ вставляй только в Larchik и никому не пересылай - ни в чат, ни в поддержку. Если ключ утёк, удали его в кабинете сервиса и создай новый. На cloud.ru ключ удаляется в карточке сервисного аккаунта.</p></div></div>
+    </section>
+
+    <section id="yandex">
+      <h2>Алиса AI - Яндекс</h2>
+      <ul class="facts"><li><span>Оплата</span><b>рубли</b></li><li><span>Для начала</span><b>стартовый грант</b></li><li><span>Займёт</span><b>около 5 минут</b></li></ul>
+      <p><strong>Платный сервис</strong> Yandex Cloud: оплата в рублях с платёжного аккаунта. Новым личным аккаунтам Яндекс даёт <strong>стартовый грант</strong> - по <a href="https://yandex.cloud/ru/docs/getting-started/usage-grant" target="_blank" rel="noopener">условиям Yandex Cloud</a> не менее 4 000 ₽ на 60 дней. Этого с запасом хватит, чтобы попробовать.</p>
+<p><strong>Сколько это:</strong> Алиса AI (<code>aliceai-llm</code>) ≈ 0,5 ₽ за 1 000 входных токенов и 1,2 ₽ за 1 000 выходных - то есть обычный запрос стоит 1-3 ₽. YandexGPT Lite дешевле (≈ 0,2 ₽ за 1 000 токенов). Это заметно дороже, чем GigaChat на cloud.ru. Актуальные цены - на странице <a href="https://aistudio.yandex.ru/docs/ru/ai-studio/pricing" target="_blank" rel="noopener">тарифов AI Studio</a>.</p>
+      <h3 class="steps-title">Пошагово</h3>
+      <p class="steps-note">На скриншотах кнопки обведены красным, важные места - синим. Нажми на картинку, чтобы увеличить.</p>
+    <ol class="steps">
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">1</span>Войди в AI Studio</h3>
+        <p>Открой <a href="https://aistudio.yandex.ru" target="_blank" rel="noopener">aistudio.yandex.ru</a> и нажми <strong>«Войти»</strong> справа вверху. Подойдёт обычный Яндекс ID. Если облака ещё нет, AI Studio предложит его создать.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Главная страница Yandex AI Studio">
+            <img src="img/ai-keys/yandex-01-home.png" alt="Главная страница Yandex AI Studio" width="1919" height="692" style="max-width:min(100%, 1497px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Yandex AI Studio - кнопка «Войти» справа вверху.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">2</span>Проверь платёжный аккаунт</h3>
+        <p>Справа вверху, рядом с кнопкой ключа, виден баланс - значит, платёжный аккаунт привязан и стартовый грант начислен. Если вместо баланса написано «Платёжный аккаунт не привязан», нажми на надпись и создай или привяжи его. Без этого Яндекс отклоняет запросы даже с верным ключом, а грант начисляется только после привязки.</p>
+        
+        
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">3</span>Создай API-ключ</h3>
+        <p>Нажми <strong>«Создать API-ключ»</strong> справа вверху.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Главная страница AI Studio после входа">
+            <img src="img/ai-keys/yandex-02-create-key.png" alt="Главная страница AI Studio после входа" width="1919" height="725" style="max-width:min(100%, 1429px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Кнопка «Создать API-ключ» - справа вверху, рядом с балансом.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">4</span>Настрой ключ</h3>
+        <p>Описание - например, <code>Larchik</code>. Срок действия - на твой выбор: «Бессрочно» удобнее, ограниченный срок безопаснее. Нажми <strong>«Создать»</strong> и <strong>сразу скопируй секретный ключ</strong> - его показывают один раз.</p>
+<p>Роли выставлять не нужно: Яндекс сам создаст сервисный аккаунт с минимальными правами для AI Studio. Поменять их можно позже в Identity and Access Management, а все ключи видны по ссылке «К списку API-ключей» - там же ненужный ключ можно удалить.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Окно создания API-ключа">
+            <img src="img/ai-keys/yandex-03-key-dialog.png" alt="Окно создания API-ключа" width="920" height="590" style="max-width:min(100%, 842px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Описание и срок действия → «Создать». Синим обведены управление ролями и список ключей.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">5</span>Скопируй ID каталога</h3>
+        <p>Вверху страницы рядом с названием каталога (обычно <code>default</code>) нажми кнопку <strong>«ID»</strong> - идентификатор скопируется. Он начинается с <code>b1g…</code>. Частая ошибка - взять ID организации (<code>bpf…</code>) или сервисного аккаунта (<code>aje…</code>): они не подойдут, Larchik сразу об этом скажет.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Кнопка ID каталога">
+            <img src="img/ai-keys/yandex-04-folder-id.png" alt="Кнопка ID каталога" width="1100" height="385" style="max-width:min(100%, 1100px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Кнопка «ID» рядом с названием каталога копирует его идентификатор.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">6</span>Подключи в Larchik</h3>
+        <p>Настройки → ИИ → «Подключение» → провайдер <strong>Алиса AI - Яндекс</strong> → вставь ID каталога и ключ → <strong>«Проверить и подключить»</strong>. Модель по умолчанию - Алиса AI (<code>aliceai-llm</code>); кнопка «Список» покажет остальные модели AI Studio.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Окно подключения Алисы AI в Larchik">
+            <img src="img/ai-keys/yandex-05-larchik.png" alt="Окно подключения Алисы AI в Larchik" width="522" height="858" style="max-width:min(100%, 329px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>ID каталога, ключ и модель. На скриншоте выбрана Qwen3.6 из «Списка».</figcaption>
+        </figure>
+      </li>
+    </ol>
+      <div class="callout warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><div><p>Ключ вставляй только в Larchik и никому не пересылай - ни в чат, ни в поддержку. Если ключ утёк, удали его в кабинете сервиса и создай новый. У Яндекса ключи удаляются в списке API-ключей.</p></div></div>
+      <details class="more">
+        <summary>Если создаёшь ключ вручную в консоли Yandex Cloud</summary>
+        <div class="more-body">
+          <p>Роль и права задаются в разных местах:</p>
+          <ul>
+            <li><strong>Роль</strong> даётся сервисному аккаунту, а не ключу: при создании сервисного аккаунта в поле «Роли в каталоге» или позже в каталоге → <strong>«Права доступа»</strong> → «Назначить роли». Нужна <code>ai.languageModels.user</code> (подходит и более широкая <code>ai.editor</code>).</li>
+            <li><strong>Область действия</strong> выбирается при создании API-ключа. В выпадающем списке ролей нет - там только области: отметь <code>yc.ai.foundationModels.execute</code> (можно добавить и <code>yc.ai.languageModels.execute</code>).</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section id="deepseek">
+      <h2>DeepSeek</h2>
+      <ul class="facts"><li><span>Оплата</span><b>доллары</b></li><li><span>Для начала</span><b>$2-5</b></li><li><span>Займёт</span><b>3-5 минут</b></li></ul>
+      <p><strong>Платный сервис</strong>, оплата в долларах с баланса на сайте. Компания из Китая - текст уходит туда. Проверь, примет ли сервис твою карту: с российскими картами зарубежные сервисы обычно не работают.</p>
+<p><strong>Сколько это:</strong> <code>deepseek-flash</code> ≈ $0.3 за 1 млн входных токенов и $1.2 за 1 млн выходных, ночью и по выходным - вдвое дешевле. Пары долларов хватит надолго. Цены - на <a href="https://api-docs.deepseek.com/quick_start/pricing" target="_blank" rel="noopener">странице тарифов</a>.</p>
+      <h3 class="steps-title">Пошагово</h3>
+      <p class="steps-note">На скриншотах кнопки обведены красным. Нажми на картинку, чтобы увеличить.</p>
+    <ol class="steps">
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">1</span>Войди или зарегистрируйся</h3>
+        <p>Открой <a href="https://platform.deepseek.com" target="_blank" rel="noopener">platform.deepseek.com</a>. Войти можно по почте, номеру телефона или через Google; новый аккаунт - ссылка <strong>Sign up</strong>.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Вход на платформу DeepSeek">
+            <img src="img/ai-keys/deepseek-01-login.png" alt="Вход на платформу DeepSeek" width="620" height="560" style="max-width:min(100%, 598px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Вход на DeepSeek Platform. Интерфейс на английском.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">2</span>Пополни баланс</h3>
+        <p>На странице <strong>Usage</strong> нажми <strong>Top up</strong> и пополни баланс на $2-5. Здесь же видно, сколько потрачено: например, 13 запросов из Larchik обошлись в 3 цента. Затем открой в меню слева <strong>API keys</strong>.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Страница Usage">
+            <img src="img/ai-keys/deepseek-02-usage.png" alt="Страница Usage" width="1919" height="600" style="max-width:min(100%, 1727px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Usage: баланс, кнопка Top up и расходы. Пункт «API keys» - в меню слева.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">3</span>Создай ключ</h3>
+        <p>Нажми <strong>Create new API key</strong>.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Страница API keys">
+            <img src="img/ai-keys/deepseek-03-api-keys.png" alt="Страница API keys" width="1919" height="550" style="max-width:min(100%, 1884px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Список ключей. DeepSeek показывает ключ целиком только один раз - при создании.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">4</span>Назови ключ</h3>
+        <p>Например, <code>Larchik</code> → <strong>Create API key</strong>. <strong>Сразу скопируй ключ</strong> из следующего окна: потом его уже не посмотреть, только создать новый.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Окно создания ключа">
+            <img src="img/ai-keys/deepseek-04-create-key.png" alt="Окно создания ключа" width="520" height="295" style="max-width:min(100%, 520px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Имя ключа - любое, оно нужно только тебе.</figcaption>
+        </figure>
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">5</span>Подключи в Larchik</h3>
+        <p>Настройки → ИИ → «Подключение» → провайдер <strong>DeepSeek</strong> → вставь ключ → <strong>«Проверить и подключить»</strong>. Модель по умолчанию - <code>deepseek-flash</code>: она быстрая и дешёвая. <code>deepseek-v4-pro</code> умнее, но дороже.</p>
+        
+        <figure class="shot">
+          <button class="shot-frame" type="button" aria-label="Увеличить: Окно подключения DeepSeek в Larchik">
+            <img src="img/ai-keys/deepseek-05-larchik.png" alt="Окно подключения DeepSeek в Larchik" width="523" height="627" style="max-width:min(100%, 450px)" loading="lazy" decoding="async">
+          </button>
+          <figcaption>Провайдер DeepSeek, ключ и модель deepseek-flash.</figcaption>
+        </figure>
+      </li>
+    </ol>
+      <div class="callout warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><div><p>DeepSeek может сам отключить ключ, если обнаружит его в открытом доступе. Вставляй ключ только в Larchik и никому не пересылай.</p></div></div>
+    </section>
+
+    <section id="local">
+      <h2>Своя модель на компьютере</h2>
+      <ul class="facts"><li><span>Оплата</span><b>бесплатно</b></li><li><span>Нужно</span><b>16 ГБ памяти</b></li><li><span>Ключ</span><b>не нужен</b></li></ul>
+      <p><strong>Бесплатно</strong>, и текст не уходит с компьютера. Но модели требовательны: для нормальной скорости нужно 16 ГБ памяти и желательно видеокарта. Ответы небольших моделей заметно слабее облачных.</p>
+    <ol class="steps">
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">1</span>Установи Ollama и скачай модель</h3>
+        <p>Установи <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> и скачай модель, например <code>ollama pull qwen2.5:7b</code>. Подойдёт и LM Studio с включённым локальным сервером.</p>
+        
+        
+      </li>
+      <li class="step">
+        <h3><span class="num" aria-hidden="true">2</span>Подключи в Larchik</h3>
+        <p>Провайдер <strong>«Свой адрес»</strong> → адрес <code>http://localhost:11434/v1</code> → «Список» → выбери модель. Ключ не нужен.</p>
+        
+        
+      </li>
+    </ol>
+    </section>
+
+    <section id="help">
+      <h2>Не получилось?</h2>
+      <p>Larchik показывает понятную причину под кнопкой «Проверить и подключить»: неверный ключ, пустой баланс, нет модели. Если причина непонятна - <a href="feedback.html?type=support">напиши нам</a>, регистрироваться не нужно.</p>
+    </section>
+
+  </article>
+  </div>
+</main>
+
+<dialog class="zoom" id="zoom" aria-label="Скриншот">
+  <img alt="">
+  <p></p>
+</dialog>
+
+<footer>
+  <div class="wrap">
+    © Belart Product · Larchik - бесплатная программа для Windows
+    <nav aria-label="Документы">
+      <a href="ai.html">Как подключить ИИ</a>
+      <a href="license.html">Лицензионное соглашение</a>
+      <a href="privacy.html">Политика конфиденциальности</a>
+      <a href="https://github.com/belart16/larchik/releases">Все версии</a>
+      <a href="feedback.html">Обратная связь</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // A thin line under the top bar once the page is scrolled
+  (function () {
+    var nav = document.querySelector(".nav");
+    function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 4); }
+    window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  })();
+  (function () {
+    var links = [].slice.call(document.querySelectorAll(".toc a"));
+    var targets = links.map(function (a) { return document.getElementById(decodeURIComponent(a.hash.slice(1))); });
+    function update() {
+      var y = window.scrollY + 120, cur = 0;
+      targets.forEach(function (t, i) { if (t && t.offsetTop <= y) cur = i; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = targets.length - 1;
+      links.forEach(function (a, i) { a.classList.toggle("active", i === cur); });
+    }
+    window.addEventListener("scroll", update, { passive: true }); update();
+    document.querySelectorAll(".toc-mobile a").forEach(function (a) {
+      a.addEventListener("click", function () { a.closest("details").open = false; });
+    });
+  })();
+  // Screenshots open full size; a click or Esc closes them.
+  (function () {
+    var dlg = document.getElementById("zoom");
+    if (!dlg || !dlg.showModal) return;
+    var img = dlg.querySelector("img"), cap = dlg.querySelector("p");
+    document.querySelectorAll(".shot-frame").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var src = b.querySelector("img");
+        img.src = src.src; img.alt = src.alt;
+        cap.textContent = b.parentElement.querySelector("figcaption").textContent;
+        dlg.showModal();
+      });
+    });
+    dlg.addEventListener("click", function () { dlg.close(); });
+  })();
+</script>
+</body>
+</html>

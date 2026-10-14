@@ -6,150 +6,88 @@
 <title>Обратная связь - Larchik</title>
 <meta name="description" content="Сообщить о проблеме в Larchik или предложить идею. Короткая форма, регистрация не нужна.">
 <meta name="color-scheme" content="dark light">
-<link rel="icon" type="image/png" href="img/icon.png">
+<meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <link rel="canonical" href="https://belart16.github.io/larchik/feedback.html">
+<link rel="icon" type="image/png" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<link rel="stylesheet" href="site.css">
 <style>
-  /* ===========================================================================
-     Forms: create two forms in Yandex Forms (forms.yandex.ru) and fill in below.
-     form    - the form's public link, e.g. https://forms.yandex.ru/u/6720a1b2c3d4e5f6a7b8c9d0/
-     version - id of the question «Версия Larchik» (Yandex Forms → question → «Идентификатор»),
-               e.g. answer_short_text_12345678; Larchik passes its version there.
-     windows - id of the question «Windows», filled the same way.
-     The page works without them too: it then shows the Telegram link (if any) instead of a form.
-     ========================================================================== */
-  :root {
-    --bg: #0f0f11; --surface: rgba(255,255,255,.045); --surface-2: rgba(255,255,255,.07);
-    --border: rgba(255,255,255,.09); --text: #f5f5f7; --text-2: rgba(235,235,245,.70);
-    --text-3: rgba(235,235,245,.48); --accent: #0a84ff; --accent-soft: rgba(10,132,255,.16);
-    --orange: #ff9f0a; --orange-soft: rgba(255,159,10,.14); --green: #30d158;
-    --nav-bg: rgba(15,15,17,.72); --shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 32px rgba(0,0,0,.25);
-    --radius: 18px; --gutter: 20px;
-  }
-  @media (prefers-color-scheme: light) {
-    :root {
-      --bg: #f5f5f7; --surface: #ffffff; --surface-2: #f0f0f3; --border: rgba(0,0,0,.08);
-      --text: #1d1d1f; --text-2: rgba(29,29,31,.72); --text-3: rgba(29,29,31,.52);
-      --accent: #0071e3; --accent-soft: rgba(0,113,227,.10); --orange-soft: rgba(255,159,10,.12);
-      --nav-bg: rgba(245,245,247,.78); --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
-    }
-  }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
-  .wrap { width: 100%; max-width: 1000px; margin: 0 auto;
-          padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); }
-
-  .nav { position: sticky; top: 0; z-index: 10; background: var(--nav-bg);
-         -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px); }
-  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-  .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 650; font-size: 17px; color: var(--text); }
-  .brand:hover { text-decoration: none; }
-  .brand img { width: 28px; height: 28px; border-radius: 7px; display: block; }
-  .nav-links a { color: var(--text-2); font-size: 14.5px; padding: 8px 12px; border-radius: 999px; }
-  .nav-links a:hover { color: var(--text); background: var(--surface-2); text-decoration: none; }
-
-  h1 { font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
-       font-size: clamp(30px, 5vw, 46px); line-height: 1.1; letter-spacing: -.02em; margin: 56px 0 18px; text-wrap: balance; }
-  .lead { color: var(--text-2); font-size: 18px; margin: 0 0 32px; max-width: 640px; }
-
-  .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 40px; }
   .choice {
     display: flex; gap: 16px; align-items: flex-start; text-align: left; width: 100%;
     font: inherit; color: inherit; cursor: pointer;
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 22px; box-shadow: var(--shadow);
+    padding: 24px; box-shadow: var(--shadow);
     transition: transform .22s cubic-bezier(.2,.8,.2,1), border-color .22s ease, box-shadow .22s ease;
   }
   .choice .icon { flex: none; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; }
   .choice .icon svg { width: 22px; height: 22px; }
   .choice[data-type="support"] .icon { background: var(--orange-soft); color: var(--orange); }
   .choice[data-type="idea"] .icon { background: var(--accent-soft); color: var(--accent); }
-  .choice b { display: block; font-size: 18px; margin-bottom: 4px; }
-  .choice span { color: var(--text-2); font-size: 15px; }
+  .choice .txt { display: flex; flex-direction: column; gap: 6px; }
+  .choice b { font-size: 18px; line-height: 1.3; }
+  .choice .txt span { color: var(--text-2); font-size: 15px; line-height: 1.5; }
   .choice[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), var(--shadow); }
   @media (hover: hover) and (pointer: fine) {
     .choice:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); }
   }
 
-  .panel { margin-top: 24px; display: none; }
-  .panel.open { display: block; }
-  .hint {
-    display: flex; gap: 12px; align-items: flex-start; padding: 16px 20px; border-radius: 14px;
-    background: var(--surface); border: 1px solid var(--border); color: var(--text-2); font-size: 15px; margin-bottom: 16px;
-  }
-  .hint.warn { background: var(--orange-soft); border-color: rgba(255,159,10,.3); }
-  .hint b { color: var(--text); }
-  .hint svg { flex: none; width: 20px; height: 20px; margin-top: 1px; color: var(--accent); }
-  .hint.warn svg { color: var(--orange); }
+  .panel { margin-top: 16px; display: none; }
+  .panel.open { display: grid; gap: 16px; }
+  .form-slot { display: grid; gap: 12px; }
   .form-box { background: #fff; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); }
   .form-box iframe { display: block; width: 100%; height: 980px; border: 0; }
-  .form-alt { font-size: 14px; color: var(--text-3); margin-top: 10px; }
+  .form-alt { font-size: 14px; color: var(--text-3); margin: 0; }
   .empty { padding: 28px; text-align: center; color: var(--text-2); background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius); }
 
-  .community { margin-top: 56px; display: none; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  .community { margin-top: 48px; display: none; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
                padding: 24px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
   .community.show { display: flex; }
   .community p { margin: 4px 0 0; color: var(--text-2); font-size: 15px; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 20px; border-radius: 999px;
-         background: var(--accent); color: #fff; font-weight: 600; font-size: 15px; }
-  .btn:hover { text-decoration: none; filter: brightness(1.07); }
-
-  footer { padding: 48px 0 40px; color: var(--text-3); font-size: 14px; text-align: center; }
-  footer nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin-top: 10px; }
-  footer a { color: var(--text-2); }
 
   @media (max-width: 700px) {
-    .choices { grid-template-columns: 1fr; }
-    h1 { margin-top: 36px; }
-    .lead { font-size: 16px; }
+    .choices { grid-template-columns: 1fr; margin-top: 32px; }
+    .choice { padding: 20px; }
     .form-box iframe { height: 1100px; }
-    .nav-links a:not(:last-child) { display: none; }
   }
   @media (prefers-reduced-motion: reduce) { .choice { transition: none; } .choice:hover { transform: none; } }
 </style>
 </head>
 <body>
-
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="./"><img src="img/icon.png" alt="" width="28" height="28">Larchik</a>
     <nav class="nav-links" aria-label="Разделы">
-      <a href="./#faq">Частые вопросы</a>
-      <a href="./">На главную</a>
+      <a href="ai.html">Подключить ИИ</a>
+      <a href="./#faq">Вопросы</a>
+      <a href="feedback.html" aria-current="page">Обратная связь</a>
+      <a class="nav-cta" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Скачать</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
-  <h1>Обратная связь</h1>
-  <p class="lead">Выбери, что случилось. Форма короткая, регистрация не нужна. Ждёшь ответа - оставь в форме email.</p>
+  <div class="page-head stack">
+    <h1>Обратная связь</h1>
+    <p class="lead">Выбери, что случилось. Форма короткая, регистрация не нужна. Ждёшь ответа - оставь в форме email.</p>
+  </div>
 
   <div class="choices" role="group" aria-label="Тип обращения">
     <button class="choice" type="button" data-type="support" aria-pressed="false">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4.5M12 17.2v.1"/></svg></span>
-      <span><b>Что-то не работает</b><span>Ошибка, что-то не открывается или непонятно, как настроить. Разберёмся и поможем.</span></span>
+      <span class="txt"><b>Что-то не работает</b><span>Ошибка, что-то не открывается или непонятно, как настроить. Разберёмся и поможем.</span></span>
     </button>
     <button class="choice" type="button" data-type="idea" aria-pressed="false">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1.1 2V16h5v-.2c.1-.8.5-1.5 1.1-2A6 6 0 0 0 12 3z"/></svg></span>
-      <span><b>Предложить идею</b><span>Новая функция или как сделать привычное удобнее. Все идеи собираем и делаем самые востребованные.</span></span>
+      <span class="txt"><b>Предложить идею</b><span>Новая функция или как сделать привычное удобнее. Все идеи собираем и делаем самые востребованные.</span></span>
     </button>
   </div>
 
   <section class="panel" id="panel-support" aria-label="Сообщить о проблеме">
-    <div class="hint warn" id="report-hint" hidden>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="11" height="14" rx="2"/><path d="M5 7v11a3 3 0 0 0 3 3h8"/></svg>
-      <div><b>Отчёт об ошибке уже скопирован.</b> Вставь его в поле «Отчёт об ошибке» - нажми в поле и <b>Ctrl+V</b>.</div>
-    </div>
-    <div class="hint">
+    <div class="callout">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.7-.9 1.3v.5M12 16.8v.1"/></svg>
-      <div>Может, ответ уже есть: <a href="./#faq">частые вопросы</a> и <a href="https://github.com/belart16/larchik/blob/main/docs/ai-keys.md">как подключить ИИ</a>.</div>
+      <p>Может, ответ уже есть: <a href="./#faq">частые вопросы</a> и <a href="ai.html">как подключить ИИ</a>.</p>
     </div>
     <div class="form-slot"></div>
   </section>
@@ -163,7 +101,7 @@
       <b>Larchik в Telegram</b>
       <p>Новости, новые версии и обсуждение с другими пользователями.</p>
     </div>
-    <a class="btn" id="community-link" href="#" target="_blank" rel="noopener">Открыть канал</a>
+    <a class="btn btn-primary btn-small" id="community-link" href="#" target="_blank" rel="noopener">Открыть канал</a>
   </div>
 </main>
 
@@ -171,16 +109,20 @@
   <div class="wrap">
     © Belart Product · Larchik - бесплатная программа для Windows
     <nav aria-label="Документы">
-      <a href="./">Главная</a>
+      <a href="ai.html">Как подключить ИИ</a>
       <a href="license.html">Лицензионное соглашение</a>
       <a href="privacy.html">Политика конфиденциальности</a>
+      <a href="https://github.com/belart16/larchik/releases">Все версии</a>
+      <a href="feedback.html">Обратная связь</a>
     </nav>
   </div>
 </footer>
 
 <script>
   // ---------------------------------------------------------------------------
-  // Settings: fill in after creating the forms (see the comment at the top of the page).
+  // Settings. form - the form's public link (forms.yandex.ru/u/...);
+  // version / windows - ids of the hidden questions «Версия Larchik» and «Windows»
+  // (Yandex Forms → question settings → «Идентификатор вопроса»): Larchik passes them in the link.
   var CONFIG = {
     support: {
       form: "https://forms.yandex.ru/u/6acfcf40c45c0738743c7b45/",
@@ -263,7 +205,6 @@
     b.addEventListener("click", function () { choose(b.dataset.type, true); });
   });
 
-  if (params.get("report") === "1") document.getElementById("report-hint").hidden = false;
   var start = params.get("type");
   if (start === "support" || start === "idea") choose(start, false);
 
@@ -271,6 +212,12 @@
     document.getElementById("community-link").href = CONFIG.telegram;
     document.getElementById("community").classList.add("show");
   }
+  // A thin line under the top bar once the page is scrolled
+  (function () {
+    var nav = document.querySelector(".nav");
+    function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 4); }
+    window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  })();
 </script>
 </body>
 </html>

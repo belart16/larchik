@@ -2,82 +2,142 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Лицензионное соглашение Larchik — Larchik</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Лицензионное соглашение Larchik - Larchik</title>
+<meta name="description" content="Лицензионное соглашение Larchik - условия использования программы.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<link rel="canonical" href="https://belart16.github.io/larchik/license.html">
 <link rel="icon" type="image/png" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<link rel="stylesheet" href="site.css">
 <style>
-  :root { --bg:#0f0f11; --card:rgba(255,255,255,.045); --border:rgba(255,255,255,.09);
-          --text:#f5f5f7; --text-2:rgba(235,235,245,.72); --text-3:rgba(235,235,245,.45); --accent:#0a84ff; }
-  @media (prefers-color-scheme: light) {
-    :root { --bg:#f5f5f7; --card:#ffffff; --border:rgba(0,0,0,.09);
-            --text:#1d1d1f; --text-2:rgba(29,29,31,.78); --text-3:rgba(29,29,31,.5); }
-  }
-  * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--text);
-         font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
-         font-size:16px; line-height:1.6; }
-  .wrap { max-width:780px; margin:0 auto; padding:0 20px 64px; }
-  nav { display:flex; align-items:center; justify-content:space-between; padding:18px 0 8px; }
-  .brand { display:flex; align-items:center; gap:10px; font-weight:600; color:var(--text); text-decoration:none; }
-  .brand img { width:28px; height:28px; border-radius:7px; }
-  nav .links a { color:var(--text-2); margin-left:18px; font-size:14.5px; text-decoration:none; }
-  a { color:var(--accent); }
-  h1 { font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif; font-size:clamp(28px,5vw,38px);
-        line-height:1.15; letter-spacing:-.015em; margin:36px 0 6px; }
-  h1 + p { color:var(--text-3); margin-top:0; }
-  h2 { font-size:21px; margin:36px 0 10px; }
-  p, li { color:var(--text-2); }
-  strong { color:var(--text); }
-  code { font-family:"Cascadia Mono",Consolas,monospace; font-size:.9em; background:var(--card);
-          border:1px solid var(--border); border-radius:5px; padding:1px 5px; }
-  table { width:100%; border-collapse:collapse; margin:12px 0; font-size:15px; display:block; overflow-x:auto; }
-  th, td { text-align:left; vertical-align:top; padding:10px 12px; border-bottom:1px solid var(--border); }
-  th { color:var(--text); font-weight:600; }
-  td { color:var(--text-2); }
-  footer { margin-top:48px; color:var(--text-3); font-size:14px; }
-  footer a { color:var(--text-2); }
+  .prose h2 { margin-top: 48px; }
+  .prose h2 .n { color: var(--text-3); font-weight: 600; margin-right: .35em; }
+  .lead-note { margin-top: 0; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <nav>
-    <a class="brand" href="./"><img src="img/icon.png" alt="">Larchik</a>
-    <div class="links"><a href="./">Главная</a><a href="license.html">Соглашение</a><a href="privacy.html">Конфиденциальность</a></div>
-  </nav>
-<h1>Лицензионное соглашение Larchik</h1>
-<p>Редакция от 14 октября 2026 года.</p>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="img/icon.png" alt="" width="28" height="28">Larchik</a>
+    <nav class="nav-links" aria-label="Разделы">
+      <a href="ai.html">Подключить ИИ</a>
+      <a href="./#faq">Вопросы</a>
+      <a href="feedback.html">Обратная связь</a>
+      <a class="nav-cta" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Скачать</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head stack">
+    <h1>Лицензионное соглашение Larchik</h1>
+    <p class="meta">Редакция от 14 октября 2026 года</p>
+  </div>
+
+  <div class="doc">
+  <aside class="toc" aria-label="Содержание">
+    <p class="toc-title">Содержание</p>
+    <ol>
+      <li><a href="#s1">Что разрешено</a></li>
+      <li><a href="#s2">Что запрещено</a></li>
+      <li><a href="#s3">Сторонние сервисы</a></li>
+      <li><a href="#s4">Данные</a></li>
+      <li><a href="#s5">Гарантии и ответственность</a></li>
+      <li><a href="#s6">Официальные источники и обновления</a></li>
+      <li><a href="#s7">Прекращение</a></li>
+      <li><a href="#s8">Изменения и применимое право</a></li>
+      <li><a href="#s9">Связь</a></li>
+    </ol>
+  </aside>
+  <article class="prose">
+    <details class="toc-mobile">
+      <summary>Содержание</summary>
+      <ol>
+      <li><a href="#s1">Что разрешено</a></li>
+      <li><a href="#s2">Что запрещено</a></li>
+      <li><a href="#s3">Сторонние сервисы</a></li>
+      <li><a href="#s4">Данные</a></li>
+      <li><a href="#s5">Гарантии и ответственность</a></li>
+      <li><a href="#s6">Официальные источники и обновления</a></li>
+      <li><a href="#s7">Прекращение</a></li>
+      <li><a href="#s8">Изменения и применимое право</a></li>
+      <li><a href="#s9">Связь</a></li>
+      </ol>
+    </details>
 <p>Это соглашение — между тобой (далее — «пользователь») и <strong>Belart Product</strong> (далее — «правообладатель»), который создаёт и выпускает программу Larchik. Устанавливая или запуская Larchik, ты принимаешь условия ниже. Если не согласен — не устанавливай программу или удали её.</p>
-<h2>1. Что разрешено</h2>
+<h2 id="s1"><span class="n">1.</span>Что разрешено</h2>
 <p>1.1. Правообладатель бесплатно предоставляет простую (неисключительную) лицензию на использование Larchik на условиях открытой лицензии (ст. 1286.1 ГК РФ), без ограничения территории и срока.</p>
-<p>1.2. Можно:
-- устанавливать Larchik на любое количество своих компьютеров;
-- пользоваться им для личных, учебных и рабочих задач, в том числе в коммерческой деятельности;
-- передавать другим людям <strong>оригинальный</strong> установщик, скачанный с официальных страниц (раздел 6), без изменений и бесплатно.</p>
-<h2>2. Что запрещено</h2>
+<p>1.2. Можно:</p>
+<ul>
+<li>устанавливать Larchik на любое количество своих компьютеров;</li>
+<li>пользоваться им для личных, учебных и рабочих задач, в том числе в коммерческой деятельности;</li>
+<li>передавать другим людям <strong>оригинальный</strong> установщик, скачанный с официальных страниц (раздел 6), без изменений и бесплатно.</li>
+</ul>
+<h2 id="s2"><span class="n">2.</span>Что запрещено</h2>
 <p>2.1. Продавать Larchik или брать плату за его распространение.</p>
 <p>2.2. Изменять программу, декомпилировать, дизассемблировать её или иным образом восстанавливать исходный код, кроме случаев, прямо разрешённых законом (ст. 1280 ГК РФ).</p>
 <p>2.3. Распространять изменённые копии, выдавать программу за свою, удалять или менять название, сведения о правообладателе и это соглашение.</p>
 <p>2.4. Использовать Larchik для нарушения закона или прав других людей.</p>
-<h2>3. Сторонние сервисы</h2>
+<h2 id="s3"><span class="n">3.</span>Сторонние сервисы</h2>
 <p>3.1. Часть функций работает через сторонние сервисы, которые выбирает пользователь: сервисы ИИ (cloud.ru, Яндекс, DeepSeek и другие), Google Translate и MyMemory (перевод), сайт Банка России (курсы валют), GitHub (обновления).</p>
 <p>3.2. Эти сервисы принадлежат третьим лицам и работают по их собственным правилам и ценам. Правообладатель не отвечает за их доступность, содержание ответов (в том числе ответов ИИ) и обработку данных ими. Ключи доступа к сервисам ИИ пользователь получает сам и сам оплачивает их использование.</p>
 <p>3.3. Ответы ИИ создаются автоматически и могут быть неточными. Проверяй важные сведения.</p>
-<h2>4. Данные</h2>
+<h2 id="s4"><span class="n">4.</span>Данные</h2>
 <p>Какие данные обрабатывает Larchik и куда они передаются — в <a href="privacy.html">политике конфиденциальности</a>. Коротко: программа не собирает статистику и не передаёт правообладателю твои тексты, заметки, пароли и ключи.</p>
-<h2>5. Гарантии и ответственность</h2>
+<h2 id="s5"><span class="n">5.</span>Гарантии и ответственность</h2>
 <p>5.1. Larchik предоставляется <strong>«как есть»</strong>. Правообладатель старается, чтобы программа работала надёжно, но не гарантирует отсутствие ошибок и её пригодность для конкретных целей.</p>
 <p>5.2. В пределах, допустимых законом, правообладатель не отвечает за убытки, потерю данных или упущенную выгоду, возникшие из-за использования программы или невозможности ею пользоваться. Делай резервные копии важных заметок и паролей.</p>
-<h2>6. Официальные источники и обновления</h2>
+<h2 id="s6"><span class="n">6.</span>Официальные источники и обновления</h2>
 <p>6.1. Официальные страницы Larchik: сайт <a href="https://belart16.github.io/larchik/">belart16.github.io/larchik</a> и страница релизов <a href="https://github.com/belart16/larchik/releases">github.com/belart16/larchik/releases</a>. Копии из других источников могут быть изменены злоумышленниками.</p>
 <p>6.2. Larchik может проверять наличие новых версий и по команде пользователя устанавливать их. Автоматическую проверку можно выключить в настройках. К обновлениям применяется действующая редакция этого соглашения.</p>
-<h2>7. Прекращение</h2>
+<h2 id="s7"><span class="n">7.</span>Прекращение</h2>
 <p>Лицензия прекращается, если пользователь нарушает это соглашение. Пользователь может прекратить её в любой момент, удалив программу.</p>
-<h2>8. Изменения и применимое право</h2>
+<h2 id="s8"><span class="n">8.</span>Изменения и применимое право</h2>
 <p>8.1. Правообладатель может обновлять это соглашение; новая редакция публикуется на сайте и действует с даты публикации.</p>
 <p>8.2. К соглашению применяется право Российской Федерации.</p>
-<h2>9. Связь</h2>
+<h2 id="s9"><span class="n">9.</span>Связь</h2>
 <p>Вопросы, сообщения об ошибках и предложения: <a href="https://belart16.github.io/larchik/feedback.html">belart16.github.io/larchik/feedback.html</a> или в программе: Настройки → «Сообщить о проблеме или предложить идею».</p>
-  <footer>© Belart Product · <a href="./">Larchik</a> · <a href="feedback.html">Обратная связь</a></footer>
-</div>
+  </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    © Belart Product · Larchik - бесплатная программа для Windows
+    <nav aria-label="Документы">
+      <a href="ai.html">Как подключить ИИ</a>
+      <a href="license.html">Лицензионное соглашение</a>
+      <a href="privacy.html">Политика конфиденциальности</a>
+      <a href="https://github.com/belart16/larchik/releases">Все версии</a>
+      <a href="feedback.html">Обратная связь</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // A thin line under the top bar once the page is scrolled
+  (function () {
+    var nav = document.querySelector(".nav");
+    function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 4); }
+    window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  })();
+  (function () {
+    var links = [].slice.call(document.querySelectorAll(".toc a"));
+    var targets = links.map(function (a) { return document.getElementById(decodeURIComponent(a.hash.slice(1))); });
+    function update() {
+      var y = window.scrollY + 120, cur = 0;
+      targets.forEach(function (t, i) { if (t && t.offsetTop <= y) cur = i; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = targets.length - 1;
+      links.forEach(function (a, i) { a.classList.toggle("active", i === cur); });
+    }
+    window.addEventListener("scroll", update, { passive: true }); update();
+    document.querySelectorAll(".toc-mobile a").forEach(function (a) {
+      a.addEventListener("click", function () { a.closest("details").open = false; });
+    });
+  })();
+</script>
 </body>
 </html>

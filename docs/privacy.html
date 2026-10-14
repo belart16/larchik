@@ -2,54 +2,73 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Политика конфиденциальности Larchik — Larchik</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Политика конфиденциальности Larchik - Larchik</title>
+<meta name="description" content="Политика конфиденциальности Larchik: какие данные хранятся на компьютере и что уходит в интернет.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<link rel="canonical" href="https://belart16.github.io/larchik/privacy.html">
 <link rel="icon" type="image/png" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<link rel="stylesheet" href="site.css">
 <style>
-  :root { --bg:#0f0f11; --card:rgba(255,255,255,.045); --border:rgba(255,255,255,.09);
-          --text:#f5f5f7; --text-2:rgba(235,235,245,.72); --text-3:rgba(235,235,245,.45); --accent:#0a84ff; }
-  @media (prefers-color-scheme: light) {
-    :root { --bg:#f5f5f7; --card:#ffffff; --border:rgba(0,0,0,.09);
-            --text:#1d1d1f; --text-2:rgba(29,29,31,.78); --text-3:rgba(29,29,31,.5); }
-  }
-  * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--text);
-         font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
-         font-size:16px; line-height:1.6; }
-  .wrap { max-width:780px; margin:0 auto; padding:0 20px 64px; }
-  nav { display:flex; align-items:center; justify-content:space-between; padding:18px 0 8px; }
-  .brand { display:flex; align-items:center; gap:10px; font-weight:600; color:var(--text); text-decoration:none; }
-  .brand img { width:28px; height:28px; border-radius:7px; }
-  nav .links a { color:var(--text-2); margin-left:18px; font-size:14.5px; text-decoration:none; }
-  a { color:var(--accent); }
-  h1 { font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif; font-size:clamp(28px,5vw,38px);
-        line-height:1.15; letter-spacing:-.015em; margin:36px 0 6px; }
-  h1 + p { color:var(--text-3); margin-top:0; }
-  h2 { font-size:21px; margin:36px 0 10px; }
-  p, li { color:var(--text-2); }
-  strong { color:var(--text); }
-  code { font-family:"Cascadia Mono",Consolas,monospace; font-size:.9em; background:var(--card);
-          border:1px solid var(--border); border-radius:5px; padding:1px 5px; }
-  table { width:100%; border-collapse:collapse; margin:12px 0; font-size:15px; display:block; overflow-x:auto; }
-  th, td { text-align:left; vertical-align:top; padding:10px 12px; border-bottom:1px solid var(--border); }
-  th { color:var(--text); font-weight:600; }
-  td { color:var(--text-2); }
-  footer { margin-top:48px; color:var(--text-3); font-size:14px; }
-  footer a { color:var(--text-2); }
+  .prose h2 { margin-top: 48px; }
+  .prose h2 .n { color: var(--text-3); font-weight: 600; margin-right: .35em; }
+  .lead-note { margin-top: 0; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <nav>
-    <a class="brand" href="./"><img src="img/icon.png" alt="">Larchik</a>
-    <div class="links"><a href="./">Главная</a><a href="license.html">Соглашение</a><a href="privacy.html">Конфиденциальность</a></div>
-  </nav>
-<h1>Политика конфиденциальности Larchik</h1>
-<p>Редакция от 14 октября 2026 года.</p>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="img/icon.png" alt="" width="28" height="28">Larchik</a>
+    <nav class="nav-links" aria-label="Разделы">
+      <a href="ai.html">Подключить ИИ</a>
+      <a href="./#faq">Вопросы</a>
+      <a href="feedback.html">Обратная связь</a>
+      <a class="nav-cta" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Скачать</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head stack">
+    <h1>Политика конфиденциальности Larchik</h1>
+    <p class="meta">Редакция от 14 октября 2026 года</p>
+  </div>
+
+  <div class="doc">
+  <aside class="toc" aria-label="Содержание">
+    <p class="toc-title">Содержание</p>
+    <ol>
+      <li><a href="#s1">Что хранится на компьютере</a></li>
+      <li><a href="#s2">Что и когда уходит в интернет</a></li>
+      <li><a href="#s3">Что программа видит, но не хранит и не передаёт</a></li>
+      <li><a href="#s4">Чего Larchik не делает</a></li>
+      <li><a href="#s5">Сайт и обратная связь</a></li>
+      <li><a href="#s6">Удаление данных</a></li>
+      <li><a href="#s7">Дети</a></li>
+      <li><a href="#s8">Изменения и связь</a></li>
+    </ol>
+  </aside>
+  <article class="prose">
+    <details class="toc-mobile">
+      <summary>Содержание</summary>
+      <ol>
+      <li><a href="#s1">Что хранится на компьютере</a></li>
+      <li><a href="#s2">Что и когда уходит в интернет</a></li>
+      <li><a href="#s3">Что программа видит, но не хранит и не передаёт</a></li>
+      <li><a href="#s4">Чего Larchik не делает</a></li>
+      <li><a href="#s5">Сайт и обратная связь</a></li>
+      <li><a href="#s6">Удаление данных</a></li>
+      <li><a href="#s7">Дети</a></li>
+      <li><a href="#s8">Изменения и связь</a></li>
+      </ol>
+    </details>
 <p><strong>Коротко:</strong> Larchik работает на твоём компьютере. Он не собирает статистику, не показывает рекламу и не передаёт правообладателю (Belart Product) ни твои тексты, ни заметки, ни пароли, ни ключи. В интернет уходит только то, что нужно для функции, которой ты пользуешься в эту минуту, — и только туда, куда ты сам выбрал.</p>
-<h2>1. Что хранится на компьютере</h2>
+<h2 id="s1"><span class="n">1.</span>Что хранится на компьютере</h2>
 <p>Всё хранится в папке <code>%AppData%\Larchik</code> твоей учётной записи Windows:</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Данные</th>
@@ -82,11 +101,11 @@
 <td>папка <code>logs</code>: только технические записи (версия программы и Windows, описание ошибки). Без твоих текстов. Имя пользователя Windows в путях заменяется на <code>&lt;user&gt;</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>Правообладатель не имеет доступа к этой папке.</p>
-<h2>2. Что и когда уходит в интернет</h2>
+<h2 id="s2"><span class="n">2.</span>Что и когда уходит в интернет</h2>
 <p>Передача идёт по защищённому соединению (HTTPS), кроме локальной модели ИИ на твоём компьютере (<code>localhost</code>).</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Когда</th>
@@ -126,23 +145,23 @@
 <td>Яндекс Формы → Belart Product</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>Сервисы ИИ, переводчики, Банк России, GitHub и Яндекс — независимые компании со своими правилами обработки данных. Не отправляй через них то, что не готов им доверить. Модели ИИ некоторых сервисов (например, «внешние» модели на cloud.ru) обрабатывают текст за пределами России — Larchik помечает их в списке моделей.</p>
-<h2>3. Что программа видит, но не хранит и не передаёт</h2>
+<h2 id="s3"><span class="n">3.</span>Что программа видит, но не хранит и не передаёт</h2>
 <ul>
 <li><strong>Клавиатура.</strong> Если у заготовки задан набор символов (например, <code>1у8</code>), Larchik следит за нажатыми клавишами, чтобы заметить этот набор. В памяти держатся только коды последних ~30 клавиш; они не записываются на диск и никуда не отправляются. Если ни у одной заготовки нет набора, слежение выключено полностью.</li>
 <li><strong>Буфер обмена.</strong> Используется, когда ты сам нажимаешь сочетание клавиш или кнопку («Вставить», «Скопировать»). После вставки прежнее содержимое буфера возвращается. Скопированный из хранилища пароль стирается из буфера через 30 секунд.</li>
 <li><strong>Экран.</strong> Снимок делается, только когда ты вызываешь «Текст с экрана». Текст распознаёт сама Windows без интернета; снимок не сохраняется.</li>
 <li><strong>Microsoft Word.</strong> При вставке результата в Word программа обращается к Word, чтобы не склеить абзацы. Документ не читается целиком и не передаётся.</li>
 </ul>
-<h2>4. Чего Larchik не делает</h2>
+<h2 id="s4"><span class="n">4.</span>Чего Larchik не делает</h2>
 <ul>
 <li>не собирает статистику и аналитику, не использует идентификаторы устройства;</li>
 <li>не показывает рекламу;</li>
 <li>не передаёт данные правообладателю сам и не продаёт их — Belart Product получает только то, что ты отправил через форму обратной связи;</li>
 <li>не требует регистрации и аккаунта.</li>
 </ul>
-<h2>5. Сайт и обратная связь</h2>
+<h2 id="s5"><span class="n">5.</span>Сайт и обратная связь</h2>
 <p>Сайт Larchik размещён на GitHub Pages. GitHub может записывать технические сведения о посещениях (например, IP-адрес) по своим правилам. Сам сайт не использует cookie и счётчики; номер последней версии на странице запрашивается у GitHub.</p>
 <p>Сообщения о проблемах и идеи принимаются через формы сервиса Яндекс Формы, встроенные в страницу «Обратная связь». Данные форм хранятся у Яндекса в России; на этой странице Яндекс может использовать собственные cookie по своим правилам.</p>
 <ul>
@@ -151,18 +170,55 @@
 <li><strong>Отчёт об ошибке</strong> Larchik не отправляет сам: он копируется в буфер обмена, и ты видишь его целиком, прежде чем вставить в форму. В нём только версии программы и Windows, время и техническое описание ошибки — без заметок, паролей и ключей.</li>
 <li><strong>Зачем:</strong> чтобы исправлять ошибки и решать, что добавить в Larchik. Сообщения хранятся, пока нужны для этого, и удаляются по твоей просьбе — напиши об этом через ту же форму.</li>
 </ul>
-<h2>6. Удаление данных</h2>
+<h2 id="s6"><span class="n">6.</span>Удаление данных</h2>
 <ul>
 <li>Удали программу: «Параметры → Приложения → Larchik → Удалить». В конце программа спросит, стереть ли папку с данными.</li>
 <li>Или удали папку <code>%AppData%\Larchik</code> вручную.</li>
 <li>Ключ ИИ можно удалить в Настройки → ИИ → «Подключение» → «Удалить сохранённый ключ».</li>
 </ul>
 <p>Данные, уже отправленные в сторонние сервисы, хранятся по правилам этих сервисов.</p>
-<h2>7. Дети</h2>
+<h2 id="s7"><span class="n">7.</span>Дети</h2>
 <p>Larchik не предназначен специально для детей и не собирает данные о возрасте.</p>
-<h2>8. Изменения и связь</h2>
+<h2 id="s8"><span class="n">8.</span>Изменения и связь</h2>
 <p>Новые редакции публикуются на этой странице. Вопросы: <a href="https://belart16.github.io/larchik/feedback.html">belart16.github.io/larchik/feedback.html</a>.</p>
-  <footer>© Belart Product · <a href="./">Larchik</a> · <a href="feedback.html">Обратная связь</a></footer>
-</div>
+  </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    © Belart Product · Larchik - бесплатная программа для Windows
+    <nav aria-label="Документы">
+      <a href="ai.html">Как подключить ИИ</a>
+      <a href="license.html">Лицензионное соглашение</a>
+      <a href="privacy.html">Политика конфиденциальности</a>
+      <a href="https://github.com/belart16/larchik/releases">Все версии</a>
+      <a href="feedback.html">Обратная связь</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // A thin line under the top bar once the page is scrolled
+  (function () {
+    var nav = document.querySelector(".nav");
+    function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 4); }
+    window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  })();
+  (function () {
+    var links = [].slice.call(document.querySelectorAll(".toc a"));
+    var targets = links.map(function (a) { return document.getElementById(decodeURIComponent(a.hash.slice(1))); });
+    function update() {
+      var y = window.scrollY + 120, cur = 0;
+      targets.forEach(function (t, i) { if (t && t.offsetTop <= y) cur = i; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = targets.length - 1;
+      links.forEach(function (a, i) { a.classList.toggle("active", i === cur); });
+    }
+    window.addEventListener("scroll", update, { passive: true }); update();
+    document.querySelectorAll(".toc-mobile a").forEach(function (a) {
+      a.addEventListener("click", function () { a.closest("details").open = false; });
+    });
+  })();
+</script>
 </body>
 </html>
