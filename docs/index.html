@@ -2,256 +2,340 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Larchik — ИИ, переводчик и текст с экрана в любой программе Windows</title>
 <meta name="description" content="Бесплатная панель для Windows: улучшить, сократить или перевести выделенный текст в любой программе, распознать текст с экрана, заметки и пароли. Работает с GigaChat и Алисой AI без VPN.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<link rel="canonical" href="https://belart16.github.io/larchik/">
 <link rel="icon" type="image/png" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Larchik">
+<meta property="og:url" content="https://belart16.github.io/larchik/">
 <meta property="og:title" content="Larchik — ИИ в любой программе Windows">
 <meta property="og:description" content="Выдели текст, нажми Ctrl+Alt+A — и исправь, сократи или переведи его прямо на месте. Бесплатно, работает в России без VPN.">
-<meta property="og:image" content="img/icon.png">
+<meta property="og:image" content="https://belart16.github.io/larchik/img/icon.png">
 <style>
   :root {
     --bg: #0f0f11;
-    --bg-2: #18181b;
-    --card: rgba(255,255,255,.045);
-    --card-border: rgba(255,255,255,.08);
+    --surface: rgba(255,255,255,.045);
+    --surface-2: rgba(255,255,255,.07);
+    --border: rgba(255,255,255,.09);
     --text: #f5f5f7;
-    --text-2: rgba(235,235,245,.68);
-    --text-3: rgba(235,235,245,.45);
+    --text-2: rgba(235,235,245,.70);
+    --text-3: rgba(235,235,245,.48);
     --accent: #0a84ff;
     --accent-soft: rgba(10,132,255,.16);
     --green: #30d158;
     --orange: #ff9f0a;
     --purple: #bf5af2;
     --red: #ff453a;
+    --gray: #8e8e93;
     --key-bg: rgba(255,255,255,.08);
-    --key-border: rgba(255,255,255,.14);
-    --glow-1: rgba(10,132,255,.28);
+    --key-border: rgba(255,255,255,.16);
+    --glow-1: rgba(10,132,255,.30);
     --glow-2: rgba(191,90,242,.20);
+    --nav-bg: rgba(15,15,17,.72);
+    --shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 32px rgba(0,0,0,.25);
+    --radius: 18px;
+    --gutter: 20px;
   }
   @media (prefers-color-scheme: light) {
     :root {
       --bg: #f5f5f7;
-      --bg-2: #ffffff;
-      --card: rgba(255,255,255,.85);
-      --card-border: rgba(0,0,0,.08);
+      --surface: #ffffff;
+      --surface-2: #f0f0f3;
+      --border: rgba(0,0,0,.08);
       --text: #1d1d1f;
       --text-2: rgba(29,29,31,.72);
-      --text-3: rgba(29,29,31,.5);
-      --accent-soft: rgba(10,132,255,.10);
+      --text-3: rgba(29,29,31,.52);
+      --accent: #0071e3;
+      --accent-soft: rgba(0,113,227,.10);
       --key-bg: #ffffff;
-      --key-border: rgba(0,0,0,.14);
-      --glow-1: rgba(10,132,255,.16);
-      --glow-2: rgba(191,90,242,.12);
+      --key-border: rgba(0,0,0,.16);
+      --glow-1: rgba(0,113,227,.14);
+      --glow-2: rgba(191,90,242,.10);
+      --nav-bg: rgba(245,245,247,.78);
+      --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
     }
   }
+
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 76px; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
-    font-size: 16px;
-    line-height: 1.55;
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px; line-height: 1.55; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
+  img { max-width: 100%; }
   a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+  .wrap {
+    width: 100%; max-width: 1100px; margin: 0 auto;
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+  }
 
-  /* ----- top bar ----- */
-  .nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; color: var(--text); }
-  .brand img { width: 30px; height: 30px; border-radius: 8px; }
-  .nav-links { display: flex; gap: 22px; font-size: 14.5px; }
-  .nav-links a { color: var(--text-2); }
-  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  /* ---------- top bar ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--nav-bg); border-bottom: 1px solid transparent;
+    -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+    transition: border-color .2s ease;
+  }
+  .nav.scrolled { border-bottom-color: var(--border); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 650; font-size: 17px; color: var(--text); }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+  .nav-links { display: flex; align-items: center; gap: 4px; font-size: 14.5px; }
+  .nav-links a { color: var(--text-2); padding: 8px 12px; border-radius: 999px; }
+  .nav-links a:hover { color: var(--text); background: var(--surface-2); text-decoration: none; }
+  .nav-links .nav-cta { background: var(--accent); color: #fff; font-weight: 600; margin-left: 8px; }
+  .nav-links .nav-cta:hover { background: var(--accent); color: #fff; filter: brightness(1.08); }
 
-  /* ----- hero ----- */
-  .hero { position: relative; text-align: center; padding: 64px 0 40px; }
+  /* ---------- hero ---------- */
+  .hero { position: relative; text-align: center; padding: 72px 0 0; isolation: isolate; }
   .hero::before {
-    content: ""; position: absolute; inset: -40px 0 auto; height: 420px; z-index: -1;
+    content: ""; position: absolute; left: 0; right: 0; top: -20px; height: 460px;
+    z-index: -1; pointer-events: none;
     background:
-      radial-gradient(420px 260px at 38% 40%, var(--glow-1), transparent 70%),
-      radial-gradient(380px 240px at 64% 30%, var(--glow-2), transparent 70%);
-    filter: blur(10px);
+      radial-gradient(closest-side at 38% 42%, var(--glow-1), transparent),
+      radial-gradient(closest-side at 64% 30%, var(--glow-2), transparent);
+    filter: blur(20px);
   }
-  .hero-icon { width: 84px; height: 84px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,.35); }
+  .hero-icon { width: 88px; height: 88px; border-radius: 22px; display: block; margin: 0 auto;
+               box-shadow: 0 12px 40px rgba(0,0,0,.30); }
   h1 {
-    font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
-    font-size: clamp(34px, 6vw, 56px); line-height: 1.08; letter-spacing: -.02em;
-    margin: 22px auto 16px; max-width: 820px; font-weight: 700;
+    font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: clamp(32px, 5.6vw, 58px); line-height: 1.07; letter-spacing: -.022em; font-weight: 700;
+    margin: 26px auto 18px; max-width: 860px; text-wrap: balance;
   }
-  .lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--text-2); max-width: 680px; margin: 0 auto; }
-  .cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 32px 0 12px; }
+  .lead { font-size: clamp(17px, 2.1vw, 20px); line-height: 1.6; color: var(--text-2);
+          max-width: 660px; margin: 0 auto; text-wrap: pretty; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 34px 0 14px; }
   .btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 13px 24px; border-radius: 999px; font-weight: 600; font-size: 16px;
-    transition: transform .12s ease, filter .12s ease;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 50px; padding: 0 26px; border-radius: 999px; font-weight: 600; font-size: 16px;
+    transition: transform .12s ease, filter .12s ease, background-color .12s ease;
   }
-  .btn:hover { text-decoration: none; filter: brightness(1.08); }
+  .btn:hover { text-decoration: none; filter: brightness(1.07); }
   .btn:active { transform: scale(.97); }
-  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 28px rgba(10,132,255,.35); }
-  .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--card-border); }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 28px rgba(10,132,255,.32); }
+  .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
   .meta { font-size: 13.5px; color: var(--text-3); }
+  .mobile-note { display: none; max-width: 420px; margin: 14px auto 0; font-size: 14px; color: var(--text-2);
+                 padding: 10px 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); }
 
-  /* ----- keys ----- */
   kbd {
-    display: inline-block; font: 600 13px/1 "Segoe UI", system-ui, sans-serif;
-    padding: 6px 9px 7px; border-radius: 7px; white-space: nowrap;
-    background: var(--key-bg); border: 1px solid var(--key-border); border-bottom-width: 2px;
-    color: var(--text);
+    display: inline-block; min-width: 1.9em; text-align: center;
+    font: 600 .8em/1 "Segoe UI", system-ui, -apple-system, sans-serif;
+    padding: .38em .55em .42em; border-radius: 6px; white-space: nowrap; vertical-align: .08em;
+    background: var(--key-bg); border: 1px solid var(--key-border); border-bottom-width: 2px; color: var(--text);
   }
+  .combo { white-space: nowrap; }
 
-  /* ----- how it works ----- */
+  /* ---------- how it works ---------- */
   .flow {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
-    margin: 44px 0 8px; counter-reset: step;
+    list-style: none; padding: 0; margin: 56px 0 0; counter-reset: step;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; text-align: left;
   }
-  .flow > div {
-    background: var(--card); border: 1px solid var(--card-border); border-radius: 16px;
-    padding: 18px 16px; position: relative; counter-increment: step;
+  .flow li {
+    counter-increment: step; display: flex; align-items: flex-start; gap: 12px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 16px; box-shadow: var(--shadow); color: var(--text-2); font-size: 15px; line-height: 1.5;
   }
-  .flow > div::before {
-    content: counter(step); display: inline-grid; place-items: center;
-    width: 24px; height: 24px; border-radius: 50%; margin-bottom: 10px;
+  .flow li::before {
+    content: counter(step); flex: none; display: grid; place-items: center;
+    width: 26px; height: 26px; border-radius: 50%; margin-top: -1px;
     background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 700;
   }
-  .flow p { margin: 0; color: var(--text-2); font-size: 15px; }
   .flow b { color: var(--text); font-weight: 600; }
 
-  /* ----- screenshots (hidden until the files exist) ----- */
+  /* ---------- screenshots (shown once the files exist) ---------- */
   .shots { display: grid; grid-template-columns: 1fr 1.6fr; gap: 16px; margin: 40px 0 0; align-items: start; }
   .shots figure { margin: 0; }
-  .shots img {
-    width: 100%; display: block; border-radius: 14px;
-    border: 1px solid var(--card-border); box-shadow: 0 20px 60px rgba(0,0,0,.35);
-  }
+  .shots img { width: 100%; display: block; border-radius: 14px; border: 1px solid var(--border);
+               box-shadow: 0 20px 60px rgba(0,0,0,.30); }
   .shots figcaption { font-size: 13.5px; color: var(--text-3); margin-top: 8px; text-align: center; }
 
-  /* ----- sections ----- */
-  section { padding: 64px 0 8px; }
+  /* ---------- sections ---------- */
+  section { padding: 96px 0 0; }
+  .section-head { max-width: 700px; margin-bottom: 32px; }
   h2 {
-    font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
-    font-size: clamp(26px, 4vw, 34px); letter-spacing: -.015em; margin: 0 0 8px; font-weight: 700;
+    font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: clamp(27px, 4vw, 38px); line-height: 1.15; letter-spacing: -.018em; font-weight: 700;
+    margin: 0 0 10px; text-wrap: balance;
   }
-  .sub { color: var(--text-2); margin: 0 0 28px; max-width: 680px; }
+  .sub { color: var(--text-2); margin: 0; font-size: 17px; text-wrap: pretty; }
 
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .card {
-    background: var(--card); border: 1px solid var(--card-border); border-radius: 18px; padding: 22px 20px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 24px; box-shadow: var(--shadow);
   }
-  .card h3 { margin: 14px 0 6px; font-size: 17px; font-weight: 600; }
-  .card p { margin: 0; color: var(--text-2); font-size: 15px; }
-  .card .keys { margin-top: 12px; }
-  .tile {
-    width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
-    color: #fff; font-size: 17px; font-weight: 700;
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .feature { display: flex; flex-direction: column; }
+  .feature h3 { margin: 16px 0 6px; font-size: 18px; font-weight: 650; line-height: 1.3; }
+  .feature p { margin: 0; color: var(--text-2); font-size: 15px; }
+  .feature .keys { margin-top: auto; padding-top: 18px; display: flex; gap: 6px; align-items: center; }
+  .feature .keys kbd { font-size: 12.5px; }
+  .feature .keys .chip { font-size: 12.5px; font-weight: 600; color: var(--text-2); line-height: 1;
+                         padding: .45em .7em .5em; border-radius: 6px; border: 1px dashed var(--key-border); }
+  .tile { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; color: #fff; }
+  .tile svg { width: 21px; height: 21px; }
+  .t-blue { background: var(--accent); } .t-purple { background: var(--purple); } .t-orange { background: var(--orange); }
+  .t-green { background: var(--green); } .t-red { background: var(--red); } .t-gray { background: var(--gray); }
+
+  /* ---------- AI providers ---------- */
+  .providers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .provider { display: flex; flex-direction: column; gap: 8px; }
+  .provider .region { align-self: flex-start; font-size: 11.5px; font-weight: 600; letter-spacing: .06em;
+                      text-transform: uppercase; color: var(--text-3); }
+  .provider h3 { margin: 4px 0 0; font-size: 18px; font-weight: 650; line-height: 1.3;
+                 display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .provider p { margin: 0; color: var(--text-2); font-size: 15px; }
+  .provider .price { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--border);
+                     font-size: 14px; color: var(--text); font-weight: 600; }
+  .badge { font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; line-height: 1.3;
+           background: var(--accent-soft); color: var(--accent); }
+  .after { margin: 20px 0 0; font-size: 15px; color: var(--text-2); }
+
+  /* ---------- privacy ---------- */
+  .privacy { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .privacy h3 { margin: 0 0 16px; font-size: 18px; font-weight: 650; line-height: 1.35; display: flex; align-items: flex-start; gap: 10px; }
+  .privacy h3 .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; margin-top: .45em; }
+  .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .checks li { position: relative; padding-left: 28px; color: var(--text-2); font-size: 15px; }
+  .checks li::before {
+    content: ""; position: absolute; left: 0; top: .2em; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--accent-soft) center / 12px no-repeat
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a84ff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
   }
-  .t-blue { background: var(--accent); }
-  .t-purple { background: var(--purple); }
-  .t-orange { background: var(--orange); }
-  .t-green { background: var(--green); }
-  .t-red { background: var(--red); }
-  .t-gray { background: #8e8e93; }
+  .checks b { color: var(--text); font-weight: 600; }
 
-  /* ----- AI providers ----- */
-  .providers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .providers h4 { margin: 0 0 12px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
-  .providers ul { list-style: none; margin: 0; padding: 0; }
-  .providers li { padding: 10px 0; border-top: 1px solid var(--card-border); }
-  .providers li:first-child { border-top: 0; padding-top: 0; }
-  .providers li b { display: block; font-weight: 600; }
-  .providers li span { color: var(--text-2); font-size: 14.5px; }
-  .badge {
-    display: inline-block; font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 6px;
-    background: var(--accent-soft); color: var(--accent); margin-left: 6px; vertical-align: 2px;
-  }
-
-  /* ----- privacy ----- */
-  .privacy { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .privacy ul { margin: 0; padding-left: 20px; color: var(--text-2); }
-  .privacy li { margin: 6px 0; }
-  .privacy li b { color: var(--text); font-weight: 600; }
-
-  /* ----- install ----- */
+  /* ---------- install ---------- */
+  .install { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 16px; align-items: start; }
   .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
   .steps li {
-    counter-increment: s; position: relative; padding: 16px 18px 16px 58px;
-    background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; color: var(--text-2);
+    counter-increment: s; display: flex; gap: 14px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow);
+    padding: 18px; color: var(--text-2); font-size: 15.5px;
   }
   .steps li::before {
-    content: counter(s); position: absolute; left: 18px; top: 15px;
-    width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
-    background: var(--accent); color: #fff; font-weight: 700; font-size: 14px;
+    content: counter(s); flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; margin-top: -2px;
   }
   .steps b { color: var(--text); font-weight: 600; }
   .note {
-    margin-top: 14px; padding: 14px 18px; border-radius: 14px; font-size: 15px; color: var(--text-2);
-    background: rgba(255,159,10,.10); border: 1px solid rgba(255,159,10,.25);
+    padding: 20px; border-radius: 16px; font-size: 15px; color: var(--text-2);
+    background: rgba(255,159,10,.09); border: 1px solid rgba(255,159,10,.28);
   }
-  .note b { color: var(--text); }
+  .note b { display: block; color: var(--text); margin-bottom: 6px; font-size: 16px; }
 
-  /* ----- faq ----- */
-  details {
-    background: var(--card); border: 1px solid var(--card-border); border-radius: 14px;
-    padding: 0 18px; margin-bottom: 10px;
+  /* ---------- faq ---------- */
+  .faq { max-width: 820px; display: grid; gap: 10px; }
+  details { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); }
+  summary {
+    cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 18px 20px; font-weight: 600; font-size: 16.5px;
   }
-  summary { cursor: pointer; padding: 15px 0; font-weight: 600; list-style: none; }
   summary::-webkit-details-marker { display: none; }
-  summary::after { content: "+"; float: right; color: var(--text-3); font-weight: 400; font-size: 20px; line-height: 1; }
-  details[open] summary::after { content: "−"; }
-  details p { margin: 0 0 16px; color: var(--text-2); }
+  summary::after {
+    content: ""; flex: none; width: 12px; height: 12px; margin-right: 4px;
+    border-right: 2px solid var(--text-3); border-bottom: 2px solid var(--text-3);
+    transform: rotate(45deg) translate(-3px, -3px); transition: transform .2s ease;
+  }
+  details[open] summary::after { transform: rotate(-135deg) translate(-3px, -3px); }
+  details p { margin: 0; padding: 0 20px 20px; color: var(--text-2); }
 
-  footer { padding: 56px 0 40px; color: var(--text-3); font-size: 14px; text-align: center; }
+  /* ---------- final call ---------- */
+  .final { text-align: center; padding: 56px 24px; margin-top: 96px; }
+  .final h2 { margin-bottom: 8px; }
+  .final .cta { margin-bottom: 0; }
+
+  footer { padding: 48px 0 calc(40px + env(safe-area-inset-bottom)); color: var(--text-3); font-size: 14px; text-align: center; }
+  footer nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin-top: 10px; }
   footer a { color: var(--text-2); }
 
-  @media (max-width: 860px) {
-    .flow { grid-template-columns: 1fr 1fr; }
-    .grid, .providers { grid-template-columns: 1fr 1fr; }
+  /* ---------- adaptive ---------- */
+  @media (max-width: 980px) {
+    .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .providers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .install { grid-template-columns: 1fr; }
     .shots { grid-template-columns: 1fr; }
   }
-  @media (max-width: 560px) {
-    .flow, .grid, .providers, .privacy { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-    .hero { padding-top: 40px; }
+  @media (max-width: 760px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+    section { padding-top: 72px; }
+    .final { margin-top: 72px; }
   }
-  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+  @media (max-width: 600px) {
+    :root { --gutter: 16px; }
+    .hero { padding-top: 44px; }
+    .hero-icon { width: 72px; height: 72px; border-radius: 18px; }
+    .cta { flex-direction: column; align-items: stretch; max-width: 360px; margin-left: auto; margin-right: auto; }
+    .flow, .grid, .providers, .privacy { grid-template-columns: 1fr; }
+    .flow { margin-top: 40px; gap: 8px; }
+    .flow li { padding: 14px; }
+    .card { padding: 20px; }
+    .section-head { margin-bottom: 24px; }
+    .sub { font-size: 16px; }
+    summary { padding: 16px 18px; font-size: 16px; }
+    details p { padding: 0 18px 18px; }
+    .final { padding: 40px 20px; }
+  }
+  @media (hover: none) and (pointer: coarse) and (max-width: 1024px) { .mobile-note { display: block; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn, .nav, summary::after { transition: none; }
+  }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <nav class="nav">
-    <a class="brand" href="#"><img src="img/icon.png" alt="">Larchik</a>
-    <div class="nav-links">
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="28" height="28">Larchik</a>
+    <nav class="nav-links" aria-label="Разделы">
       <a href="#features">Возможности</a>
       <a href="#ai">ИИ</a>
       <a href="#privacy">Данные</a>
       <a href="#install">Установка</a>
-      <a href="https://github.com/belart16/larchik/issues">Обратная связь</a>
-    </div>
-  </nav>
+      <a href="#faq">Вопросы</a>
+      <a class="nav-cta" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Скачать</a>
+    </nav>
+  </div>
+</header>
 
-  <header class="hero">
-    <img class="hero-icon" src="img/icon.png" alt="Значок Larchik">
-    <h1>ИИ, переводчик и текст с&nbsp;экрана — в&nbsp;любой программе Windows</h1>
-    <p class="lead">Выдели текст в Word, браузере или почте, нажми <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>A</kbd> —
+<main class="wrap">
+  <div class="hero">
+    <img class="hero-icon" src="img/icon.png" alt="Значок Larchik" width="88" height="88">
+    <h1>ИИ, переводчик и текст с&nbsp;экрана&nbsp;— в&nbsp;любой программе Windows</h1>
+    <p class="lead">Выдели текст в Word, браузере или почте, нажми
+      <span class="combo"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>A</kbd></span> —
       и исправь, сократи или переведи его прямо на месте. Работает с GigaChat и Алисой AI, без VPN.</p>
     <div class="cta">
-      <a class="btn btn-primary" id="download" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">
+      <a class="btn btn-primary" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19.5h14"/></svg>
         Скачать для Windows
       </a>
       <a class="btn btn-secondary" href="#install">Как установить</a>
     </div>
-    <div class="meta"><span id="version">Последняя версия</span> · Windows 10 и 11 · бесплатно</div>
+    <div class="meta"><span class="version">Последняя версия</span> · Windows 10 и 11 · бесплатно</div>
+    <p class="mobile-note">Larchik — программа для компьютеров с Windows. Открой эту страницу на компьютере, чтобы скачать установщик.</p>
 
-    <div class="flow" aria-label="Как это работает">
-      <div><p><b>Выдели текст</b> в любой программе</p></div>
-      <div><p>Нажми <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd></p></div>
-      <div><p>Выбери <b>«Исправить ошибки»</b>, «Короче» или своё</p></div>
-      <div><p><b>«Вставить»</b> — текст заменится на месте</p></div>
-    </div>
+    <ol class="flow" aria-label="Как это работает">
+      <li><span><b>Выдели текст</b> в любой программе</span></li>
+      <li><span>Нажми <span class="combo"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd></span></span></li>
+      <li><span>Выбери <b>«Исправить ошибки»</b>, «Короче» или своё</span></li>
+      <li><span><b>«Вставить»</b> — текст заменится на месте</span></li>
+    </ol>
 
     <div class="shots" id="shots">
       <figure>
@@ -263,97 +347,112 @@
         <figcaption>Большая заметка для длинного текста</figcaption>
       </figure>
     </div>
-  </header>
+  </div>
 
   <section id="features">
-    <h2>Всё под рукой, ничего лишнего</h2>
-    <p class="sub">Одна панель вместо пяти программ. Открывается сочетанием клавиш поверх любой программы
-      и прячется, когда больше не нужна. Сочетания можно поменять в настройках.</p>
+    <div class="section-head">
+      <h2>Всё под рукой, ничего лишнего</h2>
+      <p class="sub">Одна панель вместо пяти программ. Открывается сочетанием клавиш поверх любой программы
+        и прячется, когда больше не нужна. Сочетания можно поменять в настройках.</p>
+    </div>
     <div class="grid">
-      <div class="card">
-        <div class="tile t-purple">✦</div>
+      <article class="card feature">
+        <div class="tile t-purple"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.1 5.9 5.9 2.1-5.9 2.1L12 18.5l-2.1-5.9L4 10.5l5.9-2.1zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg></div>
         <h3>ИИ для выделенного текста</h3>
         <p>Улучшить, сократить, исправить ошибки, деловой стиль — и свои кнопки с любым заданием. В Word абзацы не склеиваются.</p>
-        <div class="keys"><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>A</kbd></div>
-      </div>
-      <div class="card">
-        <div class="tile t-blue">文</div>
+        <div class="keys"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>A</kbd></div>
+      </article>
+      <article class="card feature">
+        <div class="tile t-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h9M8.5 3v2M6 5c.7 3.2 2.8 5.7 5.5 7M11 5c-.8 3.6-3.4 6.5-7 8"/><path d="M12.5 21l4-10 4 10M14 17.5h5"/></svg></div>
         <h3>Переводчик</h3>
         <p>Выдели и переведи без ИИ и без токенов. Перевод можно сразу вставить обратно вместо исходного текста.</p>
-        <div class="keys"><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>Z</kbd></div>
-      </div>
-      <div class="card">
-        <div class="tile t-green">⧉</div>
+        <div class="keys"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>Z</kbd></div>
+      </article>
+      <article class="card feature">
+        <div class="tile t-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16M8 10h8M8 14h5"/></svg></div>
         <h3>Текст с экрана</h3>
         <p>Обведи область — картинку, скан, видео, — и текст уже в буфере. Распознаёт сама Windows, без интернета.</p>
-        <div class="keys"><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>S</kbd></div>
-      </div>
-      <div class="card">
-        <div class="tile t-orange">✎</div>
+        <div class="keys"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>S</kbd></div>
+      </article>
+      <article class="card feature">
+        <div class="tile t-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4.5l5 5L9 20H4v-5z"/><path d="M12.5 6.5l5 5"/></svg></div>
         <h3>Заметки</h3>
         <p>Быстрая заметка в панели и большое окно для длинного текста со счётчиком слов. Обычные файлы .md, всё сохраняется само.</p>
-      </div>
-      <div class="card">
-        <div class="tile t-gray">=</div>
+        <div class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>Space</kbd></div>
+      </article>
+      <article class="card feature">
+        <div class="tile t-gray"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7.5h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg></div>
         <h3>Калькулятор и валюты</h3>
         <p>Пиши прямо в строке ИИ: <i>15%&nbsp;от&nbsp;84&nbsp;000</i>, <i>100&nbsp;usd в&nbsp;руб</i> по курсу ЦБ, <i>5&nbsp;миль в&nbsp;км</i> — ответ появляется сразу.</p>
-      </div>
-      <div class="card">
-        <div class="tile t-red">●</div>
+        <div class="keys"><span class="chip">в строке ИИ</span></div>
+      </article>
+      <article class="card feature">
+        <div class="tile t-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></svg></div>
         <h3>Хранилище паролей</h3>
         <p>Открывается отпечатком, лицом или ПИН-кодом через Windows Hello. Зашифровано Windows и не покидает компьютер.</p>
-      </div>
+        <div class="keys"><span class="chip">Windows Hello</span></div>
+      </article>
     </div>
   </section>
 
   <section id="ai">
-    <h2>Подключи ИИ, который тебе подходит</h2>
-    <p class="sub">Larchik работает с твоим API-ключом: ключ хранится только на твоём компьютере в зашифрованном виде.
-      Без ИИ работают переводчик, текст с экрана, калькулятор, заметки и пароли.</p>
-    <div class="providers">
-      <div class="card">
-        <h4>Российские сервисы</h4>
-        <ul>
-          <li><b>cloud.ru <span class="badge">Рекомендуем</span></b><span>GigaChat и другие модели, оплата в рублях</span></li>
-          <li><b>Алиса AI — Яндекс</b><span>Сильный русский язык, оплата в рублях</span></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h4>Зарубежные сервисы</h4>
-        <ul>
-          <li><b>OpenRouter <span class="badge">Бесплатно</span></b><span>Сотни моделей, есть бесплатные — для старта</span></li>
-          <li><b>DeepSeek</b><span>Логика, код, объяснения</span></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h4>На своём компьютере</h4>
-        <ul>
-          <li><b>Ollama, LM Studio</b><span>Модель работает у тебя — текст никуда не уходит</span></li>
-        </ul>
-      </div>
+    <div class="section-head">
+      <h2>Подключи ИИ, который тебе подходит</h2>
+      <p class="sub">Larchik работает с твоим API-ключом: он хранится только на твоём компьютере в зашифрованном виде.
+        Без ИИ работают переводчик, текст с экрана, калькулятор, заметки и пароли.</p>
     </div>
-    <p class="meta" style="margin-top:16px">Где взять ключ — <a href="https://github.com/belart16/larchik/blob/main/docs/ai-keys.md">пошаговая инструкция</a>.</p>
+    <div class="providers">
+      <article class="card provider">
+        <span class="region">Россия</span>
+        <h3>cloud.ru <span class="badge">Рекомендуем</span></h3>
+        <p>GigaChat и другие модели под одним ключом. Хорошо пишет по-русски.</p>
+        <div class="price">Рубли · 100 ₽ хватает надолго</div>
+      </article>
+      <article class="card provider">
+        <span class="region">Россия</span>
+        <h3>Алиса AI — Яндекс</h3>
+        <p>Сильный русский язык, данные остаются в России.</p>
+        <div class="price">Рубли · стартовый грант новым аккаунтам</div>
+      </article>
+      <article class="card provider">
+        <span class="region">Зарубежный</span>
+        <h3>DeepSeek</h3>
+        <p>Логика, код и подробные объяснения.</p>
+        <div class="price">Доллары · пары долларов хватает надолго</div>
+      </article>
+      <article class="card provider">
+        <span class="region">На компьютере</span>
+        <h3>Ollama, LM Studio</h3>
+        <p>Модель работает у тебя — текст никуда не уходит.</p>
+        <div class="price">Бесплатно · нужен мощный ПК</div>
+      </article>
+    </div>
+    <p class="after">Где взять ключ и сколько это стоит — <a href="https://github.com/belart16/larchik/blob/main/docs/ai-keys.md">пошаговая инструкция</a>.</p>
   </section>
 
   <section id="privacy">
-    <h2>Честно о данных</h2>
-    <p class="sub">Программа видит буфер обмена и хранит пароли, поэтому вот полный список того, что уходит в интернет.</p>
+    <div class="section-head">
+      <h2>Честно о данных</h2>
+      <p class="sub">Программа видит буфер обмена и хранит пароли, поэтому вот полный список того, что уходит в интернет.
+        Подробно — в <a href="privacy.html">политике конфиденциальности</a>.</p>
+    </div>
     <div class="privacy">
       <div class="card">
-        <h3 style="margin-top:0">Уходит в сеть — только когда ты этим пользуешься</h3>
-        <ul>
+        <h3><span class="dot" style="background:var(--orange)"></span>Уходит в сеть — только когда ты этим пользуешься</h3>
+        <ul class="checks">
           <li><b>Текст для ИИ</b> — в выбранный тобой сервис ИИ.</li>
-          <li><b>Текст для перевода</b> — в Google Translate.</li>
+          <li><b>Текст для перевода</b> — в Google Translate (резерв — MyMemory) или в твой ИИ; только после твоего разрешения.</li>
           <li><b>Курсы валют</b> загружаются с сайта ЦБ РФ.</li>
           <li><b>Номер последней версии</b> — раз в день с GitHub; выключается в настройках.</li>
         </ul>
       </div>
       <div class="card">
-        <h3 style="margin-top:0">Остаётся на компьютере</h3>
-        <ul>
+        <h3><span class="dot" style="background:var(--green)"></span>Остаётся на компьютере</h3>
+        <ul class="checks">
           <li><b>Заметки, заготовки, настройки</b> — обычные файлы в твоей папке.</li>
           <li><b>Пароли и ключи ИИ</b> — зашифрованы Windows, на другом ПК бесполезны.</li>
           <li><b>Текст с экрана</b> распознаётся без интернета.</li>
+          <li><b>Журнал ошибок</b> — только на компьютере; отчёт уходит, лишь если ты сам его отправишь.</li>
           <li><b>Нет рекламы, аналитики и сбора статистики.</b></li>
         </ul>
       </div>
@@ -361,43 +460,72 @@
   </section>
 
   <section id="install">
-    <h2>Установка за минуту</h2>
-    <p class="sub">Права администратора не нужны. Larchik ставится только для твоей учётной записи и обновляется сам.</p>
-    <ol class="steps">
-      <li><b>Скачай</b> <a href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Larchik-Setup.exe</a> и запусти.</li>
-      <li>Если появится синее окно <b>«Система Windows защитила ваш компьютер»</b> — нажми «Подробнее» → «Выполнить в любом случае».</li>
-      <li>Мастер первого запуска покажет сочетания клавиш и поможет подключить ИИ. Значок Larchik живёт в трее, рядом с часами.</li>
-    </ol>
-    <div class="note"><b>Почему Windows предупреждает?</b> У Larchik пока нет платной цифровой подписи, а Windows
-      осторожна с новыми программами, пока их не скачают многие. Это предупреждение о незнакомом издателе, а не об угрозе.</div>
+    <div class="section-head">
+      <h2>Установка за минуту</h2>
+      <p class="sub">Права администратора не нужны. Larchik ставится только для твоей учётной записи и обновляется сам.</p>
+    </div>
+    <div class="install">
+      <ol class="steps">
+        <li><span><b>Скачай</b> <a href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Larchik-Setup.exe</a> и запусти.</span></li>
+        <li><span>Если появится синее окно <b>«Система Windows защитила ваш компьютер»</b> — нажми «Подробнее» → «Выполнить в любом случае».</span></li>
+        <li><span>Прими <a href="license.html">лицензионное соглашение</a>. Мастер первого запуска покажет сочетания клавиш и поможет подключить ИИ. Значок Larchik живёт в трее, рядом с часами.</span></li>
+      </ol>
+      <div class="note"><b>Почему Windows предупреждает?</b>У Larchik пока нет платной цифровой подписи, а Windows
+        осторожна с новыми программами, пока их не скачают многие. Это предупреждение о незнакомом издателе, а не об угрозе.</div>
+    </div>
   </section>
 
   <section id="faq">
-    <h2>Вопросы</h2>
-    <details><summary>Это бесплатно?</summary>
-      <p>Да. Сам Larchik бесплатный. Платить можно только сервису ИИ, если выберешь платный: GigaChat стоит недорого, у OpenRouter есть бесплатные модели.</p></details>
-    <details><summary>Нужен ли VPN?</summary>
-      <p>Нет. cloud.ru и Алиса AI работают в России. Переводчик и текст с экрана тоже работают без VPN.</p></details>
-    <details><summary>Как удалить?</summary>
-      <p>«Параметры → Приложения → Larchik → Удалить». В конце программа спросит, стирать ли заметки и пароли; по умолчанию они остаются.</p></details>
-    <details><summary>Нашёл ошибку или есть идея</summary>
-      <p>Напиши в <a href="https://github.com/belart16/larchik/issues">обсуждениях проекта</a> — или в самой программе: Настройки → «Сообщить об ошибке».</p></details>
+    <div class="section-head">
+      <h2>Вопросы</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Это бесплатно?</summary>
+        <p>Да. Сам Larchik бесплатный. За ИИ платишь сервису напрямую и только за то, чем пользуешься: на cloud.ru 100 ₽ на GigaChat хватает на тысячи запросов, у Яндекса есть стартовый грант, а модель на своём компьютере бесплатна совсем. Цены и где их смотреть — в <a href="https://github.com/belart16/larchik/blob/main/docs/ai-keys.md#сколько-это-стоит">инструкции</a>.</p></details>
+      <details><summary>Нужен ли VPN?</summary>
+        <p>Нет. cloud.ru и Алиса AI работают в России. Переводчик и текст с экрана тоже работают без VPN.</p></details>
+      <details><summary>На каких компьютерах работает?</summary>
+        <p>На Windows 10 и 11 (64-бит). Для распознавания текста с экрана нужен языковой компонент Windows «Распознавание текста» — обычно он уже установлен.</p></details>
+      <details><summary>Как удалить?</summary>
+        <p>«Параметры → Приложения → Larchik → Удалить». В конце программа спросит, стирать ли заметки и пароли; по умолчанию они остаются.</p></details>
+      <details><summary>Нашёл ошибку или есть идея</summary>
+        <p>Напиши в <a href="https://github.com/belart16/larchik/issues">обсуждениях проекта</a> — или в самой программе: Настройки → «Сообщить об ошибке».</p></details>
+    </div>
   </section>
 
-  <footer>
-    Larchik · бесплатная программа для Windows ·
-    <a href="https://github.com/belart16/larchik/releases">Все версии</a> ·
-    <a href="https://github.com/belart16/larchik/issues">Обратная связь</a>
-  </footer>
-</div>
+  <div class="card final">
+    <h2>Попробуй Larchik</h2>
+    <p class="sub">Бесплатно, без регистрации, ставится за минуту.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19.5h14"/></svg>
+        Скачать для Windows
+      </a>
+    </div>
+    <div class="meta" style="margin-top:12px"><span class="version">Последняя версия</span> · Windows 10 и 11</div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    © Belart Product · Larchik — бесплатная программа для Windows
+    <nav aria-label="Документы">
+      <a href="license.html">Лицензионное соглашение</a>
+      <a href="privacy.html">Политика конфиденциальности</a>
+      <a href="https://github.com/belart16/larchik/releases">Все версии</a>
+      <a href="https://github.com/belart16/larchik/issues">Обратная связь</a>
+    </nav>
+  </div>
+</footer>
 
 <script>
-  // Show the number of the latest version; if GitHub doesn't answer, the generic text stays.
+  // Latest version number; if GitHub doesn't answer, the generic text stays.
   fetch("https://api.github.com/repos/belart16/larchik/releases/latest")
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (rel) {
       if (!rel || !rel.tag_name) return;
-      document.getElementById("version").textContent = "Версия " + rel.tag_name.replace(/^v/i, "");
+      var v = "Версия " + rel.tag_name.replace(/^v/i, "");
+      document.querySelectorAll(".version").forEach(function (el) { el.textContent = v; });
     })
     .catch(function () {});
   // No screenshots uploaded yet — don't leave an empty block
@@ -405,6 +533,10 @@
     var shots = document.getElementById("shots");
     if (shots && !shots.querySelector("figure")) shots.remove();
   });
+  // A thin line under the top bar once the page is scrolled
+  var nav = document.querySelector(".nav");
+  function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 4); }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 </script>
 </body>
 </html>

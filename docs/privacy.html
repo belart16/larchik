@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Политика конфиденциальности Larchik — Larchik</title>
+<link rel="icon" type="image/png" href="img/icon.png">
+<style>
+  :root { --bg:#0f0f11; --card:rgba(255,255,255,.045); --border:rgba(255,255,255,.09);
+          --text:#f5f5f7; --text-2:rgba(235,235,245,.72); --text-3:rgba(235,235,245,.45); --accent:#0a84ff; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f5f5f7; --card:#ffffff; --border:rgba(0,0,0,.09);
+            --text:#1d1d1f; --text-2:rgba(29,29,31,.78); --text-3:rgba(29,29,31,.5); }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+         font-size:16px; line-height:1.6; }
+  .wrap { max-width:780px; margin:0 auto; padding:0 20px 64px; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:18px 0 8px; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:600; color:var(--text); text-decoration:none; }
+  .brand img { width:28px; height:28px; border-radius:7px; }
+  nav .links a { color:var(--text-2); margin-left:18px; font-size:14.5px; text-decoration:none; }
+  a { color:var(--accent); }
+  h1 { font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif; font-size:clamp(28px,5vw,38px);
+        line-height:1.15; letter-spacing:-.015em; margin:36px 0 6px; }
+  h1 + p { color:var(--text-3); margin-top:0; }
+  h2 { font-size:21px; margin:36px 0 10px; }
+  p, li { color:var(--text-2); }
+  strong { color:var(--text); }
+  code { font-family:"Cascadia Mono",Consolas,monospace; font-size:.9em; background:var(--card);
+          border:1px solid var(--border); border-radius:5px; padding:1px 5px; }
+  table { width:100%; border-collapse:collapse; margin:12px 0; font-size:15px; display:block; overflow-x:auto; }
+  th, td { text-align:left; vertical-align:top; padding:10px 12px; border-bottom:1px solid var(--border); }
+  th { color:var(--text); font-weight:600; }
+  td { color:var(--text-2); }
+  footer { margin-top:48px; color:var(--text-3); font-size:14px; }
+  footer a { color:var(--text-2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="brand" href="./"><img src="img/icon.png" alt="">Larchik</a>
+    <div class="links"><a href="./">Главная</a><a href="license.html">Соглашение</a><a href="privacy.html">Конфиденциальность</a></div>
+  </nav>
+<h1>Политика конфиденциальности Larchik</h1>
+<p>Редакция от 14 октября 2026 года.</p>
+<p><strong>Коротко:</strong> Larchik работает на твоём компьютере. Он не собирает статистику, не показывает рекламу и не передаёт правообладателю (Belart Product) ни твои тексты, ни заметки, ни пароли, ни ключи. В интернет уходит только то, что нужно для функции, которой ты пользуешься в эту минуту, — и только туда, куда ты сам выбрал.</p>
+<h2>1. Что хранится на компьютере</h2>
+<p>Всё хранится в папке <code>%AppData%\Larchik</code> твоей учётной записи Windows:</p>
+<table>
+<thead>
+<tr>
+<th>Данные</th>
+<th>Как хранятся</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Заметки</td>
+<td>обычные текстовые файлы <code>.md</code></td>
+</tr>
+<tr>
+<td>Заготовки, кнопки ИИ, настройки</td>
+<td>файлы <code>.json</code></td>
+</tr>
+<tr>
+<td>Хранилище паролей</td>
+<td>зашифровано Windows (DPAPI): на другом компьютере или под другим пользователем не расшифровывается</td>
+</tr>
+<tr>
+<td>Ключи доступа к сервисам ИИ</td>
+<td>зашифрованы Windows (DPAPI)</td>
+</tr>
+<tr>
+<td>Курсы валют</td>
+<td>файл <code>rates.json</code> — копия опубликованных курсов Банка России</td>
+</tr>
+<tr>
+<td>Журнал ошибок</td>
+<td>папка <code>logs</code>: только технические записи (версия программы и Windows, описание ошибки). Без твоих текстов. Имя пользователя Windows в путях заменяется на <code>&lt;user&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Правообладатель не имеет доступа к этой папке.</p>
+<h2>2. Что и когда уходит в интернет</h2>
+<p>Передача идёт по защищённому соединению (HTTPS), кроме локальной модели ИИ на твоём компьютере (<code>localhost</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Когда</th>
+<th>Что передаётся</th>
+<th>Куда</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ты отправляешь текст ИИ (вопрос, кнопки «Улучшить», «Короче» и т. п.)</td>
+<td>этот текст и твой ключ доступа</td>
+<td>только в сервис ИИ, который ты подключил: cloud.ru, Яндекс, DeepSeek или адрес, указанный тобой</td>
+</tr>
+<tr>
+<td>Ты переводишь текст</td>
+<td>текст для перевода</td>
+<td>Google Translate; если он недоступен — MyMemory; если и он недоступен, а ИИ подключён — в твой ИИ. Перевод начинает работать только после твоего разрешения. В режиме «Через мой ИИ» Google не используется</td>
+</tr>
+<tr>
+<td>Ты считаешь валюты (например, «100 usd в руб»)</td>
+<td>ничего о тебе — только запрос курсов</td>
+<td>сайт Банка России, не чаще раза в несколько часов</td>
+</tr>
+<tr>
+<td>Раз в день (выключается: Настройки → Обновления)</td>
+<td>запрос номера последней версии</td>
+<td>GitHub</td>
+</tr>
+<tr>
+<td>Ты нажимаешь «Обновить»</td>
+<td>загрузка установщика новой версии</td>
+<td>GitHub</td>
+</tr>
+<tr>
+<td>Ты нажимаешь «Сообщить об ошибке»</td>
+<td>ничего автоматически: открывается страница GitHub с отчётом, который ты видишь и отправляешь сам</td>
+<td>GitHub</td>
+</tr>
+</tbody>
+</table>
+<p>Сервисы ИИ, переводчики, Банк России и GitHub — независимые компании со своими правилами обработки данных. Не отправляй через них то, что не готов им доверить. Модели ИИ некоторых сервисов (например, «внешние» модели на cloud.ru) обрабатывают текст за пределами России — Larchik помечает их в списке моделей.</p>
+<h2>3. Что программа видит, но не хранит и не передаёт</h2>
+<ul>
+<li><strong>Клавиатура.</strong> Если у заготовки задан набор символов (например, <code>1у8</code>), Larchik следит за нажатыми клавишами, чтобы заметить этот набор. В памяти держатся только коды последних ~30 клавиш; они не записываются на диск и никуда не отправляются. Если ни у одной заготовки нет набора, слежение выключено полностью.</li>
+<li><strong>Буфер обмена.</strong> Используется, когда ты сам нажимаешь сочетание клавиш или кнопку («Вставить», «Скопировать»). После вставки прежнее содержимое буфера возвращается. Скопированный из хранилища пароль стирается из буфера через 30 секунд.</li>
+<li><strong>Экран.</strong> Снимок делается, только когда ты вызываешь «Текст с экрана». Текст распознаёт сама Windows без интернета; снимок не сохраняется.</li>
+<li><strong>Microsoft Word.</strong> При вставке результата в Word программа обращается к Word, чтобы не склеить абзацы. Документ не читается целиком и не передаётся.</li>
+</ul>
+<h2>4. Чего Larchik не делает</h2>
+<ul>
+<li>не собирает статистику и аналитику, не использует идентификаторы устройства;</li>
+<li>не показывает рекламу;</li>
+<li>не передаёт данные правообладателю и не продаёт их;</li>
+<li>не требует регистрации и аккаунта.</li>
+</ul>
+<h2>5. Сайт</h2>
+<p>Сайт Larchik размещён на GitHub Pages. GitHub может записывать технические сведения о посещениях (например, IP-адрес) по своим правилам. Сам сайт не использует cookie и счётчики; номер последней версии на странице запрашивается у GitHub.</p>
+<h2>6. Удаление данных</h2>
+<ul>
+<li>Удали программу: «Параметры → Приложения → Larchik → Удалить». В конце программа спросит, стереть ли папку с данными.</li>
+<li>Или удали папку <code>%AppData%\Larchik</code> вручную.</li>
+<li>Ключ ИИ можно удалить в Настройки → ИИ → «Подключение» → «Удалить сохранённый ключ».</li>
+</ul>
+<p>Данные, уже отправленные в сторонние сервисы, хранятся по правилам этих сервисов.</p>
+<h2>7. Дети</h2>
+<p>Larchik не предназначен специально для детей и не собирает данные о возрасте.</p>
+<h2>8. Изменения и связь</h2>
+<p>Новые редакции публикуются на этой странице. Вопросы: <a href="https://github.com/belart16/larchik/issues">github.com/belart16/larchik/issues</a>.</p>
+  <footer>© Belart Product · <a href="./">Larchik</a> · <a href="https://github.com/belart16/larchik/issues">Обратная связь</a></footer>
+</div>
+</body>
+</html>
