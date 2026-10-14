@@ -14,7 +14,7 @@
   &nbsp;·&nbsp;
   <a href="https://belart16.github.io/larchik/">Сайт</a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/belart16/larchik/issues">Сообщить об ошибке</a>
+  <a href="https://belart16.github.io/larchik/feedback.html">Обратная связь</a>
 </p>
 
 ---
