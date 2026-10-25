@@ -12,8 +12,9 @@
 <link rel="icon" type="image/png" href="img/icon.png">
 <link rel="apple-touch-icon" href="img/icon.png">
 <link rel="stylesheet" href="site.css">
+<script src="embed.js"></script>
 <style>
-  .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 40px; }
+  .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: var(--head-gap); }
   .choice {
     display: flex; gap: 16px; align-items: flex-start; text-align: left; width: 100%;
     font: inherit; color: inherit; cursor: pointer;
@@ -44,10 +45,11 @@
   .community { margin-top: 48px; display: none; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
                padding: 24px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
   .community.show { display: flex; }
+  .community-links { display: flex; gap: 10px; flex-wrap: wrap; }
   .community p { margin: 4px 0 0; color: var(--text-2); font-size: 15px; }
 
   @media (max-width: 700px) {
-    .choices { grid-template-columns: 1fr; margin-top: 32px; }
+    .choices { grid-template-columns: 1fr; margin-top: var(--head-gap); }
     .choice { padding: 20px; }
     .form-box iframe { height: 1100px; }
   }
@@ -99,9 +101,12 @@
   <div class="community" id="community">
     <div>
       <b>Larchik в Telegram</b>
-      <p>Новости, новые версии и обсуждение с другими пользователями.</p>
+      <p>Новости и новые версии - в канале. Вопросы и идеи - в чате, где у каждой темы своя ветка.</p>
     </div>
-    <a class="btn btn-primary btn-small" id="community-link" href="#" target="_blank" rel="noopener">Открыть канал</a>
+    <div class="community-links">
+      <a class="btn btn-primary btn-small" id="community-link" href="#" target="_blank" rel="noopener">Канал</a>
+      <a class="btn btn-secondary btn-small" id="community-chat" href="#" target="_blank" rel="noopener">Чат с темами</a>
+    </div>
   </div>
 </main>
 
@@ -134,7 +139,8 @@
       version: "answer_short_text_9008991259459200",
       windows: "answer_short_text_9008991259467052"
     },
-    telegram: ""   // e.g. https://t.me/larchik_app
+    telegram: "https://t.me/belartproduct",   // news channel
+    chat: "https://t.me/belartchat"           // chat with topics
   };
   // ---------------------------------------------------------------------------
 
@@ -210,6 +216,7 @@
 
   if (CONFIG.telegram) {
     document.getElementById("community-link").href = CONFIG.telegram;
+    document.getElementById("community-chat").href = CONFIG.chat;
     document.getElementById("community").classList.add("show");
   }
   // A thin line under the top bar once the page is scrolled

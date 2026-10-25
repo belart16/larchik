@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="157 162 936 936">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e7eaf3"/></linearGradient>
+    <linearGradient id="back" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfe2ef"/><stop offset="1" stop-color="#b9bed6"/></linearGradient>
+    <linearGradient id="front" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7592ff"/><stop offset="1" stop-color="#3b55d9"/></linearGradient>
+    <linearGradient id="pill" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffd06a"/><stop offset="1" stop-color="#f6a52b"/></linearGradient>
+    <linearGradient id="tray" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3e7f1"/></linearGradient>
+    <linearGradient id="lip" x1="505" y1="0" x2="775" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff9a1f" stop-opacity="0"/><stop offset=".16" stop-color="#ff9a1f"/>
+      <stop offset=".84" stop-color="#ff9a1f"/><stop offset="1" stop-color="#ff9a1f" stop-opacity="0"/></linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="160%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="glow" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
+    <clipPath id="inBody"><rect x="185" y="190" width="880" height="880" rx="232"/></clipPath>
+  </defs>
+
+  <rect x="185" y="190" width="880" height="880" rx="232" fill="url(#body)"/>
+  <g clip-path="url(#inBody)">
+    <!-- the light from above, on the body -->
+    <rect x="185" y="190" width="880" height="880" rx="232" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="6" transform="translate(0 3)"/>
+    <!-- the tray's shadow on the body -->
+    <path d="M 288 590 Q 288 565 313 565 H 527 C 551 565 561 577 568 597 L 581 652 C 588 675 602 686 626 686 H 654 C 678 686 692 675 699 652 L 712 597 C 719 577 729 565 753 565 H 943 Q 968 565 968 590 V 815 Q 968 895 888 895 H 368 Q 288 895 288 815 Z" fill="#26305a" opacity=".22" filter="url(#soft)" transform="translate(0 26)"/>
+  </g>
+  <rect x="186.5" y="191.5" width="877" height="877" rx="231" fill="none" stroke="rgba(25,35,70,.10)" stroke-width="3"/>
+
+  <!-- the tray's back wall, seen above the front -->
+  <rect x="288" y="548" width="680" height="200" rx="26" fill="#d7dbe8" stroke="rgba(255,255,255,.8)" stroke-width="3"/>
+
+  <!-- the cards: the one behind, the blue one with its yellow label -->
+  <g transform="rotate(6 693 540)">
+    <rect x="478" y="360" width="430" height="380" rx="44" fill="url(#back)" stroke="rgba(255,255,255,.75)" stroke-width="3"/>
+  </g>
+  <g transform="rotate(5 621 600)">
+    <rect x="382" y="428" width="478" height="380" rx="44" fill="#26305a" opacity=".22" filter="url(#soft)" transform="translate(6 14)"/>
+    <rect x="382" y="420" width="478" height="380" rx="44" fill="url(#front)" stroke="rgba(255,255,255,.35)" stroke-width="3"/>
+    <rect x="447" y="502" width="112" height="28" rx="14" fill="url(#pill)"/>
+  </g>
+
+  <!-- the tray's front with the notch, its lit edge -->
+  <path d="M 288 590 Q 288 565 313 565 H 527 C 551 565 561 577 568 597 L 581 652 C 588 675 602 686 626 686 H 654 C 678 686 692 675 699 652 L 712 597 C 719 577 729 565 753 565 H 943 Q 968 565 968 590 V 815 Q 968 895 888 895 H 368 Q 288 895 288 815 Z" fill="url(#tray)" stroke="rgba(25,35,70,.10)" stroke-width="3"/>
+  <path d="M 519 565 H 527 C 551 565 561 577 568 597 L 581 652 C 588 675 602 686 626 686 H 654 C 678 686 692 675 699 652 L 712 597 C 719 577 729 565 753 565 H 761" fill="none" stroke="url(#lip)" stroke-width="16" stroke-linecap="round" opacity=".75" filter="url(#glow)"/>
+  <path d="M 519 565 H 527 C 551 565 561 577 568 597 L 581 652 C 588 675 602 686 626 686 H 654 C 678 686 692 675 699 652 L 712 597 C 719 577 729 565 753 565 H 761" fill="none" stroke="#ffbe55" stroke-width="7" stroke-linecap="round" stroke-opacity=".75"/>
+</svg>

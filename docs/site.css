@@ -32,7 +32,7 @@
   --display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 @media (prefers-color-scheme: light) {
-  :root {
+  :root:not([data-theme="dark"]) {
     --bg: #f5f5f7;
     --surface: #ffffff;
     --surface-2: #f0f0f3;
@@ -52,6 +52,27 @@
     --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
     --shadow-hover: 0 2px 4px rgba(0,0,0,.04), 0 16px 36px rgba(0,0,0,.10);
   }
+}
+/* the theme chosen on the site desktop wins over the system one (embed.js copies it) */
+:root[data-theme="light"] {
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --surface-2: #f0f0f3;
+    --border: rgba(0,0,0,.08);
+    --text: #1d1d1f;
+    --text-2: rgba(29,29,31,.72);
+    --text-3: rgba(29,29,31,.52);
+    --accent: #0071e3;
+    --accent-soft: rgba(0,113,227,.10);
+    --orange-soft: rgba(255,159,10,.10);
+    --orange-line: rgba(255,159,10,.35);
+    --key-bg: #ffffff;
+    --key-border: rgba(0,0,0,.16);
+    --glow-1: rgba(0,113,227,.14);
+    --glow-2: rgba(191,90,242,.10);
+    --nav-bg: rgba(245,245,247,.78);
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
+    --shadow-hover: 0 2px 4px rgba(0,0,0,.04), 0 16px 36px rgba(0,0,0,.10);
 }
 
 * { box-sizing: border-box; }
@@ -224,3 +245,32 @@ footer a { color: var(--text-2); }
   .btn, .nav { transition: none; }
   .btn:hover { transform: none !important; }
 }
+
+/* Opened as a window on the site's desktop (embed.js): the window has its own title bar */
+html.embedded .nav, html.embedded footer { display: none; }
+html.embedded body { padding-top: 8px; }
+
+/* Motion: things answer the mouse and come in as you scroll; none of it with reduced motion */
+:root { interpolate-size: allow-keywords; }
+@media (prefers-reduced-motion: no-preference) {
+  .callout, .prose code, .prose td, .toc a, .prose .facts li, .step .num, details summary, kbd {
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .22s cubic-bezier(.2,.8,.2,1);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .callout:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); }
+    .prose tr:hover td { background: var(--surface-2); }
+    .toc a:hover { transform: translateX(3px); }
+    .prose .facts li:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); }
+    .prose .step:hover .num { transform: scale(1.12); }
+    .prose code:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+    details summary:hover { color: var(--text); }
+  }
+  /* a <details> opens and closes smoothly (Chromium; elsewhere it just opens) */
+  details::details-content { block-size: 0; overflow: clip; transition: block-size .28s cubic-bezier(.2,.8,.2,1), content-visibility .28s allow-discrete; }
+  details[open]::details-content { block-size: auto; }
+  /* steps, sections and screenshots rise into place as they scroll in */
+  @supports (animation-timeline: view()) {
+    .prose > section, .prose .step, .shot, .page-head { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 35%; }
+  }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }

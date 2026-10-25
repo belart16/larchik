@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Larchik - ИИ, переводчик и текст с экрана в любой программе Windows</title>
-<meta name="description" content="Бесплатная панель для Windows: улучшить, сократить или перевести выделенный текст в любой программе, распознать текст с экрана, заметки и пароли. Работает с GigaChat и Алисой AI без VPN.">
-<meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="description" content="Бесплатная панель для Windows: улучшить, сократить или перевести выделенный текст в любой программе, распознать текст с экрана, заметки и пароли. Попробуй прямо в браузере. Работает с GigaChat и Алисой AI без VPN.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
 <link rel="canonical" href="https://belart16.github.io/larchik/">
 <link rel="icon" type="image/png" href="img/icon.png">
 <link rel="apple-touch-icon" href="img/icon.png">
@@ -15,454 +15,450 @@
 <meta property="og:site_name" content="Larchik">
 <meta property="og:url" content="https://belart16.github.io/larchik/">
 <meta property="og:title" content="Larchik - ИИ в любой программе Windows">
-<meta property="og:description" content="Выдели текст, нажми Ctrl+Alt+A - и исправь, сократи или переведи его прямо на месте. Бесплатно, работает в России без VPN.">
+<meta property="og:description" content="Выдели текст, нажми Ctrl+Alt+A - и исправь, сократи или переведи его прямо на месте. Попробуй прямо в браузере.">
 <meta property="og:image" content="https://belart16.github.io/larchik/img/icon.png">
-<link rel="stylesheet" href="site.css">
-<style>
-  /* ---------- hero ---------- */
-  .hero { position: relative; text-align: center; padding: 72px 0 0; isolation: isolate; }
-  .hero::before {
-    content: ""; position: absolute; left: 0; right: 0; top: -20px; height: 460px;
-    z-index: -1; pointer-events: none;
-    background:
-      radial-gradient(closest-side at 38% 42%, var(--glow-1), transparent),
-      radial-gradient(closest-side at 64% 30%, var(--glow-2), transparent);
-    filter: blur(20px);
-  }
-  .hero-top { --stack-gap: 30px; align-items: center; }
-  .hero-icon { width: 88px; height: 88px; border-radius: 22px; display: block; box-shadow: 0 12px 40px rgba(0,0,0,.30); }
-  h1 {
-    font-family: var(--display);
-    font-size: clamp(32px, 5.6vw, 58px); line-height: 1.07; letter-spacing: -.022em; font-weight: 700;
-    max-width: 860px; text-wrap: balance;
-  }
-  .lead { font-size: clamp(17px, 2.1vw, 20px); line-height: 1.6; color: var(--text-2); max-width: 700px; text-wrap: pretty; }
-  .cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-  .mobile-note { display: none; max-width: 420px; margin: 0 auto; font-size: 14px; color: var(--text-2);
-                 padding: 10px 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); }
-
-  /* ---------- how it works ---------- */
-  .flow {
-    list-style: none; padding: 0; margin: 64px 0 0; counter-reset: step;
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; text-align: left;
-  }
-  .flow li {
-    counter-increment: step; display: flex; align-items: flex-start; gap: 12px;
-    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
-    padding: 16px; box-shadow: var(--shadow); color: var(--text-2); font-size: 15px; line-height: 1.5;
-  }
-  .flow li::before {
-    content: counter(step); flex: none; display: grid; place-items: center;
-    width: 26px; height: 26px; border-radius: 50%; margin-top: -1px;
-    background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 700;
-  }
-  .flow b { color: var(--text); font-weight: 600; }
-
-  /* ---------- screenshots (shown once the files exist) ---------- */
-  .shots { display: grid; grid-template-columns: 1fr 1.6fr; gap: 16px; margin: 40px 0 0; align-items: start; }
-  .shots figure { margin: 0; }
-  .shots img { width: 100%; display: block; border-radius: 14px; border: 1px solid var(--border);
-               box-shadow: 0 20px 60px rgba(0,0,0,.30); }
-  .shots figcaption { font-size: 13.5px; color: var(--text-3); margin-top: 8px; text-align: center; }
-
-  /* ---------- sections ---------- */
-  section { padding: var(--section-gap) 0 0; }
-  .section-head { margin-bottom: var(--head-gap); }
-  h2 {
-    font-family: var(--display);
-    font-size: clamp(27px, 4vw, 38px); line-height: 1.15; letter-spacing: -.018em; font-weight: 700; text-wrap: balance;
-  }
-  .sub { color: var(--text-2); font-size: 17px; line-height: 1.6; text-wrap: pretty; }
-
-  .card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 24px; box-shadow: var(--shadow);
-  }
-  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-  .feature { display: flex; flex-direction: column; }
-  .feature h3 { margin: 16px 0 6px; font-size: 18px; font-weight: 650; line-height: 1.3; }
-  .feature p { margin: 0; color: var(--text-2); font-size: 15px; }
-  .feature .keys { margin-top: auto; padding-top: 18px; display: flex; gap: 6px; align-items: center; }
-  .feature .keys kbd { font-size: 12.5px; }
-  .feature .keys .chip { font-size: 12.5px; font-weight: 600; color: var(--text-2); line-height: 1;
-                         padding: .45em .7em .5em; border-radius: 6px; border: 1px dashed var(--key-border); }
-  .tile { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; color: #fff; }
-  .tile svg { width: 21px; height: 21px; }
-  .t-blue { background: var(--accent); } .t-purple { background: var(--purple); } .t-orange { background: var(--orange); }
-  .t-green { background: var(--green); } .t-red { background: var(--red); } .t-gray { background: var(--gray); }
-
-  /* ---------- AI providers ---------- */
-  .providers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-  .provider { display: flex; flex-direction: column; gap: 8px; color: inherit; }
-  a.provider:hover { text-decoration: none; }
-  .provider .region { align-self: flex-start; font-size: 11.5px; font-weight: 600; letter-spacing: .06em;
-                      text-transform: uppercase; color: var(--text-3); }
-  .provider h3 { margin: 4px 0 0; font-size: 18px; font-weight: 650; line-height: 1.3; color: var(--text);
-                 display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-  .provider p { margin: 0; color: var(--text-2); font-size: 15px; }
-  .provider .price { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--border);
-                     font-size: 14px; color: var(--text); font-weight: 600; }
-  .provider .more { font-size: 14px; font-weight: 600; color: var(--accent); }
-  .badge { font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; line-height: 1.3;
-           background: var(--accent-soft); color: var(--accent); }
-  .after { margin: var(--head-gap) 0 0; font-size: 15px; color: var(--text-2); }
-
-  /* ---------- privacy ---------- */
-  .privacy { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .privacy h3 { margin: 0 0 16px; font-size: 18px; font-weight: 650; line-height: 1.35; display: flex; align-items: flex-start; gap: 10px; }
-  .privacy h3 .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; margin-top: .45em; }
-  .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-  .checks li { position: relative; padding-left: 28px; color: var(--text-2); font-size: 15px; }
-  .checks li::before {
-    content: ""; position: absolute; left: 0; top: .2em; width: 18px; height: 18px; border-radius: 50%;
-    background: var(--accent-soft) center / 12px no-repeat
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a84ff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
-  }
-  .checks b { color: var(--text); font-weight: 600; }
-
-  /* ---------- install ---------- */
-  .install { display: grid; gap: 16px; }
-  .steps { counter-reset: s; list-style: none; padding: 0; margin: 0;
-           display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-  .steps li {
-    counter-increment: s; display: flex; flex-direction: column; gap: 14px;
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);
-    padding: 24px; color: var(--text-2); font-size: 15.5px;
-  }
-  .steps li::before {
-    content: counter(s); flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
-    background: var(--accent); color: #fff; font-weight: 700; font-size: 15px;
-  }
-  .steps b { color: var(--text); font-weight: 600; }
-  .note {
-    display: flex; gap: 14px; align-items: flex-start;
-    padding: 20px 24px; border-radius: var(--radius); font-size: 15px; color: var(--text-2);
-    background: rgba(255,159,10,.09); border: 1px solid rgba(255,159,10,.28);
-  }
-  .note .note-icon { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
-                     background: rgba(255,159,10,.18); color: var(--orange); }
-  .note .note-icon svg { width: 18px; height: 18px; }
-  .note b { display: block; color: var(--text); margin-bottom: 4px; font-size: 16px; }
-
-  /* ---------- faq ---------- */
-  .faq-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 16px 48px; align-items: start; }
-  .faq-layout .section-head { margin-bottom: 0; position: sticky; top: 84px; align-items: flex-start; }
-  .faq { display: grid; gap: 10px; }
-  .faq details { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); }
-  .faq summary {
-    cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    padding: 18px 20px; font-weight: 600; font-size: 16.5px;
-  }
-  .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after {
-    content: ""; flex: none; width: 12px; height: 12px; margin-right: 4px;
-    border-right: 2px solid var(--text-3); border-bottom: 2px solid var(--text-3);
-    transform: rotate(45deg) translate(-3px, -3px); transition: transform .2s ease;
-  }
-  .faq details[open] summary::after { transform: rotate(-135deg) translate(-3px, -3px); }
-  .faq details p { margin: 0; padding: 0 20px 20px; color: var(--text-2); }
-
-  /* ---------- final call ---------- */
-  .final { text-align: center; align-items: center; padding: 56px 24px; margin-top: var(--section-gap); }
-
-  /* ---------- adaptive ---------- */
-  @media (max-width: 980px) {
-    .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .providers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .steps { grid-template-columns: 1fr; }
-    .steps li { flex-direction: row; align-items: flex-start; padding: 18px; }
-    .steps li::before { width: 28px; height: 28px; font-size: 14px; margin-top: -2px; }
-    .faq-layout { grid-template-columns: 1fr; }
-    .faq-layout .section-head { position: static; }
-    .shots { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 600px) {
-    .hero { padding-top: 44px; }
-    .hero-top { --stack-gap: 24px; }
-    .hero-icon { width: 72px; height: 72px; border-radius: 18px; }
-    .cta { flex-direction: column; align-items: stretch; width: 100%; max-width: 360px; }
-    .flow, .grid, .providers, .privacy { grid-template-columns: 1fr; }
-    .flow { margin-top: 48px; gap: 8px; }
-    .flow li { padding: 14px; }
-    .card { padding: 20px; }
-    .sub { font-size: 16px; }
-    .note { padding: 18px; }
-    .faq summary { padding: 16px 18px; font-size: 16px; }
-    .faq details p { padding: 0 18px 18px; }
-    .final { padding: 40px 20px; }
-  }
-  @media (hover: none) and (pointer: coarse) and (max-width: 1024px) { .mobile-note { display: block; } }
-
-  /* ---------- hover: a small lift, only where there is a real mouse ---------- */
-  .card, .flow li, .steps li, .faq details, .tile {
-    transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, border-color .22s ease;
-  }
-  @media (hover: hover) and (pointer: fine) {
-    .card:not(.final):hover, .flow li:hover, .steps li:hover {
-      transform: translateY(-4px); box-shadow: var(--shadow-hover);
-      border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
-    }
-    .feature:hover .tile { transform: scale(1.08) rotate(-4deg); }
-    .faq details:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 30%, var(--border)); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .card, .flow li, .steps li, .faq details, .tile, .faq summary::after { transition: none; }
-    .card:hover, .flow li:hover, .steps li:hover, .faq details:hover, .feature:hover .tile { transform: none !important; }
-  }
-</style>
+<script>
+  // Theme before the first paint: the one chosen on the site (island, settings); dark until then
+  (function () {
+    var t = "dark";
+    try { t = localStorage.getItem("larchik-site-theme") || "dark"; } catch (e) {}
+    if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
+<link rel="stylesheet" href="vendor/phosphor/icons.css">
+<link rel="stylesheet" href="desk.css">
 </head>
 <body>
 
-<header class="nav" id="top">
-  <div class="wrap">
-    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="28" height="28">Larchik</a>
-    <nav class="nav-links" aria-label="Разделы">
-      <a href="#features">Возможности</a>
-      <a href="#ai">ИИ</a>
-      <a href="#privacy">Данные</a>
-      <a href="#install">Установка</a>
-      <a href="#faq">Вопросы</a>
-      <a class="nav-cta" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Скачать</a>
-    </nav>
-  </div>
-</header>
-
-<main class="wrap">
-  <div class="hero">
-    <div class="hero-top stack">
-    <img class="hero-icon" src="img/icon.png" alt="Значок Larchik" width="88" height="88">
-    <h1>ИИ, переводчик и текст с&nbsp;экрана&nbsp;- в&nbsp;любой программе Windows</h1>
-    <p class="lead">Выдели текст в Word, браузере или почте, нажми
-      <span class="combo"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>A</kbd></span> -
-      и исправь, сократи или переведи его прямо на месте. Работает с GigaChat и Алисой AI, без VPN.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19.5h14"/></svg>
-        Скачать для Windows
-      </a>
-      <a class="btn btn-secondary" href="#install">Как установить</a>
-    </div>
-    <div class="meta"><span class="version">Последняя версия</span> · Windows 10 и 11 · бесплатно</div>
-    <p class="mobile-note">Larchik - программа для компьютеров с Windows. Открой эту страницу на компьютере, чтобы скачать установщик.</p>
-    </div>
-
-    <ol class="flow" aria-label="Как это работает">
-      <li><span><b>Выдели текст</b> в любой программе</span></li>
-      <li><span>Нажми <span class="combo"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd></span></span></li>
-      <li><span>Выбери <b>«Исправить ошибки»</b>, «Короче» или своё</span></li>
-      <li><span><b>«Вставить»</b> - текст заменится на месте</span></li>
-    </ol>
-
-    <div class="shots" id="shots">
-      <figure>
-        <img src="img/panel.png" alt="Панель Larchik" loading="lazy" onerror="this.closest('figure').remove()">
-        <figcaption>Панель - по <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Space</kbd></figcaption>
-      </figure>
-      <figure>
-        <img src="img/note.png" alt="Большая заметка" loading="lazy" onerror="this.closest('figure').remove()">
-        <figcaption>Большая заметка для длинного текста</figcaption>
-      </figure>
-    </div>
+<!-- =====================================================================
+     Desktop: Windows 11 with Larchik in the tray. Built up by desk.js.
+     ===================================================================== -->
+<div id="desk" aria-label="Рабочий стол с Larchik">
+  <div class="wall" aria-hidden="true">
+    <svg viewBox="0 0 1200 800">
+      <defs>
+        <radialGradient id="petalLight" cx="50%" cy="80%" r="80%"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset=".45" stop-color="#7fb4ff" stop-opacity=".55"/><stop offset="1" stop-color="#2f6fe0" stop-opacity="0"/></radialGradient>
+        <radialGradient id="petalDark" cx="50%" cy="80%" r="80%"><stop offset="0" stop-color="#9cc8ff" stop-opacity=".75"/><stop offset=".45" stop-color="#2f6fe0" stop-opacity=".45"/><stop offset="1" stop-color="#0a2a6e" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g transform="translate(600 470)">
+        <path class="petal" d="M0 0 C -60 -120 -40 -260 0 -330 C 40 -260 60 -120 0 0Z" transform="rotate(-62)"/>
+        <path class="petal" d="M0 0 C -70 -130 -50 -280 0 -360 C 50 -280 70 -130 0 0Z" transform="rotate(-31)"/>
+        <path class="petal" d="M0 0 C -80 -140 -56 -300 0 -390 C 56 -300 80 -140 0 0Z"/>
+        <path class="petal" d="M0 0 C -70 -130 -50 -280 0 -360 C 50 -280 70 -130 0 0Z" transform="rotate(31)"/>
+        <path class="petal" d="M0 0 C -60 -120 -40 -260 0 -330 C 40 -260 60 -120 0 0Z" transform="rotate(62)"/>
+      </g>
+    </svg>
   </div>
 
-  <section id="features">
-    <div class="section-head stack">
-      <h2>Всё под рукой, ничего лишнего</h2>
-      <p class="sub">Одна панель вместо пяти программ. Открывается сочетанием клавиш поверх любой программы
-        и прячется, когда больше не нужна. Сочетания можно поменять в настройках.</p>
-    </div>
-    <div class="grid">
-      <article class="card feature">
-        <div class="tile t-purple"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.1 5.9 5.9 2.1-5.9 2.1L12 18.5l-2.1-5.9L4 10.5l5.9-2.1zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg></div>
-        <h3>ИИ для выделенного текста</h3>
-        <p>Улучшить, сократить, исправить ошибки, деловой стиль - и свои кнопки с любым заданием. В Word абзацы не склеиваются.</p>
-        <div class="keys"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>A</kbd></div>
-      </article>
-      <article class="card feature">
-        <div class="tile t-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h9M8.5 3v2M6 5c.7 3.2 2.8 5.7 5.5 7M11 5c-.8 3.6-3.4 6.5-7 8"/><path d="M12.5 21l4-10 4 10M14 17.5h5"/></svg></div>
-        <h3>Переводчик</h3>
-        <p>Выдели и переведи без ИИ и без токенов. Перевод можно сразу вставить обратно вместо исходного текста.</p>
-        <div class="keys"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>Z</kbd></div>
-      </article>
-      <article class="card feature">
-        <div class="tile t-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16M8 10h8M8 14h5"/></svg></div>
-        <h3>Текст с экрана</h3>
-        <p>Обведи область - картинку, скан, видео, - и текст уже в буфере. Распознаёт сама Windows, без интернета.</p>
-        <div class="keys"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>S</kbd></div>
-      </article>
-      <article class="card feature">
-        <div class="tile t-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4.5l5 5L9 20H4v-5z"/><path d="M12.5 6.5l5 5"/></svg></div>
-        <h3>Заметки</h3>
-        <p>Быстрая заметка в панели и большое окно для длинного текста со счётчиком слов. Обычные файлы .md, всё сохраняется само.</p>
-        <div class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>Space</kbd></div>
-      </article>
-      <article class="card feature">
-        <div class="tile t-gray"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7.5h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg></div>
-        <h3>Калькулятор и валюты</h3>
-        <p>Пиши прямо в строке ИИ: <i>15%&nbsp;от&nbsp;84&nbsp;000</i>, <i>100&nbsp;usd в&nbsp;руб</i> по курсу ЦБ, <i>5&nbsp;миль в&nbsp;км</i> - ответ появляется сразу.</p>
-        <div class="keys"><span class="chip">в строке ИИ</span></div>
-      </article>
-      <article class="card feature">
-        <div class="tile t-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></svg></div>
-        <h3>Хранилище паролей</h3>
-        <p>Открывается отпечатком, лицом или ПИН-кодом через Windows Hello. Зашифровано Windows и не покидает компьютер.</p>
-        <div class="keys"><span class="chip">Windows Hello</span></div>
-      </article>
-    </div>
-  </section>
+  <div class="icons" id="icons" role="listbox" aria-label="Значки рабочего стола"></div>
+  <div id="windows"></div>
 
-  <section id="ai">
-    <div class="section-head stack">
-      <h2>Подключи ИИ, который тебе подходит</h2>
-      <p class="sub">Larchik работает с твоим API-ключом: он хранится только на твоём компьютере в зашифрованном виде.
-        Без ИИ работают переводчик, текст с экрана, калькулятор, заметки и пароли.</p>
+  <!-- «Попробуй сам»: what to try, ticked off as it is done -->
+  <aside class="quest" id="quest" aria-label="Попробуй сам">
+    <div class="quest-head">
+      <img src="img/larchik-dark.svg" alt="">
+      <div><b>Попробуй Larchik</b><small>Прямо здесь, ничего не скачивая</small></div>
+      <button type="button" id="quest-fold" aria-label="Свернуть"><i class="ph ph-minus"></i></button>
     </div>
-    <div class="providers">
-      <a class="card provider" href="ai.html#cloudru">
-        <span class="region">Россия</span>
-        <h3>cloud.ru <span class="badge">Рекомендуем</span></h3>
-        <p>GigaChat и другие модели под одним ключом. Хорошо пишет по-русски.</p>
-        <div class="price">Рубли · 100 ₽ хватает надолго</div>
-      </a>
-      <a class="card provider" href="ai.html#yandex">
-        <span class="region">Россия</span>
-        <h3>Алиса AI - Яндекс</h3>
-        <p>Сильный русский язык, данные остаются в России.</p>
-        <div class="price">Рубли · стартовый грант новым аккаунтам</div>
-      </a>
-      <a class="card provider" href="ai.html#deepseek">
-        <span class="region">Зарубежный</span>
-        <h3>DeepSeek</h3>
-        <p>Логика, код и подробные объяснения.</p>
-        <div class="price">Доллары · пары долларов хватает надолго</div>
-      </a>
-      <a class="card provider" href="ai.html#local">
-        <span class="region">На компьютере</span>
-        <h3>Ollama, LM Studio</h3>
-        <p>Модель работает у тебя - текст никуда не уходит.</p>
-        <div class="price">Бесплатно · нужен мощный ПК</div>
-      </a>
-    </div>
-    <p class="after">Где взять ключ и сколько это стоит - <a href="ai.html">пошаговая инструкция</a>.</p>
-  </section>
+    <div class="quest-bar" aria-hidden="true"><i id="quest-progress"></i></div>
+    <ol id="quest-list"></ol>
+    <a class="dl" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe"><i class="ph ph-download-simple"></i>Скачать для Windows</a>
+    <div class="fine"><span class="version">Последняя версия</span> · Windows 10 и 11 · бесплатно</div>
+  </aside>
+  <button class="quest-reopen" id="quest-reopen" type="button" hidden><img src="img/larchik-dark.svg" alt="" width="20" height="20">Попробуй Larchik <b id="quest-count"></b></button>
 
-  <section id="privacy">
-    <div class="section-head stack">
-      <h2>Честно о данных</h2>
-      <p class="sub">Программа видит буфер обмена и хранит пароли, поэтому вот полный список того, что уходит в интернет.
-        Подробно - в <a href="privacy.html">политике конфиденциальности</a>.</p>
+  <!-- ============ Larchik: the island ============ -->
+  <div class="island lk closed" id="island" aria-label="Островок Larchik">
+    <div class="is-media">
+      <div class="is-cover"><i class="ph ph-music-notes"></i></div>
+      <div><b>Ничего не играет</b><small>Музыка и видео из других программ - здесь</small></div>
     </div>
-    <div class="privacy">
-      <div class="card">
-        <h3><span class="dot" style="background:var(--orange)"></span>Уходит в сеть - только когда ты этим пользуешься</h3>
-        <ul class="checks">
-          <li><b>Текст для ИИ</b> - в выбранный тобой сервис ИИ.</li>
-          <li><b>Текст для перевода</b> - в Google Translate (резерв - MyMemory) или в твой ИИ; только после твоего разрешения.</li>
-          <li><b>Курсы валют</b> загружаются с сайта ЦБ РФ.</li>
-          <li><b>Номер последней версии</b> - раз в день с GitHub; выключается в настройках.</li>
-        </ul>
+    <div class="is-tools">
+      <button class="is-tool" type="button" id="is-mic" data-tip="Микрофон для голосовых команд Larchik. В программе включается: Настройки → Инструменты"><i class="ph ph-microphone"></i>Микрофон</button>
+      <button class="is-tool" type="button" id="is-timer" data-tip="Таймер: сколько минут, старт, пауза"><i class="ph ph-timer"></i><span id="is-timer-text">Таймер</span></button>
+      <button class="is-tool" type="button" id="is-theme"><i class="ph ph-moon"></i>Тема</button>
+    </div>
+    <div class="is-timer" id="is-timer-row" hidden>
+      <button class="ibtn" type="button" id="tm-minus" aria-label="Короче на минуту"><i class="ph ph-minus"></i></button>
+      <b id="tm-value">5 мин</b>
+      <button class="ibtn" type="button" id="tm-plus" aria-label="Дольше на минуту"><i class="ph ph-plus"></i></button>
+      <button class="btn primary" type="button" id="tm-go">Старт</button>
+      <button class="ibtn" type="button" id="tm-reset" aria-label="Сбросить"><i class="ph ph-arrow-counter-clockwise"></i></button>
+    </div>
+  </div>
+  <button class="pill lk closed" id="pill" type="button" aria-label="Открыть таймер"><i class="ph-fill ph-timer"></i><span id="pill-text">Таймер</span><b id="pill-time"></b></button>
+
+  <!-- ============ Larchik: the panel (as MainWindow.xaml: header, tabs, cards) ============ -->
+  <div class="panel lk closed" id="panel" role="dialog" aria-label="Панель Larchik">
+    <div class="p-head" id="p-head" data-tip-off>
+      <img src="img/larchik-dark.svg" alt="" id="p-icon">
+      <div class="t"><b>Larchik</b><small id="p-date"></small></div>
+      <button class="ibtn" type="button" id="p-search-btn" data-tip="Поиск по всему (Ctrl + K)"><i class="ph ph-magnifying-glass"></i></button>
+      <button class="ibtn" type="button" id="p-pick-btn" data-tip="Пипетка"><i class="ph ph-eyedropper"></i></button>
+      <button class="ibtn" type="button" id="p-ocr-btn" data-tip="Текст с экрана (Ctrl + Alt + S)"><i class="ph ph-scan"></i></button>
+      <button class="ibtn" type="button" id="p-set-btn" data-tip="Настройки"><i class="ph ph-gear-six"></i></button>
+      <button class="ibtn" type="button" id="p-close" data-tip="Закрыть (Esc)"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="tabs" role="tablist" id="tabs">
+      <span class="thumb" id="tab-thumb"></span>
+      <button class="tab" role="tab" data-tab="home" aria-selected="true" data-tip="Главная"><i class="ph ph-house"></i><span>Главная</span></button>
+      <button class="tab" role="tab" data-tab="tr" aria-selected="false" data-tip="Переводчик"><i class="ph ph-translate"></i><span>Переводчик</span></button>
+      <button class="tab" role="tab" data-tab="snip" aria-selected="false" data-tip="Заготовки"><i class="ph ph-article"></i><span>Заготовки</span></button>
+      <button class="tab" role="tab" data-tab="vault" aria-selected="false" data-tip="Хранилище"><i class="ph ph-lock-simple"></i><span>Хранилище</span></button>
+      <button class="tab" role="tab" data-tab="pick" aria-selected="false" data-tip="Пипетка"><i class="ph ph-eyedropper"></i><span>Пипетка</span></button>
+    </div>
+    <div class="p-search" id="p-search" hidden>
+      <i class="ph ph-magnifying-glass"></i>
+      <input id="p-search-input" type="search" placeholder="Поиск: заметки, заготовки, хранилище" aria-label="Поиск по панели">
+      <button class="ibtn sm" type="button" id="p-search-close" aria-label="Закрыть поиск"><i class="ph ph-x"></i></button>
+    </div>
+
+    <div class="p-body" id="p-body">
+      <!-- Главная -->
+      <section data-pane="home">
+        <div class="card c-teal" id="ocr-card" hidden>
+          <div class="card-h"><span class="bubble"><i class="ph ph-scan"></i></span><b>Текст с экрана</b>
+            <button class="ibtn sm" type="button" id="ocr-hide" data-tip="Скрыть"><i class="ph ph-x"></i></button></div>
+          <div class="well ocr-text" id="ocr-text"></div>
+          <div class="row wrap" style="margin-top:12px">
+            <button class="btn primary" type="button" id="ocr-copy">Копировать</button>
+            <button class="btn" type="button" id="ocr-note">В заметку</button>
+            <button class="btn" type="button" id="ocr-tr" data-tip="В переводчик - без ИИ">Перевести</button>
+            <button class="btn" type="button" id="ocr-ai" data-tip="Текст уйдёт в карточку ИИ с кнопками «Улучшить», «Короче»…">Спросить ИИ</button>
+          </div>
+        </div>
+
+        <div class="card c-purple" id="ai-card">
+          <div class="card-h"><span class="bubble"><i class="ph ph-sparkle"></i></span><b>Спросить ИИ</b>
+            <button class="ibtn sm" type="button" id="ai-new" data-tip="Новый диалог" hidden><i class="ph ph-plus"></i></button>
+            <span class="chip" data-tip="Сменить ИИ или модель">Алиса AI · aliceai-llm-flash <i class="ph ph-caret-down"></i></span></div>
+          <div class="well src" id="ai-src" hidden>
+            <div class="grow"><span class="muted">Выделенный текст</span><p id="ai-src-text"></p></div>
+            <button class="ibtn sm" type="button" id="ai-src-x" data-tip="Убрать текст"><i class="ph ph-x"></i></button>
+          </div>
+          <div class="ai-in">
+            <textarea class="input" id="ai-input" rows="1" placeholder="Спроси ИИ или посчитай: 15% от 84 000, 100 $ в ₽" aria-label="Вопрос ИИ или пример"></textarea>
+            <button class="ibtn sm" type="button" id="ai-clip" data-tip="Приложить файл: PDF, Word, Excel, PowerPoint, картинку, текст"><i class="ph ph-paperclip"></i></button>
+          </div>
+          <div class="ai-acts" id="ai-acts" hidden></div>
+          <div class="calc well" id="calc" hidden>
+            <div class="grow"><b id="calc-value"></b><span class="muted" id="calc-cap"></span></div>
+            <button class="ibtn" type="button" id="calc-copy" data-tip="Скопировать результат"><i class="ph ph-copy"></i></button>
+          </div>
+          <div class="answer" id="answer" hidden>
+            <div class="q-bubble" id="q-bubble"></div>
+            <div class="a-row">
+              <div class="a-mark" id="a-mark"><i class="ph ph-sparkle"></i></div>
+              <div><div class="a-status" id="a-status"></div><div class="a-text" id="a-text"></div></div>
+            </div>
+            <div class="a-foot" id="a-foot" hidden>
+              <button class="btn" type="button" id="a-retry" data-tip="Отправить тот же запрос ещё раз"><i class="ph ph-arrow-clockwise"></i>Повторить</button>
+              <button class="btn primary" type="button" id="a-insert">Вставить в программу</button>
+              <span class="grow"></span>
+              <button class="ibtn" type="button" id="a-copy" data-tip="Скопировать ответ"><i class="ph ph-copy"></i></button>
+              <button class="ibtn" type="button" id="a-note" data-tip="Сохранить в заметки"><i class="ph ph-note"></i></button>
+            </div>
+            <div class="demo-note" id="a-demo" hidden><i class="ph ph-info"></i><span></span></div>
+          </div>
+          <div class="card-foot"><span>Выделенный текст - Ctrl + Alt + A</span><span id="ai-usage">сегодня 0 токенов</span></div>
+        </div>
+
+        <div class="card c-warning" id="notes-card">
+          <div class="card-h"><span class="bubble"><i class="ph ph-note"></i></span><b>Заметки</b>
+            <button class="ibtn sm" type="button" id="nt-big" data-tip="Развернуть в большое окно - для длинного текста"><i class="ph ph-arrows-out-simple"></i></button>
+            <button class="ibtn sm" type="button" id="nt-new" data-tip="Новая заметка"><i class="ph ph-plus"></i></button>
+            <button class="ibtn sm" type="button" id="nt-folder" data-tip="Открыть папку с заметками"><i class="ph ph-folder-simple"></i></button></div>
+          <div class="seg full" role="group" aria-label="Заметки"><button type="button" id="nt-write" aria-pressed="true">Написать</button><button type="button" id="nt-all" aria-pressed="false">Все заметки</button></div>
+          <div id="nt-write-pane">
+            <textarea class="input" id="nt-input" rows="4" placeholder="Новая заметка - пиши, сохраняется само" aria-label="Новая заметка"></textarea>
+            <div class="state" id="nt-saved"><i></i><span>Новая заметка</span></div>
+          </div>
+          <div id="nt-all-pane" hidden></div>
+        </div>
+
+        <div class="caps qa-label">Быстрые действия</div>
+        <div class="card qa">
+          <button type="button" data-do="ocr"><span class="bubble c-teal"><i class="ph ph-scan"></i></span>Текст с экрана<span class="kp">Ctrl + Alt + S</span></button>
+          <button type="button" data-do="tr"><span class="bubble c-accent"><i class="ph ph-translate"></i></span>Перевести выделенное<span class="kp">Ctrl + Alt + Z</span></button>
+          <button type="button" data-do="ai"><span class="bubble c-purple"><i class="ph ph-sparkle"></i></span>ИИ для выделенного<span class="kp">Ctrl + Alt + A</span></button>
+        </div>
+      </section>
+
+      <!-- Переводчик -->
+      <section data-pane="tr" hidden>
+        <div class="card c-accent">
+          <div class="card-h"><span class="bubble"><i class="ph ph-translate"></i></span><b>Переводчик</b>
+            <span class="chip" data-tip="Через какой сервис переводить">Google · резерв MyMemory <i class="ph ph-caret-down"></i></span></div>
+          <div class="tr-langs">
+            <button class="chip" type="button" id="tr-from">RU</button>
+            <button class="ibtn sm" type="button" id="tr-swap" data-tip="Поменять языки местами"><i class="ph ph-arrows-left-right"></i></button>
+            <button class="chip" type="button" id="tr-to">EN</button>
+            <span class="grow"></span><span class="muted" id="tr-count">0 симв.</span>
+          </div>
+          <textarea class="input" id="tr-input" rows="3" placeholder="Введи текст - переведу сам" aria-label="Текст для перевода"></textarea>
+          <div class="consent" id="tr-consent" hidden>
+            <span><b>Перевод выполняет внешний сервис.</b> Текст уйдёт в Google Translate или MyMemory. Larchik спрашивает об этом один раз.</span>
+            <div class="row wrap">
+              <button class="btn primary" type="button" id="tr-allow">Разрешить</button>
+              <button class="btn" type="button" id="tr-viaai">Переводить через мой ИИ</button>
+              <button class="linkbtn" type="button" data-open="privacy">Подробнее о данных</button>
+            </div>
+          </div>
+          <div class="well tr-out" id="tr-out"><span class="muted">Жду текст</span></div>
+          <div class="row" style="margin-top:12px">
+            <button class="btn primary" type="button" id="tr-insert" disabled>Вставить в программу</button>
+            <span class="muted grow">Заменит выделенный текст в программе</span>
+            <button class="ibtn" type="button" id="tr-copy" data-tip="Скопировать перевод"><i class="ph ph-copy"></i></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Заготовки -->
+      <section data-pane="snip" hidden>
+        <div class="card c-indigo">
+          <div class="card-h"><span class="bubble"><i class="ph ph-article"></i></span><b>Заготовки</b>
+            <button class="ibtn sm" type="button" id="sn-add" data-tip="Новая заготовка"><i class="ph ph-plus"></i></button></div>
+          <p class="muted" style="margin:0 0 12px">Назначь набор символов - и текст появится в любой программе. Попробуй напечатать <span class="trig">1д</span> в Блокноте.</p>
+          <div class="list" id="sn-list"></div>
+          <form class="snip-form" id="sn-form" hidden>
+            <input class="input" id="sn-trig" placeholder="Набор символов, например 1почта" aria-label="Набор символов" maxlength="24" required>
+            <textarea class="input" id="sn-text" rows="2" placeholder="Текст, который появится вместо него" aria-label="Текст заготовки" required></textarea>
+            <div class="row"><button class="btn primary" type="submit">Сохранить</button><button class="btn" type="button" id="sn-cancel">Отмена</button></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Хранилище -->
+      <section data-pane="vault" hidden>
+        <div class="card c-success" id="vault-card"></div>
+      </section>
+
+      <!-- Пипетка -->
+      <section data-pane="pick" hidden>
+        <div class="card c-pink">
+          <div class="card-h"><span class="bubble"><i class="ph ph-eyedropper"></i></span><b>Пипетка</b></div>
+          <div class="pick-now">
+            <span class="swatch" id="pk-sw"></span>
+            <div class="grow"><b id="pk-hex">#0A84FF</b><span class="muted" id="pk-more"></span></div>
+          </div>
+          <div class="row wrap" style="margin-top:12px" id="pk-copy">
+            <button class="chip" type="button" data-f="hex">HEX</button><button class="chip" type="button" data-f="rgb">RGB</button><button class="chip" type="button" data-f="hsl">HSL</button>
+          </div>
+          <button class="btn primary wide" type="button" id="pk-go" style="margin-top:12px"><i class="ph ph-eyedropper"></i>Взять цвет с экрана</button>
+          <p class="muted" style="margin:10px 0 0">Наведи на любую точку экрана и кликни - цвет скопируется. Esc - отмена.</p>
+          <div class="row" style="margin-top:14px"><span class="muted grow">Недавние</span><button class="linkbtn" type="button" id="pk-clear" data-tip="Забыть все цвета">Очистить</button></div>
+          <div class="pk-recent" id="pk-recent"></div>
+          <input type="color" id="pk-input" class="sr" tabindex="-1" aria-hidden="true">
+        </div>
+      </section>
+
+      <!-- Поиск по всему -->
+      <section data-pane="search" hidden><div id="s-results" class="list"></div></section>
+    </div>
+  </div>
+
+  <!-- Windows Hello for the vault -->
+  <div class="scrim closed" id="hello-scrim">
+    <div class="hello" role="dialog" aria-modal="true" aria-labelledby="hello-title">
+      <div class="hello-in">
+        <small>Безопасность Windows</small>
+        <h2 id="hello-title">Проверьте, что это вы</h2>
+        <div class="face scan" id="hello-face"><i class="ph ph-fingerprint"></i><div><b>Larchik хочет открыть хранилище</b><br><small>Здесь это демо: подойдёт любой ПИН из 4 цифр</small></div></div>
+        <input id="hello-pin" inputmode="numeric" maxlength="6" placeholder="ПИН-код" aria-label="ПИН-код (демо, любые 4 цифры)" autocomplete="off">
+        <div class="err" id="hello-err"></div>
       </div>
-      <div class="card">
-        <h3><span class="dot" style="background:var(--green)"></span>Остаётся на компьютере</h3>
-        <ul class="checks">
-          <li><b>Заметки, заготовки, настройки</b> - обычные файлы в твоей папке.</li>
-          <li><b>Пароли и ключи ИИ</b> - зашифрованы Windows, на другом ПК бесполезны.</li>
-          <li><b>Текст с экрана</b> распознаётся без интернета.</li>
-          <li><b>Журнал ошибок</b> - только на компьютере; отчёт уходит, лишь если ты сам его отправишь.</li>
-          <li><b>Нет рекламы, аналитики и сбора статистики.</b></li>
-        </ul>
-      </div>
+      <div class="hello-foot"><button type="button" class="primary" id="hello-ok">ОК</button><button type="button" id="hello-cancel">Отмена</button></div>
     </div>
-  </section>
+  </div>
 
-  <section id="install">
-    <div class="section-head stack">
-      <h2>Установка за минуту</h2>
-      <p class="sub">Права администратора не нужны. Larchik ставится только для твоей учётной записи и обновляется сам.</p>
+  <div class="start closed" id="start" role="dialog" aria-label="Пуск">
+    <div class="start-in">
+      <label class="start-search"><i class="ph ph-magnifying-glass"></i><input id="start-q" placeholder="Поиск приложений, параметров и документов" aria-label="Поиск"></label>
+      <h3>Закреплённые</h3>
+      <div class="pins" id="pins"></div>
+      <h3>Рекомендуем</h3>
+      <div class="recs" id="recs"></div>
     </div>
-    <div class="install">
+    <div class="start-foot">
+      <span class="me"><img src="img/larchik-dark.svg" alt="">Гость Larchik</span>
+      <a class="btn primary" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe" style="height:30px"><i class="ph ph-download-simple"></i>Скачать Larchik</a>
+    </div>
+  </div>
+
+  <div class="taskbar" id="taskbar">
+    <a class="tb-cta" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe"><i class="ph ph-download-simple"></i>Скачать Larchik</a>
+    <div class="tb-apps" id="tb-apps">
+      <button class="tb-app" type="button" id="tb-start" data-tip="Пуск"><span class="tb-ic"><span class="win-logo"><i></i><i></i><i></i><i></i></span></span></button>
+      <button class="tb-app" type="button" id="tb-search" data-tip="Поиск"><span class="tb-ic"><i class="ph ph-magnifying-glass" style="font-size:20px"></i></span></button>
+    </div>
+    <div class="tb-tray">
+      <button class="tray-btn" type="button" data-tip="Скрытые значки"><i class="ph ph-caret-up" style="font-size:14px"></i></button>
+      <button class="tray-btn tray-larchik" type="button" id="tray-larchik" data-tip="Larchik - открыть панель (Ctrl+Shift+Space)"><img src="img/larchik-dark.svg" alt="Larchik"></button>
+      <button class="tray-btn" type="button" data-tip="Язык ввода"><span class="lang">РУС</span></button>
+      <button class="tray-btn" type="button" data-tip="Интернет, звук"><i class="ph ph-wifi-high"></i><i class="ph ph-speaker-high"></i></button>
+      <button class="tray-btn" type="button" id="clock" data-tip=""><span class="clock"><span id="clock-t"></span><br><span id="clock-d"></span></span></button>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+</div>
+
+<!-- =====================================================================
+     Phone and narrow screens: the same Larchik, told and tried with a finger.
+     This part is also the plain text of the site for search engines.
+     ===================================================================== -->
+<div id="phone" class="lk">
+  <header class="ph-top">
+    <img src="img/larchik-dark.svg" alt="" width="28" height="28">
+    <b>Larchik</b>
+    <button class="btn" type="button" data-share>На компьютер</button>
+  </header>
+
+  <main class="ph-wrap">
+    <section class="ph-hero">
+      <div class="fig" data-fig="casket" data-play="1" data-label="Ларчик: шкатулка, крышка открывается навстречу"></div>
+      <span class="epi">А ларчик просто открывался</span>
+      <h1>ИИ, переводчик и текст с экрана в любой программе Windows</h1>
+      <p>Выдели текст в Word, браузере или почте, нажми Ctrl + Alt + A - и исправь, сократи или переведи его прямо на месте.</p>
+      <div class="ph-cta">
+        <button class="btn primary" type="button" data-share><i class="ph ph-paper-plane-tilt"></i>Отправить ссылку на компьютер</button>
+        <a class="btn" href="#try">Попробовать здесь</a>
+      </div>
+      <div class="ph-meta">Бесплатно · Windows 10 и 11 · <span class="version">последняя версия</span></div>
+    </section>
+
+    <section class="ph-sec" id="try" aria-labelledby="try-h">
+      <h2 id="try-h">Попробуй пальцем</h2>
+      <p>Так Larchik работает в любой программе на компьютере. Здесь - на примере письма.</p>
+      <div class="demo" id="demo">
+        <div class="demo-bar"><span class="g-txt"></span>Письмо.txt - Блокнот</div>
+        <div class="demo-doc"><div class="para" id="demo-para"></div></div>
+        <div class="demo-step" id="demo-step"></div>
+        <div class="sheet" id="demo-sheet" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="ph-sec" aria-labelledby="feat-h">
+      <h2 id="feat-h">Всё под рукой, ничего лишнего</h2>
+      <p>Одна панель вместо пяти программ. Открывается сочетанием клавиш поверх любой программы и прячется, когда больше не нужна.</p>
+      <div class="bento">
+        <article class="tile wide c-purple">
+          <div class="fig" data-fig="larchik" data-play="1" data-label="Ларчик в разрезе: панель, шапка, карточки, островок"></div>
+          <h3>ИИ для выделенного текста</h3>
+          <p>Улучшить, сократить, исправить ошибки, деловой стиль и свои кнопки с любым заданием. В Word абзацы не склеиваются.</p>
+          <div class="keys"><span class="kc">Ctrl</span><span class="kc">Alt</span><span class="kc">A</span></div>
+        </article>
+        <article class="tile tint c-accent">
+          <span class="bubble"><i class="ph ph-translate"></i></span>
+          <h3>Переводчик</h3>
+          <p>Без ИИ и токенов. Перевод сразу встаёт на место исходного текста.</p>
+          <div class="keys"><span class="kc">Ctrl</span><span class="kc">Alt</span><span class="kc">Z</span></div>
+        </article>
+        <article class="tile tint c-teal">
+          <span class="bubble"><i class="ph ph-text-aa"></i></span>
+          <h3>Текст с экрана</h3>
+          <p>Обведи картинку, скан или видео - текст в буфере. Без интернета.</p>
+          <div class="keys"><span class="kc">Ctrl</span><span class="kc">Alt</span><span class="kc">S</span></div>
+        </article>
+        <article class="tile c-warning">
+          <div class="fig" data-fig="notepad" data-play="1" data-label="Тетрадь на спирали"></div>
+          <h3>Заметки</h3>
+          <p>Быстрая заметка в панели и большое окно для длинного текста. Обычные файлы .md.</p>
+        </article>
+        <article class="tile c-success">
+          <div class="fig" data-fig="vault" data-play="1" data-label="Дверь сейфа с наборным диском"></div>
+          <h3>Хранилище паролей</h3>
+          <p>Открывается отпечатком, лицом или ПИН-кодом через Windows Hello.</p>
+        </article>
+        <article class="tile wide c-accent">
+          <span class="bubble"><i class="ph ph-calculator"></i></span>
+          <h3>Калькулятор и валюты в строке ИИ</h3>
+          <p>Пиши как думаешь - ответ появляется сразу. Попробуй:</p>
+          <div class="calc-try"><input class="input" id="m-calc" value="15% от 84 000" aria-label="Пример для калькулятора" inputmode="text"></div>
+          <div class="calc-out" id="m-calc-out"></div>
+          <span class="muted" id="m-calc-cap"></span>
+        </article>
+        <article class="tile wide c-indigo">
+          <div class="fig" data-fig="drawer" data-play="1" data-label="Картотека, ящик выдвинут"></div>
+          <h3>Заготовки</h3>
+          <p>Напечатай 1д - и в любой программе появится сегодняшнее число. Адрес, реквизиты, ответы - в одно нажатие.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="ph-sec" aria-labelledby="ai-h">
+      <h2 id="ai-h">Подключи ИИ, который тебе подходит</h2>
+      <p>Ключ хранится только на твоём компьютере в зашифрованном виде. Без ИИ работают переводчик, текст с экрана, калькулятор, заметки и пароли.</p>
+      <div class="rail">
+        <a class="prov-card" href="ai.html#cloudru"><small>Россия</small><b>cloud.ru <span class="badge">Рекомендуем</span></b><p>GigaChat и другие модели под одним ключом. Хорошо пишет по-русски.</p><div class="price">Рубли · 100 ₽ хватает надолго</div></a>
+        <a class="prov-card" href="ai.html#yandex"><small>Россия</small><b>Алиса AI - Яндекс</b><p>Сильный русский язык, данные остаются в России.</p><div class="price">Рубли · стартовый грант новым аккаунтам</div></a>
+        <a class="prov-card" href="ai.html#deepseek"><small>Зарубежный</small><b>DeepSeek</b><p>Логика, код и подробные объяснения.</p><div class="price">Доллары · пары долларов хватает надолго</div></a>
+        <a class="prov-card" href="ai.html#local"><small>На компьютере</small><b>Ollama, LM Studio</b><p>Модель работает у тебя - текст никуда не уходит.</p><div class="price">Бесплатно · нужен мощный ПК</div></a>
+      </div>
+      <a class="btn" href="ai.html" style="height:44px;border-radius:14px">Где взять ключ - пошаговая инструкция</a>
+    </section>
+
+    <section class="ph-sec" aria-labelledby="data-h">
+      <h2 id="data-h">Честно о данных</h2>
+      <p>Программа видит буфер обмена и хранит пароли, поэтому вот полный список. Подробно - в <a href="privacy.html">политике конфиденциальности</a>.</p>
+      <div class="split">
+        <div class="card"><h3><span class="bubble c-success"><i class="ph ph-house-line"></i></span>Остаётся на компьютере</h3>
+          <ul class="ticks">
+            <li><i class="ph ph-check-circle"></i><span><b>Заметки, заготовки, настройки</b> - обычные файлы в твоей папке.</span></li>
+            <li><i class="ph ph-check-circle"></i><span><b>Пароли и ключи ИИ</b> зашифрованы Windows, на другом ПК бесполезны.</span></li>
+            <li><i class="ph ph-check-circle"></i><span><b>Текст с экрана</b> распознаётся без интернета.</span></li>
+            <li><i class="ph ph-check-circle"></i><span><b>Нет рекламы, аналитики и сбора статистики.</b></span></li>
+          </ul></div>
+        <div class="card"><h3><span class="bubble c-warning"><i class="ph ph-globe-simple"></i></span>Уходит в сеть, только когда ты этим пользуешься</h3>
+          <ul class="ticks out">
+            <li><i class="ph ph-arrow-circle-up-right"></i><span><b>Текст для ИИ</b> - в выбранный тобой сервис.</span></li>
+            <li><i class="ph ph-arrow-circle-up-right"></i><span><b>Текст для перевода</b> - в Google Translate (резерв - MyMemory) или в твой ИИ; только после твоего разрешения.</span></li>
+            <li><i class="ph ph-arrow-circle-up-right"></i><span><b>Курсы валют</b> - с сайта ЦБ РФ.</span></li>
+            <li><i class="ph ph-arrow-circle-up-right"></i><span><b>Номер последней версии</b> - раз в день с GitHub; выключается.</span></li>
+          </ul></div>
+      </div>
+    </section>
+
+    <section class="ph-sec" aria-labelledby="inst-h">
+      <h2 id="inst-h">Установка за минуту</h2>
       <ol class="steps">
-        <li><span><b>Скачай</b> <a href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Larchik-Setup.exe</a> и запусти.</span></li>
-        <li><span>Если появится синее окно <b>«Система Windows защитила ваш компьютер»</b> - нажми «Подробнее» → «Выполнить в любом случае».</span></li>
-        <li><span>Прими <a href="license.html">лицензионное соглашение</a>. Мастер первого запуска покажет сочетания клавиш и поможет подключить ИИ. Значок Larchik живёт в трее, рядом с часами.</span></li>
+        <li><span><b>Скачай</b> Larchik-Setup.exe на компьютере и запусти. Права администратора не нужны.</span></li>
+        <li><span>Если появится окно «Система Windows защитила ваш компьютер» - «Подробнее» → «Выполнить в любом случае». У программы пока нет платной цифровой подписи: это предупреждение о незнакомом издателе, а не об угрозе.</span></li>
+        <li><span>Мастер первого запуска покажет сочетания клавиш и поможет подключить ИИ. Значок Larchik живёт в трее, рядом с часами.</span></li>
       </ol>
-      <div class="note">
-        <span class="note-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4.5M12 17.2v.1"/></svg></span>
-        <div><b>Почему Windows предупреждает?</b>У Larchik пока нет платной цифровой подписи, а Windows
-          осторожна с новыми программами, пока их не скачают многие. Это предупреждение о незнакомом издателе, а не об угрозе.</div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="faq" class="faq-layout">
-    <div class="section-head stack">
-      <h2>Вопросы</h2>
-      <p class="sub">Не нашёл ответ - напиши нам, регистрироваться нигде не нужно.</p>
-      <a class="btn btn-secondary btn-small" href="feedback.html">Задать вопрос</a>
-    </div>
-    <div class="faq">
-      <details><summary>Это бесплатно?</summary>
-        <p>Да. Сам Larchik бесплатный. За ИИ платишь сервису напрямую и только за то, чем пользуешься: на cloud.ru 100 ₽ на GigaChat хватает на тысячи запросов, у Яндекса есть стартовый грант, а модель на своём компьютере бесплатна совсем. Цены и где их смотреть - в <a href="ai.html#price">инструкции</a>.</p></details>
-      <details><summary>Нужен ли VPN?</summary>
-        <p>Нет. cloud.ru и Алиса AI работают в России. Переводчик и текст с экрана тоже работают без VPN.</p>
-        <p><strong>Важно:</strong> DeepSeek требует VPN и оплату долларами.</p></details>
-      <details><summary>На каких компьютерах работает?</summary>
-        <p>На Windows 10 и 11 (64-бит). Для распознавания текста с экрана нужен языковой компонент Windows «Распознавание текста» - обычно он уже установлен.</p></details>
-      <details><summary>Как удалить?</summary>
-        <p>«Параметры → Приложения → Larchik → Удалить». В конце программа спросит, стирать ли заметки и пароли; по умолчанию они остаются.</p></details>
-      <details><summary>Нашёл ошибку или есть идея</summary>
-        <p>Расскажи нам через <a href="feedback.html">форму обратной связи</a> - это пара минут и без регистрации. Из самой программы: Настройки → «Сообщить о проблеме или предложить идею», тогда версия Larchik и Windows подставятся сами.</p></details>
-    </div>
-  </section>
+    <section class="ph-sec" id="faq" aria-labelledby="faq-h">
+      <h2 id="faq-h">Вопросы</h2>
+      <div class="faq" id="faq-list"></div>
+    </section>
 
-  <div class="card final stack">
-    <h2>Попробуй Larchik</h2>
-    <p class="sub">Бесплатно, без регистрации, ставится за минуту.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19.5h14"/></svg>
-        Скачать для Windows
-      </a>
-    </div>
-    <div class="meta"><span class="version">Последняя версия</span> · Windows 10 и 11</div>
-  </div>
-</main>
+    <section class="ph-sec" aria-labelledby="docs-h">
+      <h2 id="docs-h">Документы</h2>
+      <nav class="docs" aria-label="Документы">
+        <a href="ai.html"><span class="bubble c-purple"><i class="ph ph-key"></i></span>Как подключить ИИ<i class="ph ph-caret-right"></i></a>
+        <a href="license.html"><span class="bubble c-accent"><i class="ph ph-scroll"></i></span>Лицензионное соглашение<i class="ph ph-caret-right"></i></a>
+        <a href="privacy.html"><span class="bubble c-success"><i class="ph ph-shield-check"></i></span>Политика конфиденциальности<i class="ph ph-caret-right"></i></a>
+        <a href="feedback.html"><span class="bubble c-warning"><i class="ph ph-chat-circle-dots"></i></span>Обратная связь<i class="ph ph-caret-right"></i></a>
+        <a href="https://t.me/belartproduct" target="_blank" rel="noopener"><span class="bubble c-accent"><i class="ph ph-telegram-logo"></i></span>Канал Larchik в Telegram<i class="ph ph-caret-right"></i></a>
+        <a href="https://t.me/belartchat" target="_blank" rel="noopener"><span class="bubble c-accent"><i class="ph ph-chats-circle"></i></span>Чат: вопросы и идеи по темам<i class="ph ph-caret-right"></i></a>
+        <a href="https://github.com/belart16/larchik/releases"><span class="bubble c-indigo"><i class="ph ph-clock-counter-clockwise"></i></span>Все версии<i class="ph ph-caret-right"></i></a>
+      </nav>
+    </section>
 
-<footer>
-  <div class="wrap">
-    © Belart Product · Larchik - бесплатная программа для Windows
-    <nav aria-label="Документы">
-      <a href="ai.html">Как подключить ИИ</a>
-      <a href="license.html">Лицензионное соглашение</a>
-      <a href="privacy.html">Политика конфиденциальности</a>
-      <a href="https://github.com/belart16/larchik/releases">Все версии</a>
-      <a href="feedback.html">Обратная связь</a>
-    </nav>
-  </div>
-</footer>
+    <section class="ph-final">
+      <div class="fig c-accent" data-fig="laptop" data-play="1" data-label="Тонкий ноутбук, крышка открывается"></div>
+      <h2>Larchik - для компьютера</h2>
+      <p>Отправь ссылку себе - и открой сайт на Windows. Там можно попробовать всё на настоящем рабочем столе.</p>
+      <button class="btn primary" type="button" data-share><i class="ph ph-paper-plane-tilt"></i>Отправить ссылку на компьютер</button>
+    </section>
+  </main>
 
-<script>
-  // Latest version number; if GitHub doesn't answer, the generic text stays.
-  fetch("https://api.github.com/repos/belart16/larchik/releases/latest")
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (rel) {
-      if (!rel || !rel.tag_name) return;
-      var num = (rel.tag_name.match(/\d+(?:\.\d+)+/) || [])[0];
-      if (!num) return;
-      var v = "Версия " + num;
-      document.querySelectorAll(".version").forEach(function (el) { el.textContent = v; });
-    })
-    .catch(function () {});
-  // No screenshots uploaded yet - don't leave an empty block
-  window.addEventListener("load", function () {
-    var shots = document.getElementById("shots");
-    if (shots && !shots.querySelector("figure")) shots.remove();
-  });
-  // A thin line under the top bar once the page is scrolled
-  var nav = document.querySelector(".nav");
-  function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 4); }
-  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
-</script>
+  <footer class="ph-foot ph-wrap">© Belart Product · Larchik - бесплатная программа для Windows<br><a href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Скачать установщик</a></footer>
+  <div class="ph-toast" id="ph-toast" role="status"></div>
+</div>
+
+<script src="hairline.js" defer></script>
+<script src="desk.js" defer></script>
 </body>
 </html>
