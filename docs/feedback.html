@@ -42,7 +42,7 @@
   .form-alt { font-size: 14px; color: var(--text-3); margin: 0; }
   .empty { padding: 28px; text-align: center; color: var(--text-2); background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius); }
 
-  .community { margin-top: 48px; display: none; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  .community { margin-top: var(--head-gap); display: none; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
                padding: 24px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
   .community.show { display: flex; }
   .community-links { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -101,11 +101,10 @@
   <div class="community" id="community">
     <div>
       <b>Larchik в Telegram</b>
-      <p>Новости и новые версии - в канале. Вопросы и идеи - в чате, где у каждой темы своя ветка.</p>
+      <p>Новости, новые версии и подсказки, как пользоваться.</p>
     </div>
     <div class="community-links">
-      <a class="btn btn-primary btn-small" id="community-link" href="#" target="_blank" rel="noopener">Канал</a>
-      <a class="btn btn-secondary btn-small" id="community-chat" href="#" target="_blank" rel="noopener">Чат с темами</a>
+      <a class="btn btn-primary btn-small" id="community-link" href="#" target="_blank" rel="noopener">Открыть канал</a>
     </div>
   </div>
 </main>
@@ -139,8 +138,7 @@
       version: "answer_short_text_9008991259459200",
       windows: "answer_short_text_9008991259467052"
     },
-    telegram: "https://t.me/belartproduct",   // news channel
-    chat: "https://t.me/belartchat"           // chat with topics
+    telegram: "https://t.me/belartproduct"   // news channel
   };
   // ---------------------------------------------------------------------------
 
@@ -216,7 +214,6 @@
 
   if (CONFIG.telegram) {
     document.getElementById("community-link").href = CONFIG.telegram;
-    document.getElementById("community-chat").href = CONFIG.chat;
     document.getElementById("community").classList.add("show");
   }
   // A thin line under the top bar once the page is scrolled

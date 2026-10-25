@@ -61,7 +61,7 @@
     ["Это настоящий Larchik?", "Это демо в браузере: оно показывает, как устроена программа. Калькулятор, заметки, заготовки и переводчик здесь работают по-настоящему, а ИИ отвечает заготовленными текстами. Установленный Larchik работает в любой программе Windows с твоим ИИ."],
     ["Почему Windows предупреждает при установке?", "У Larchik пока нет платной цифровой подписи, а Windows осторожна с новыми программами. Нажми «Подробнее» → «Выполнить в любом случае». Это предупреждение о незнакомом издателе, а не об угрозе."],
     ["Как удалить?", "«Параметры → Приложения → Larchik → Удалить». В конце программа спросит, стирать ли заметки и пароли; по умолчанию они остаются."],
-    ["Нашёл ошибку или есть идея", "Расскажи через <a href=\"feedback.html\" data-open=\"feedback\">форму обратной связи</a> - пара минут и без регистрации - или спроси в <a href=\"https://t.me/belartchat\" target=\"_blank\" rel=\"noopener\">чате Larchik в Telegram</a>, там у каждой темы своя ветка. Из самой программы: Настройки → «Сообщить о проблеме или предложить идею»."]
+    ["Нашёл ошибку или есть идея", "Расскажи через <a href=\"feedback.html\" data-open=\"feedback\">форму обратной связи</a> - пара минут и без регистрации. Из самой программы: Настройки → «Сообщить о проблеме или предложить идею»."]
   ];
 
   var ANSWERS = [
@@ -308,7 +308,6 @@
     var EXTRA = {
       setup: { title: "Larchik-Setup.exe", big: function () { return '<span class="g-exe"><i class="ph-fill ph-download-simple"></i></span>'; }, run: function () { location.href = DL; toast("ph ph-download-simple", "accent", "Загрузка Larchik-Setup.exe", "Запусти файл, когда скачается. Права администратора не нужны"); } },
       tg: { title: "Larchik в Telegram", big: function () { return '<span class="g-web g-tg"><i class="ph-fill ph-telegram-logo"></i></span>'; }, run: function () { window.open("https://t.me/belartproduct", "_blank", "noopener"); } },
-      chat: { title: "Чат Larchik", big: function () { return '<span class="g-web g-tg"><i class="ph-fill ph-chats-circle"></i></span>'; }, run: function () { window.open("https://t.me/belartchat", "_blank", "noopener"); } },
       releases: { title: "Все версии", big: function () { return '<span class="g-web"><i class="ph-fill ph-globe"></i></span>'; }, run: function () { window.open("https://github.com/belart16/larchik/releases", "_blank", "noopener"); } }
     };
     function launch(id) { if (EXTRA[id]) EXTRA[id].run(); else openApp(id); }
@@ -614,7 +613,6 @@
         ["ph-shield-check", "success", "Политика конфиденциальности", "Что хранится и что уходит в сеть", { btn: "Открыть", open: "privacy" }],
         ["ph-chat-circle-dots", "warning", "Сообщить о проблеме или предложить идею", "Без регистрации", { btn: "Написать", open: "feedback" }],
         ["ph-telegram-logo", "accent", "Канал Larchik в Telegram", "Новости и новые версии", { btn: "Открыть", href: "https://t.me/belartproduct" }],
-        ["ph-chats-circle", "accent", "Чат Larchik", "Вопросы и идеи, у каждой темы своя ветка", { btn: "Открыть", href: "https://t.me/belartchat" }],
         ["ph-arrow-counter-clockwise", "danger", "Сбросить демо", "Заметки, заготовки и настройки этой страницы хранятся только в этом браузере", { btn: "Сбросить", reset: 1 }]]]
     ];
     function control(c) {
@@ -1325,8 +1323,7 @@
       ["notepad", "ph ph-notepad", "Попробуй Larchik.txt", "Недавно открытые"],
       ["photo", "ph ph-image", "Фото доски.jpg", "Для текста с экрана"],
       ["releases", "ph ph-clock-counter-clockwise", "Все версии и что нового", "GitHub"],
-      ["tg", "ph ph-telegram-logo", "Канал Larchik", "Новости в Telegram"],
-      ["chat", "ph ph-chats-circle", "Чат Larchik", "Вопросы и идеи по темам"]
+      ["tg", "ph ph-telegram-logo", "Канал Larchik", "Новости в Telegram"]
     ].map(function (r) { return '<button class="rec" type="button" data-id="' + r[0] + '"><span class="tb-ic"><i class="' + r[1] + '"></i></span><span><b>' + r[2] + "</b><small>" + r[3] + "</small></span></button>"; }).join("");
     renderPins("");
     function startOpen(focusSearch) {
