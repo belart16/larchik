@@ -850,3 +850,7 @@ details[open]::details-content { block-size: auto; }
 .g-web i, .g-exe i { display: block; }
 .g-tg .ph-telegram-logo { transform: translateX(.035em); }
 .g-exe .ph-download-simple { transform: translateY(.035em); }
+/* «Вставить в программу» waiting to be pressed: a soft ring, gone on hover */
+.btn.call { animation: call 1.6s var(--ease-out) infinite; }
+.btn.call:hover { animation: none; }
+@keyframes call { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 9px transparent; } }

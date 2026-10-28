@@ -929,6 +929,9 @@
         $("#ai-new").hidden = false;
         $("#a-foot").hidden = false;
         $("#a-insert").hidden = !ok;
+        // the last step is not obvious: say it, and make the button breathe until it is pressed
+        $("#a-insert").classList.toggle("call", ok);
+        if (ok && aiSrc && aiSrc.ta) coach("Готово. Нажми <b>«Вставить в программу»</b> - новый текст встанет в Блокнот вместо выделенного");
         $("#a-retry").hidden = !lastAct;
         if (demo) { $("#a-demo").hidden = false; $("#a-demo span").textContent = demo; }
       }, 650 + Math.random() * 350);
