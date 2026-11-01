@@ -176,7 +176,7 @@
   var darkQ = matchMedia("(prefers-color-scheme: dark)");
   function isDark() { var t = root.getAttribute("data-theme"); return t ? t === "dark" : darkQ.matches; }
   function themeChanged() {
-    var src = isDark() ? "img/larchik-dark.svg" : "img/larchik-light.svg";
+    var src = isDark() || root.classList.contains("is-phone") ? "img/larchik-dark.svg" : "img/larchik-light.svg";   // the phone page is always light: the dark mark stands out on it
     $$('img[src^="img/larchik-"]').forEach(function (i) { i.src = src; });
     var t = root.getAttribute("data-theme") || "system";
     $$(".js-theme").forEach(function (s) { s.value = t; });
@@ -203,6 +203,29 @@
       el.classList.add("fig");
       try { el._fig = make(el, { intensity: .5, label: el.dataset.label || undefined }); } catch (e) { return; }
       if (el.dataset.play && figObs) figObs.observe(el);
+      if (el.dataset.scroll) scrollFigs.push(el);
+    });
+    if (scrollFigs.length) { addEventListener("scroll", scrollFrame, { passive: true }); addEventListener("resize", scrollFrame); scrollFrame(); }
+  }
+  // phone: the page's scroll moves the pointer over a figure, so it opens as it rises up the screen and closes when scrolled back
+  var scrollFigs = [], scrollRaf = 0;
+  // each figure's own tour (hairline.js), from its edge of the 400x320 box, where the figure is at rest
+  var LAP = [[0, 132], [128, 150], [200, 118], [272, 150], [200, 206]];
+  var SCROLL_PATH = { casket: [[400, 314], [330, 260], [250, 200], [200, 150]], larchik: [[86, 320], [150, 230], [250, 170], [300, 110]],
+                      notepad: [[269, 320], [230, 230], [200, 170], [170, 120]], vault: LAP, drawer: LAP };
+  function scrollFrame() { if (!scrollRaf) scrollRaf = requestAnimationFrame(scrollFigsMove); }
+  function scrollFigsMove() {
+    scrollRaf = 0;
+    var vh = innerHeight;
+    scrollFigs.forEach(function (el) {
+      var r = el.getBoundingClientRect(), path = SCROLL_PATH[el.dataset.fig] || LAP;
+      if (r.bottom < 0 || r.top > vh) { if (el._on) { el._on = false; el.dispatchEvent(new PointerEvent("pointerleave", { pointerType: "mouse" })); } return; }
+      el._on = true;
+      // 0 as its middle comes up from the bottom edge, 1 once it is a third from the top: the whole path in between
+      var p = Math.min(1, Math.max(0, (vh - (r.top + r.height / 2)) / (vh * .66))) * (path.length - 1);
+      var i = Math.min(path.length - 2, Math.floor(p)), k = p - i, a = path[i], b = path[i + 1];
+      var x = a[0] + (b[0] - a[0]) * k, y = a[1] + (b[1] - a[1]) * k;
+      el.dispatchEvent(new PointerEvent("pointermove", { pointerType: "touch", clientX: r.left + x / 400 * r.width, clientY: r.top + y / 320 * r.height }));
     });
   }
 

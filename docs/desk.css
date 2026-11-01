@@ -86,7 +86,7 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; }
-body { font: 14px/1.45 var(--font); color: var(--os-text); background: #0b1630; -webkit-font-smoothing: antialiased; }
+body { font: 14px/1.45 var(--font); color: var(--os-text); background: #eff2f8; -webkit-font-smoothing: antialiased; }
 button, input, textarea, select { font: inherit; color: inherit; }
 button { cursor: pointer; }
 a { color: var(--accent); }
@@ -110,39 +110,10 @@ html.is-desk, html.is-desk body { height: 100%; overflow: hidden; }
    ====================================================================== */
 #desk { position: fixed; inset: 0; overflow: hidden; user-select: none; -webkit-user-select: none; }
 
-/* An original bloom in Larchik blue, in the spirit of Windows 11's (not its picture) */
-.wall { position: absolute; inset: 0; background: #dfe9fb; overflow: hidden; }
-.wall::before, .wall::after { content: ""; position: absolute; inset: -10%; pointer-events: none; }
-.wall::before {
-  background:
-    radial-gradient(42% 56% at 58% 62%, rgba(0,122,255,.55), transparent 70%),
-    radial-gradient(30% 40% at 46% 50%, rgba(88,86,214,.40), transparent 70%),
-    radial-gradient(36% 42% at 70% 40%, rgba(64,200,224,.35), transparent 70%),
-    radial-gradient(50% 50% at 18% 8%, rgba(255,255,255,.55), transparent 70%),
-    linear-gradient(160deg, #9fbdf0, #6f98e2 55%, #4c78d2);
-}
-.wall svg { position: absolute; left: 50%; top: 56%; width: min(1500px, 120vw); transform: translate(-50%, -50%); opacity: .85; }
-.wall .petal { fill: url(#petalLight); }
-:root[data-theme="dark"] .wall { background: #050b1c; }
-:root[data-theme="dark"] .wall::before {
-  background:
-    radial-gradient(40% 52% at 58% 62%, rgba(10,132,255,.55), transparent 70%),
-    radial-gradient(28% 40% at 46% 50%, rgba(94,92,230,.45), transparent 70%),
-    radial-gradient(34% 40% at 72% 40%, rgba(64,200,224,.22), transparent 70%),
-    linear-gradient(160deg, #0a1430, #060c20 60%, #03060f);
-}
-:root[data-theme="dark"] .wall .petal { fill: url(#petalDark); }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .wall { background: #050b1c; }
-  :root:not([data-theme="light"]) .wall::before {
-    background:
-      radial-gradient(40% 52% at 58% 62%, rgba(10,132,255,.55), transparent 70%),
-      radial-gradient(28% 40% at 46% 50%, rgba(94,92,230,.45), transparent 70%),
-      radial-gradient(34% 40% at 72% 40%, rgba(64,200,224,.22), transparent 70%),
-      linear-gradient(160deg, #0a1430, #060c20 60%, #03060f);
-  }
-  :root:not([data-theme="light"]) .wall .petal { fill: url(#petalDark); }
-}
+/* the wallpaper: blue liquid glass; a touch darker in the dark theme */
+.wall { position: absolute; inset: 0; background: #b9c3dc url(img/wallpaper.jpg) center 62% / cover no-repeat; }
+:root[data-theme="dark"] .wall { filter: brightness(.62) saturate(1.1); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .wall { filter: brightness(.62) saturate(1.1); } }
 
 /* desktop icons */
 .icons { position: absolute; left: 8px; top: 8px; bottom: 56px; display: grid; grid-auto-flow: column;
@@ -702,112 +673,188 @@ button.prov:hover { background: var(--card-hover); }
 /* ======================================================================
    Phone: a page of its own. Larchik is for Windows, so here it is told and
    tried with a finger, and the link is sent to the computer.
+   Always light, cool as the wallpaper, with air between the parts: big quiet
+   type, white cards, each part's figure on a tint of its colour (as in the app).
    ====================================================================== */
-#phone { background: var(--panel); color: var(--text); min-height: 100dvh; }
-.ph-top { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 10px; padding: 10px 16px; padding-top: max(10px, env(safe-area-inset-top));
-          background: color-mix(in srgb, var(--panel) 82%, transparent); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%);
-          border-bottom: 1px solid var(--card-line); }
-.ph-top img { width: 28px; height: 28px; }
-.ph-top b { flex: 1; font: 600 16px var(--display); }
-.ph-wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
-.ph-hero { padding: 12px 0 8px; display: flex; flex-direction: column; gap: 10px; }
-.ph-hero .fig { --plate: var(--panel); --c: var(--accent); width: 100%; max-width: 380px; margin: 0 auto -8px; }
-.ph-hero h1 { margin: 0; font: 700 clamp(28px, 8vw, 40px)/1.08 var(--display); letter-spacing: -.02em; text-wrap: balance; }
-.ph-hero p { margin: 0; color: var(--text-2); font-size: 16.5px; line-height: 1.5; text-wrap: pretty; }
-.ph-cta { display: grid; gap: 8px; margin-top: 8px; }
-.ph-cta .btn { height: 48px; font-size: 15.5px; border-radius: 14px; }
-.ph-meta { font-size: 13px; color: var(--text-3); text-align: center; }
-.ph-sec { padding: 44px 0 0; display: flex; flex-direction: column; gap: 14px; }
-.ph-sec h2 { margin: 0; font: 700 26px/1.15 var(--display); letter-spacing: -.015em; text-wrap: balance; }
-.ph-sec > p { margin: 0; color: var(--text-2); font-size: 15.5px; }
+#phone {
+  --g: 20px;
+  --font: "Inter Tight", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --display: var(--font);
+  --panel: #eff2f8; --ground-2: #e4e8f1; --ink: #121826;
+  --brand: linear-gradient(135deg, #5274ff, #2a42c4);          /* the logo's front, deeper so white type reads */
+  --brand-text: linear-gradient(90deg, #2f6bff, #7a5cff);
+  --card: #ffffff; --card-hover: #f8f9fc; --card-line: rgba(30,45,90,.08);
+  --control: rgba(30,45,90,.06); --control-hover: rgba(30,45,90,.11); --subtle: rgba(30,45,90,.035);
+  --thumb: #ffffff; --menu: #ffffff;
+  --text: #141a26; --text-2: #5a6274; --text-3: #8790a3;
+  --accent: #2f6bff; --accent-soft: rgba(47,107,255,.10);
+  --success: #34c759; --warning: #ff9500; --danger: #ff3b30; --purple: #af52de; --indigo: #5856d6; --teal: #30b0c7; --pink: #ff2d55;
+  --orb-1: #d3a0ee; --orb-2: #af52de; --orb-3: #8a2bc2;
+  --f-edge: #98a1b4; --f-mid: #c1c7d4; --f-lo: #dde1ea;
+  color-scheme: light;
+  font: 16px/1.5 var(--font); color: var(--text); background: var(--panel); min-height: 100dvh;
+}
+#phone a { color: var(--accent); }
+.ph-wrap { max-width: 640px; margin: 0 auto; padding: 0 max(var(--g), env(safe-area-inset-right)) 0 max(var(--g), env(safe-area-inset-left)); }
+
+.ph-top { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 12px; padding: 12px max(var(--g), calc((100% - 640px) / 2 + var(--g))); padding-top: max(12px, env(safe-area-inset-top));
+          background: color-mix(in srgb, var(--panel) 86%, transparent); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); }
+.ph-top img { width: 30px; height: 30px; }
+.ph-top b { flex: 1; font: 400 23px var(--display); letter-spacing: -.025em; }
+.ph-top-btn { height: 38px; padding: 0 16px; border-radius: 19px; border: 1px solid var(--card-line); background: var(--card); font-size: 14.5px; font-weight: 500; color: var(--text); white-space: nowrap; }
+.ph-top-btn:active { transform: scale(.97); }
+
+/* the hero: the desktop's wallpaper, text from the left, the island on top as on the screen */
+.ph-hero { margin-top: 6px; border-radius: 28px; overflow: hidden; padding: 24px 22px 28px; min-height: 600px; color: #fff;
+           display: flex; flex-direction: column; align-items: flex-start; gap: 18px;
+           background: linear-gradient(170deg, rgba(14,22,60,.74), rgba(14,22,60,.32) 58%, rgba(10,30,100,.06)), #6d86c4 url(img/wallpaper.jpg) 56% 100% / cover no-repeat; }
+.hero-island { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px 0 8px; border-radius: 19px; background: #000; font-size: 14.5px; font-weight: 500;
+               box-shadow: 0 8px 24px rgba(0,0,0,.28); }
+.hero-island img { width: 22px; height: 22px; }
+.hero-island small { margin-left: 2px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,.2); font-size: 13px; color: rgba(255,255,255,.6); }
+.ph-hero h1 { margin: 14px 0 0; font: 400 clamp(38px, 11vw, 54px)/1.03 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+.ph-hero h1 em, .ph-final h2 em { display: block; font-style: italic; font-weight: 300; color: #cfdcff; }
+.ph-hero p { margin: 0; font-size: 17px; line-height: 1.55; color: rgba(255,255,255,.9); text-wrap: pretty; }
+/* a shortcut in white type: three keys, as on the keyboard */
+.hk { display: inline-flex; gap: 3px; vertical-align: 1px; }
+.hk span { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 6px; font-size: 12.5px; font-weight: 500; line-height: 1;
+           background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.3); border-bottom-width: 2px; }
+.cta { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 56px; margin-top: auto; padding: 8px 20px; border: 0; border-radius: 16px;
+       background: var(--brand); color: #fff; font-size: 16.5px; font-weight: 500; box-shadow: 0 12px 30px rgba(40,70,220,.38), inset 0 1px 0 rgba(255,255,255,.28);
+       transition: transform .12s var(--ease-out); }
+.cta:active { transform: scale(.98); }
+.cta-ic { display: grid; font-size: 20px; }
+#phone .hero-try { display: inline-flex; align-items: center; gap: 8px; color: #fff; font-size: 15.5px; font-weight: 500; text-decoration: none; }
+.hero-meta { font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,.75); }
+
+/* sections: a chip with the section's icon, a big quiet title whose second half leans in the logo's blue */
+.ph-sec { padding-top: 76px; display: flex; flex-direction: column; gap: 16px; }
+.eyebrow { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px 0 10px; border-radius: 15px;
+           background: var(--accent-soft); color: var(--accent); font-size: 14px; font-weight: 500; }
+.eyebrow i { font-size: 16px; }
+.ph-sec h2 { margin: 0; font: 400 clamp(32px, 9vw, 42px)/1.08 var(--display); letter-spacing: -.03em; text-wrap: balance; }
+.ph-sec h2 em, .foot-epi em { font-style: italic; padding-right: .06em; background: var(--brand-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { margin: 0; font-size: 17px; line-height: 1.5; color: var(--text-2); text-wrap: pretty; }
+#phone .bubble { width: 36px; height: 36px; border-radius: 10px; font-size: 18px; }
+#phone .kc { height: 26px; min-width: 26px; padding: 0 7px; font: 500 12px var(--font); background: var(--control); color: var(--text-2); border-color: var(--card-line); }
+
+/* what it can do: white cards, the figure on a tint of the part's colour */
+.features { display: grid; gap: 14px; margin-top: 8px; }
+.feature { --inset: color-mix(in srgb, var(--c) 9%, #f6f8fc); padding: 10px 10px 24px; border-radius: 24px; background: var(--card); border: 1px solid var(--card-line); }
+.feature-art { border-radius: 16px; background: var(--inset); padding: 6px 0; overflow: hidden; }
+.feature-art .fig { --plate: var(--inset); width: 100%; max-width: 300px; margin: 0 auto; translate: 0 var(--lift, 0); }
+/* the drawings sit low in their box: lift them to the middle (measured at 300 px wide) */
+.feature-art .fig[data-fig="larchik"] { --lift: -15%; }
+.feature-art .fig[data-fig="notepad"] { --lift: -3%; }   /* its pages fan up when it opens: as much room above them then as below */
+.feature-art .fig[data-fig="casket"] { --lift: -5%; }
+.feature h3 { margin: 22px 14px 0; font: 400 26px/1.15 var(--display); letter-spacing: -.02em; }
+.feature p { margin: 10px 14px 0; font-size: 16px; color: var(--text-2); }
+.keys { display: flex; flex-wrap: wrap; gap: 4px; }
+.feature .keys { margin: 16px 14px 0; }
+.minis { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.mini { padding: 18px; border-radius: 24px; background: var(--card); border: 1px solid var(--card-line); display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.mini h3 { margin: 8px 0 0; font: 400 20px/1.2 var(--display); letter-spacing: -.015em; }
+.mini p { margin: 0; font-size: 14.5px; color: var(--text-2); }
+.mini .keys { margin-top: auto; padding-top: 6px; }
+.calc-try { display: flex; gap: 8px; margin-top: 6px; }
+.calc-try .input { height: 46px; font-size: 16px; border-radius: 12px; }
+.calc-out { font-size: 26px; font-weight: 500; letter-spacing: -.02em; min-height: 36px; font-variant-numeric: tabular-nums; }
+
+/* providers: the rail lines up with the page and a whole card moves at a time,
+   the gap as wide as the page's edge, so the one before goes fully off the screen */
+.rail { display: grid; grid-auto-flow: column; grid-auto-columns: 84%; gap: var(--g); overflow-x: auto; overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory; scroll-padding-inline: var(--g); margin: 8px calc(-1 * var(--g)) 0; padding: 0 var(--g) 4px; scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail > * { scroll-snap-align: start; }
+/* once the page stops growing, the rail ends where the page does */
+@media (min-width: 680px) { .rail { margin-inline: 0; padding-inline: 0; scroll-padding-inline: 0; } }
+#phone .prov-card { padding: 20px; border-radius: 24px; background: var(--card); border: 1px solid var(--card-line); display: flex; flex-direction: column; gap: 8px; color: inherit; text-decoration: none; }
+.prov-card small { font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
+.prov-card b { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font: 400 22px/1.2 var(--display); letter-spacing: -.02em; }
+.prov-card p { margin: 0; font-size: 15px; color: var(--text-2); }
+.prov-card .price { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--card-line); font-size: 14px; font-weight: 500; }
+#phone .ph-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 58px; padding: 0 20px; border-radius: 18px;
+                  background: var(--card); border: 1px solid var(--card-line); color: var(--text); text-decoration: none; font-size: 16px; font-weight: 500; }
+.ph-link i { color: var(--accent); font-size: 18px; }
+
+/* data: the title's icon and every point's icon in one column, the texts in another */
+.split { display: grid; gap: 14px; margin-top: 8px; }
+.split .card { padding: 20px; border-radius: 24px; }
+.split h3 { display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: center; margin: 0 0 18px; font: 500 18px/1.3 var(--display); letter-spacing: -.01em; }
+.ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.ticks li { display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start; font-size: 15.5px; line-height: 1.45; color: var(--text-2); }
+.ticks li i { justify-self: center; height: 1.45em; display: grid; place-items: center; font-size: 21px; color: var(--success); }
+.ticks.out li i { color: var(--warning); }
+.ticks b { color: var(--text); font-weight: 500; }
+
+/* install: numbered keys down a thin line */
+.steps { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 14px; counter-reset: s; position: relative; }
+.steps::before { content: ""; position: absolute; left: 39px; top: 40px; bottom: 40px; width: 2px; border-radius: 1px; background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.steps li { position: relative; counter-increment: s; display: grid; grid-template-columns: 40px 1fr; column-gap: 16px; padding: 20px; border-radius: 24px; background: var(--card); border: 1px solid var(--card-line); }
+.steps li::before { content: counter(s); grid-row: 1 / span 2; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--brand); color: #fff;
+                    font: 500 17px var(--font); box-shadow: inset 0 1px 0 rgba(255,255,255,.28); }
+.steps b { align-self: center; font: 400 22px/1.2 var(--display); letter-spacing: -.02em; }
+.steps p { grid-column: 2; margin: 6px 0 0; font-size: 15.5px; color: var(--text-2); }
+
+.faq { display: grid; gap: 10px; margin-top: 8px; }
+.faq details { border-radius: 20px; background: var(--card); border: 1px solid var(--card-line); }
+.faq summary { cursor: pointer; list-style: none; padding: 18px 20px; font-weight: 500; font-size: 16.5px; line-height: 1.35; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary i { color: var(--text-3); transition: transform .2s var(--ease-out); }
+.faq details[open] summary i { transform: rotate(180deg); }
+.faq details p { margin: 0; padding: 0 20px 18px; color: var(--text-2); font-size: 15.5px; }
+
+.docs { display: grid; gap: 1px; margin-top: 8px; border-radius: 24px; overflow: hidden; background: var(--card-line); border: 1px solid var(--card-line); }
+#phone .docs a { display: grid; grid-template-columns: 36px 1fr 16px; gap: 14px; align-items: center; padding: 14px 18px; background: var(--card); color: inherit; text-decoration: none; font-size: 16px; }
+.docs a i:last-child { color: var(--text-3); }
+.docs a:active { background: var(--card-hover); }
+
+/* the last call: the deep blue of the wallpaper */
+.ph-final { margin-top: 76px; padding: 40px 22px 30px; border-radius: 28px; color: #fff; display: flex; flex-direction: column; align-items: flex-start; gap: 18px;
+            background: linear-gradient(170deg, rgba(8,22,80,.20), rgba(8,22,80,.52)), #1a4fd0 url(img/wallpaper.jpg) 46% 92% / 290% auto no-repeat; }
+.ph-final h2 { margin: 0; font: 400 clamp(32px, 9vw, 42px)/1.08 var(--display); letter-spacing: -.03em; }
+.ph-final p { margin: 0; font-size: 16.5px; color: rgba(255,255,255,.88); }
+.ph-final .cta { background: #fff; color: var(--accent); box-shadow: 0 12px 30px rgba(5,15,60,.35); }
+
+/* footer: the mark, the fable it is named after, the links */
+.ph-foot { margin-top: 76px; padding: 40px 0 calc(28px + env(safe-area-inset-bottom)); background: var(--ground-2); }
+.foot-brand { display: flex; align-items: center; gap: 12px; }
+.foot-brand img { width: 40px; height: 40px; }
+.foot-brand b { display: block; font: 500 20px/1.2 var(--display); letter-spacing: -.02em; }
+.foot-brand small { font-size: 14px; color: var(--text-2); }
+.ph-foot .foot-epi { margin: 30px 0 10px; font: 400 32px/1.1 var(--display); letter-spacing: -.03em; color: var(--text); }
+.ph-foot p { margin: 0 0 26px; font-size: 16.5px; color: var(--text-2); }
+.foot-links { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; padding: 22px 0; border-top: 1px solid var(--card-line); border-bottom: 1px solid var(--card-line); }
+#phone .foot-links a { color: var(--text); text-decoration: none; font-size: 16px; }
+.foot-word { margin: 40px 0 8px; text-align: center; font: 500 clamp(84px, 27vw, 150px)/1 var(--display); letter-spacing: -.05em; color: rgba(30,45,90,.07); user-select: none; overflow: hidden; }
+.foot-copy { margin-top: 22px; font-size: 14px; color: var(--text-2); }
+#phone .foot-copy a { color: var(--text-2); }
 
 /* the try-it demo */
-.demo { border-radius: 22px; background: var(--card); border: 1px solid var(--card-line); overflow: hidden; position: relative; }
-.demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--card-line); font-size: 12.5px; color: var(--text-2); }
+.demo { margin-top: 8px; border-radius: 24px; background: var(--card); border: 1px solid var(--card-line); overflow: hidden; position: relative; }
+.demo-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--card-line); font-size: 13px; color: var(--text-2); }
 .demo-bar .g-txt { transform: scale(.36); margin: -14px -12px; }
-.demo-doc { padding: 16px; font-size: 15.5px; line-height: 1.6; min-height: 150px; }
+.demo-doc { padding: 18px 16px; font-size: 16px; line-height: 1.6; min-height: 150px; }
 .demo-doc .para { border-radius: 6px; transition: background-color .2s, color .2s; padding: 2px 0; }
 .demo-doc .para.sel { background: #0067c0; color: #fff; box-shadow: 0 0 0 3px #0067c0; }
 .demo-doc .para.new { animation: newText 1.4s var(--ease-out); }
 @keyframes newText { from { background: color-mix(in srgb, var(--success) 35%, transparent); } }
-.demo-step { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-top: 1px solid var(--card-line); background: var(--subtle); font-size: 14px; min-height: 58px; }
-.demo-step .n { width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+.demo-step { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--card-line); background: var(--subtle); font-size: 15px; min-height: 60px; }
+.demo-step .n { width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 600; }
 .demo-step .grow { line-height: 1.35; }
 .keybtn { display: flex; gap: 4px; padding: 6px; border-radius: 12px; border: 0; background: var(--accent-soft); }
-.keybtn .kc { height: 30px; min-width: 34px; font-size: 12px; background: var(--card-hover); border-color: var(--card-line); color: var(--text); }
+#phone .keybtn .kc { height: 30px; min-width: 34px; background: var(--card); color: var(--text); border-bottom-width: 2px; }
 .keybtn:active .kc { transform: translateY(1px); border-bottom-width: 1px; }
 /* the panel comes up under the text, the way it opens over a program */
-.sheet { display: none; background: var(--panel); border-radius: 20px 20px 0 0; padding: 14px 14px 16px; box-shadow: 0 -10px 30px rgba(0,0,0,.18); border-top: 1px solid var(--card-line); }
+.sheet { display: none; background: var(--panel); border-radius: 20px 20px 0 0; padding: 14px 14px 16px; box-shadow: 0 -10px 30px rgba(30,45,90,.12); border-top: 1px solid var(--card-line); }
 .sheet.on { display: block; animation: sheetIn .32s var(--ease-out); }
 @keyframes sheetIn { from { opacity: 0; transform: translateY(24px); } }
 .sheet .grab { width: 36px; height: 4px; border-radius: 2px; background: var(--control-hover); margin: 0 auto 12px; }
-.sheet .chip { height: 34px; padding: 0 14px; font-size: 13.5px; border-radius: 17px; }
+.sheet .chip { height: 36px; padding: 0 14px; font-size: 14px; border-radius: 18px; }
 
-/* bento of what it can do */
-.bento { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.tile { border-radius: 20px; padding: 16px; background: var(--card); border: 1px solid var(--card-line); display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.tile.wide { grid-column: 1 / -1; }
-.tile .fig { --plate: color-mix(in srgb, var(--card) 100%, var(--panel)); margin: -8px -8px 0; }
-.tile.wide .fig { width: 100%; max-width: 280px; margin: -8px auto 0; }
-.ph-hero .fig { max-width: 300px; }
-.ph-final .fig { width: 100%; max-width: 240px; margin: 0 auto -10px; --plate: var(--card); }
-.tile h3 { margin: 4px 0 0; font: 600 16.5px/1.25 var(--display); }
-.tile p { margin: 0; font-size: 14px; color: var(--text-2); }
-.tile .keys { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; }
-.tile .kc { height: 24px; font-size: 11.5px; background: var(--control); color: var(--text-2); border-color: var(--card-line); }
-.tile.tint { background: linear-gradient(160deg, color-mix(in srgb, var(--c) 18%, var(--card)), var(--card)); }
-.calc-try { display: flex; gap: 8px; margin-top: 6px; }
-.calc-try .input { height: 40px; font-size: 15px; }
-.calc-out { font-size: 22px; font-weight: 600; min-height: 32px; font-variant-numeric: tabular-nums; }
-
-/* providers: horizontal scroll-snap */
-.rail { display: grid; grid-auto-flow: column; grid-auto-columns: 78%; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 0 16px 6px; scrollbar-width: none; }
-.rail::-webkit-scrollbar { display: none; }
-.rail > * { scroll-snap-align: start; }
-.prov-card { border-radius: 20px; padding: 16px; background: var(--card); border: 1px solid var(--card-line); display: flex; flex-direction: column; gap: 6px; color: inherit; text-decoration: none; }
-.prov-card small { font-size: 11.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--text-3); }
-.prov-card b { font: 600 17px var(--display); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.prov-card p { margin: 0; font-size: 14px; color: var(--text-2); }
-.prov-card .price { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--card-line); font-size: 13.5px; font-weight: 600; }
-
-.split { display: grid; gap: 10px; }
-.split .card { border-radius: 20px; }
-.split h3 { margin: 0 0 10px; font: 600 16px var(--display); display: flex; gap: 8px; align-items: center; }
-.ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
-.ticks li { display: grid; grid-template-columns: 20px 1fr; gap: 8px; font-size: 14.5px; color: var(--text-2); }
-.ticks li i { color: var(--success); font-size: 18px; }
-.ticks.out li i { color: var(--warning); }
-.ticks b { color: var(--text); font-weight: 600; }
-
-.faq { display: grid; gap: 8px; }
-.faq details { border-radius: 16px; background: var(--card); border: 1px solid var(--card-line); }
-.faq summary { cursor: pointer; list-style: none; padding: 15px 16px; font-weight: 600; font-size: 15.5px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary i { color: var(--text-3); transition: transform .2s var(--ease-out); }
-.faq details[open] summary i { transform: rotate(180deg); }
-.faq details p { margin: 0; padding: 0 16px 15px; color: var(--text-2); font-size: 14.5px; }
-
-.docs { display: grid; gap: 1px; border-radius: 16px; overflow: hidden; background: var(--card-line); border: 1px solid var(--card-line); }
-.docs a { display: grid; grid-template-columns: 28px 1fr 16px; gap: 12px; align-items: center; padding: 13px 14px; background: var(--card); color: inherit; text-decoration: none; font-size: 15px; }
-.docs a i:last-child { color: var(--text-3); }
-.docs a:active { background: var(--card-hover); }
-.ph-final { margin: 44px 0 0; border-radius: 24px; padding: 24px 18px; text-align: center; display: grid; gap: 10px;
-            background: linear-gradient(170deg, color-mix(in srgb, var(--accent) 22%, var(--card)), var(--card)); border: 1px solid var(--card-line); }
-.ph-final h2 { margin: 0; font: 700 24px var(--display); }
-.ph-final p { margin: 0; color: var(--text-2); }
-.ph-final .btn { height: 48px; font-size: 15.5px; border-radius: 14px; }
-.ph-foot { padding: 28px 0 calc(28px + env(safe-area-inset-bottom)); font-size: 12.5px; color: var(--text-3); text-align: center; }
-.ph-foot a { color: var(--text-2); }
 .ph-toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 20; transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
-            padding: 10px 16px; border-radius: 14px; background: var(--text); color: var(--panel); font-size: 14px; transition: opacity .2s, transform .25s var(--ease-out); }
+            padding: 12px 18px; border-radius: 14px; background: var(--ink); color: #fff; font-size: 15px; transition: opacity .2s, transform .25s var(--ease-out); }
 .ph-toast.on { opacity: 1; transform: translate(-50%, 0); }
-
-/* phone page bits that the desktop no longer shares */
-.epi { font-size: 13px; color: var(--text-2); font-style: italic; }
-.steps { margin: 10px 0 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 10px; }
-.steps li { counter-increment: s; display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; font-size: 15px; color: var(--text-2); }
-.steps li::before { content: counter(s); width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; }
-.steps b { color: var(--text); }
 
 /* the welcome dialog is as tall as its step, like WelcomeWindow (SizeToContent) */
 .win.dialog { height: auto !important; }

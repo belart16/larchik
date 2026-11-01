@@ -3,18 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Larchik - ИИ, переводчик и текст с экрана в любой программе Windows</title>
-<meta name="description" content="Бесплатная панель для Windows: улучшить, сократить или перевести выделенный текст в любой программе, распознать текст с экрана, заметки и пароли. Попробуй прямо в браузере. Работает с GigaChat и Алисой AI без VPN.">
+<title>Larchik - ИИ, заметки и пароли в одно нажатие из любой программы Windows</title>
+<meta name="description" content="Бесплатная панель для Windows: ИИ для выделенного текста в любой программе, заметки, пароли, переводчик и заготовки. Попробуй прямо в браузере. Работает с GigaChat и Алисой AI без VPN.">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#eff2f8">
 <link rel="canonical" href="https://belart16.github.io/larchik/">
 <link rel="icon" type="image/png" href="img/icon.png">
 <link rel="apple-touch-icon" href="img/icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Larchik">
 <meta property="og:url" content="https://belart16.github.io/larchik/">
-<meta property="og:title" content="Larchik - ИИ в любой программе Windows">
+<meta property="og:title" content="Larchik - ИИ, заметки и пароли в любой программе Windows">
 <meta property="og:description" content="Выдели текст, нажми Ctrl+Alt+A - и исправь, сократи или переведи его прямо на месте. Попробуй прямо в браузере.">
 <meta property="og:image" content="https://belart16.github.io/larchik/img/icon.png">
 <script>
@@ -26,6 +25,7 @@
   })();
 </script>
 <link rel="stylesheet" href="vendor/phosphor/icons.css">
+<link rel="stylesheet" href="vendor/inter-tight/font.css">
 <link rel="stylesheet" href="desk.css">
 </head>
 <body>
@@ -34,21 +34,7 @@
      Desktop: Windows 11 with Larchik in the tray. Built up by desk.js.
      ===================================================================== -->
 <div id="desk" aria-label="Рабочий стол с Larchik">
-  <div class="wall" aria-hidden="true">
-    <svg viewBox="0 0 1200 800">
-      <defs>
-        <radialGradient id="petalLight" cx="50%" cy="80%" r="80%"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset=".45" stop-color="#7fb4ff" stop-opacity=".55"/><stop offset="1" stop-color="#2f6fe0" stop-opacity="0"/></radialGradient>
-        <radialGradient id="petalDark" cx="50%" cy="80%" r="80%"><stop offset="0" stop-color="#9cc8ff" stop-opacity=".75"/><stop offset=".45" stop-color="#2f6fe0" stop-opacity=".45"/><stop offset="1" stop-color="#0a2a6e" stop-opacity="0"/></radialGradient>
-      </defs>
-      <g transform="translate(600 470)">
-        <path class="petal" d="M0 0 C -60 -120 -40 -260 0 -330 C 40 -260 60 -120 0 0Z" transform="rotate(-62)"/>
-        <path class="petal" d="M0 0 C -70 -130 -50 -280 0 -360 C 50 -280 70 -130 0 0Z" transform="rotate(-31)"/>
-        <path class="petal" d="M0 0 C -80 -140 -56 -300 0 -390 C 56 -300 80 -140 0 0Z"/>
-        <path class="petal" d="M0 0 C -70 -130 -50 -280 0 -360 C 50 -280 70 -130 0 0Z" transform="rotate(31)"/>
-        <path class="petal" d="M0 0 C -60 -120 -40 -260 0 -330 C 40 -260 60 -120 0 0Z" transform="rotate(62)"/>
-      </g>
-    </svg>
-  </div>
+  <div class="wall" aria-hidden="true"></div>
 
   <div class="icons" id="icons" role="listbox" aria-label="Значки рабочего стола"></div>
   <div id="windows"></div>
@@ -309,27 +295,25 @@
      ===================================================================== -->
 <div id="phone" class="lk">
   <header class="ph-top">
-    <img src="img/larchik-dark.svg" alt="" width="28" height="28">
+    <img src="img/larchik-dark.svg" alt="" width="30" height="30">
     <b>Larchik</b>
-    <button class="btn" type="button" data-share>На компьютер</button>
+    <button class="ph-top-btn" type="button" data-share>На компьютер</button>
   </header>
 
   <main class="ph-wrap">
     <section class="ph-hero">
-      <div class="fig" data-fig="casket" data-play="1" data-label="Ларчик: шкатулка, крышка открывается навстречу"></div>
-      <span class="epi">А ларчик просто открывался</span>
-      <h1>ИИ, переводчик и текст с экрана в любой программе Windows</h1>
-      <p>Выдели текст в Word, браузере или почте, нажми Ctrl + Alt + A - и исправь, сократи или переведи его прямо на месте.</p>
-      <div class="ph-cta">
-        <button class="btn primary" type="button" data-share><i class="ph ph-paper-plane-tilt"></i>Отправить ссылку на компьютер</button>
-        <a class="btn" href="#try">Попробовать здесь</a>
-      </div>
-      <div class="ph-meta">Бесплатно · Windows 10 и 11 · <span class="version">последняя версия</span></div>
+      <span class="hero-island"><img src="img/larchik-dark.svg" alt="" width="22" height="22">Larchik<small>Windows 10 и 11</small></span>
+      <h1>ИИ, заметки и пароли. <em>В одно нажатие.</em></h1>
+      <p>Выдели текст в Word, браузере или почте, нажми <span class="hk"><span>Ctrl</span><span>Alt</span><span>A</span></span> - и исправь, сократи или переведи его прямо на месте.</p>
+      <button class="cta" type="button" data-share><span class="cta-ic"><i class="ph ph-paper-plane-tilt"></i></span>Отправить на компьютер</button>
+      <a class="hero-try" href="#try">Попробовать прямо здесь<i class="ph ph-arrow-down"></i></a>
+      <div class="hero-meta">Бесплатно, без рекламы и подписок · <span class="version">последняя версия</span></div>
     </section>
 
     <section class="ph-sec" id="try" aria-labelledby="try-h">
-      <h2 id="try-h">Попробуй пальцем</h2>
-      <p>Так Larchik работает в любой программе на компьютере. Здесь - на примере письма.</p>
+      <span class="eyebrow"><i class="ph ph-hand-pointing"></i>Попробуй</span>
+      <h2 id="try-h">Выдели, нажми, <em>готово.</em></h2>
+      <p class="lead">Так Larchik работает в любой программе на компьютере. Здесь - на примере письма.</p>
       <div class="demo" id="demo">
         <div class="demo-bar"><span class="g-txt"></span>Письмо.txt - Блокнот</div>
         <div class="demo-doc"><div class="para" id="demo-para"></div></div>
@@ -339,38 +323,53 @@
     </section>
 
     <section class="ph-sec" aria-labelledby="feat-h">
-      <h2 id="feat-h">Всё под рукой, ничего лишнего</h2>
-      <p>Одна панель вместо пяти программ. Открывается сочетанием клавиш поверх любой программы и прячется, когда больше не нужна.</p>
-      <div class="bento">
-        <article class="tile wide c-purple">
-          <div class="fig" data-fig="larchik" data-play="1" data-label="Ларчик в разрезе: панель, шапка, карточки, островок"></div>
+      <span class="eyebrow"><i class="ph ph-sparkle"></i>Почему Larchik</span>
+      <h2 id="feat-h">Всё нужное под рукой. <em>Ничего лишнего.</em></h2>
+      <p class="lead">Одна панель вместо пяти программ. Открывается сочетанием клавиш поверх любой программы и прячется, когда больше не нужна.</p>
+      <div class="features">
+        <article class="feature c-accent">
+          <div class="feature-art"><div class="fig" data-fig="casket" data-scroll="1" data-label="Ларчик: шкатулка, крышка открывается навстречу"></div></div>
+          <h3>А ларчик просто открывался</h3>
+          <p>Одно сочетание - и панель уже над программой, в которой ты работаешь. Сделал дело - она прячется.</p>
+          <div class="keys"><span class="kc">Ctrl</span><span class="kc">Shift</span><span class="kc">Space</span></div>
+        </article>
+        <article class="feature c-purple">
+          <div class="feature-art"><div class="fig" data-fig="larchik" data-scroll="1" data-label="Ларчик в разрезе: панель, шапка, карточки, островок"></div></div>
           <h3>ИИ для выделенного текста</h3>
           <p>Улучшить, сократить, исправить ошибки, деловой стиль и свои кнопки с любым заданием. В Word абзацы не склеиваются.</p>
           <div class="keys"><span class="kc">Ctrl</span><span class="kc">Alt</span><span class="kc">A</span></div>
         </article>
-        <article class="tile tint c-accent">
-          <span class="bubble"><i class="ph ph-translate"></i></span>
-          <h3>Переводчик</h3>
-          <p>Без ИИ и токенов. Перевод сразу встаёт на место исходного текста.</p>
-          <div class="keys"><span class="kc">Ctrl</span><span class="kc">Alt</span><span class="kc">Z</span></div>
-        </article>
-        <article class="tile tint c-teal">
-          <span class="bubble"><i class="ph ph-text-aa"></i></span>
-          <h3>Текст с экрана</h3>
-          <p>Обведи картинку, скан или видео - текст в буфере. Без интернета.</p>
-          <div class="keys"><span class="kc">Ctrl</span><span class="kc">Alt</span><span class="kc">S</span></div>
-        </article>
-        <article class="tile c-warning">
-          <div class="fig" data-fig="notepad" data-play="1" data-label="Тетрадь на спирали"></div>
+        <article class="feature c-warning">
+          <div class="feature-art"><div class="fig" data-fig="notepad" data-scroll="1" data-label="Тетрадь на спирали"></div></div>
           <h3>Заметки</h3>
-          <p>Быстрая заметка в панели и большое окно для длинного текста. Обычные файлы .md.</p>
+          <p>Быстрая заметка прямо в панели и большое окно для длинного текста. Выделенное - в заметку одним сочетанием. Обычные файлы .md.</p>
+          <div class="keys"><span class="kc">Ctrl</span><span class="kc">Alt</span><span class="kc">D</span></div>
         </article>
-        <article class="tile c-success">
-          <div class="fig" data-fig="vault" data-play="1" data-label="Дверь сейфа с наборным диском"></div>
+        <article class="feature c-success">
+          <div class="feature-art"><div class="fig" data-fig="vault" data-scroll="1" data-label="Дверь сейфа с наборным диском"></div></div>
           <h3>Хранилище паролей</h3>
-          <p>Открывается отпечатком, лицом или ПИН-кодом через Windows Hello.</p>
+          <p>Открывается отпечатком, лицом или ПИН-кодом через Windows Hello. Закрывается само после простоя и при блокировке ПК.</p>
         </article>
-        <article class="tile wide c-accent">
+        <article class="feature c-indigo">
+          <div class="feature-art"><div class="fig" data-fig="drawer" data-scroll="1" data-label="Картотека, ящик выдвинут"></div></div>
+          <h3>Заготовки</h3>
+          <p>Напечатай 1д - и в любой программе появится сегодняшнее число. Адрес, реквизиты, ответы - в одно нажатие.</p>
+        </article>
+        <div class="minis">
+          <article class="mini c-accent">
+            <span class="bubble"><i class="ph ph-translate"></i></span>
+            <h3>Переводчик</h3>
+            <p>Без ИИ и токенов. Перевод встаёт на место исходного текста.</p>
+            <div class="keys"><span class="kc">Ctrl</span><span class="kc">Alt</span><span class="kc">Z</span></div>
+          </article>
+          <article class="mini c-teal">
+            <span class="bubble"><i class="ph ph-text-aa"></i></span>
+            <h3>Текст с экрана</h3>
+            <p>Обведи картинку, скан или видео - текст в буфере. Без интернета.</p>
+            <div class="keys"><span class="kc">Ctrl</span><span class="kc">Alt</span><span class="kc">S</span></div>
+          </article>
+        </div>
+        <article class="mini calc-tile c-accent">
           <span class="bubble"><i class="ph ph-calculator"></i></span>
           <h3>Калькулятор и валюты в строке ИИ</h3>
           <p>Пиши как думаешь - ответ появляется сразу. Попробуй:</p>
@@ -378,29 +377,26 @@
           <div class="calc-out" id="m-calc-out"></div>
           <span class="muted" id="m-calc-cap"></span>
         </article>
-        <article class="tile wide c-indigo">
-          <div class="fig" data-fig="drawer" data-play="1" data-label="Картотека, ящик выдвинут"></div>
-          <h3>Заготовки</h3>
-          <p>Напечатай 1д - и в любой программе появится сегодняшнее число. Адрес, реквизиты, ответы - в одно нажатие.</p>
-        </article>
       </div>
     </section>
 
     <section class="ph-sec" aria-labelledby="ai-h">
-      <h2 id="ai-h">Подключи ИИ, который тебе подходит</h2>
-      <p>Ключ хранится только на твоём компьютере в зашифрованном виде. Без ИИ работают переводчик, текст с экрана, калькулятор, заметки и пароли.</p>
+      <span class="eyebrow"><i class="ph ph-key"></i>Свой ИИ</span>
+      <h2 id="ai-h">Подключи ИИ, <em>который тебе подходит.</em></h2>
+      <p class="lead">Ключ хранится только на твоём компьютере в зашифрованном виде. Без ИИ работают заметки, пароли, переводчик, калькулятор и текст с экрана.</p>
       <div class="rail">
         <a class="prov-card" href="ai.html#cloudru"><small>Россия</small><b>cloud.ru <span class="badge">Рекомендуем</span></b><p>GigaChat и другие модели под одним ключом. Хорошо пишет по-русски.</p><div class="price">Рубли · 100 ₽ хватает надолго</div></a>
         <a class="prov-card" href="ai.html#yandex"><small>Россия</small><b>Алиса AI - Яндекс</b><p>Сильный русский язык, данные остаются в России.</p><div class="price">Рубли · стартовый грант новым аккаунтам</div></a>
         <a class="prov-card" href="ai.html#deepseek"><small>Зарубежный</small><b>DeepSeek</b><p>Логика, код и подробные объяснения.</p><div class="price">Доллары · пары долларов хватает надолго</div></a>
         <a class="prov-card" href="ai.html#local"><small>На компьютере</small><b>Ollama, LM Studio</b><p>Модель работает у тебя - текст никуда не уходит.</p><div class="price">Бесплатно · нужен мощный ПК</div></a>
       </div>
-      <a class="btn" href="ai.html" style="height:44px;border-radius:14px">Где взять ключ - пошаговая инструкция</a>
+      <a class="ph-link" href="ai.html">Где взять ключ<i class="ph ph-arrow-right"></i></a>
     </section>
 
     <section class="ph-sec" aria-labelledby="data-h">
-      <h2 id="data-h">Честно о данных</h2>
-      <p>Программа видит буфер обмена и хранит пароли, поэтому вот полный список. Подробно - в <a href="privacy.html">политике конфиденциальности</a>.</p>
+      <span class="eyebrow"><i class="ph ph-shield-check"></i>Данные</span>
+      <h2 id="data-h">Честно о данных. <em>Полный список.</em></h2>
+      <p class="lead">Программа видит буфер обмена и хранит пароли, поэтому рассказываем всё. Подробно - в <a href="privacy.html">политике конфиденциальности</a>.</p>
       <div class="split">
         <div class="card"><h3><span class="bubble c-success"><i class="ph ph-house-line"></i></span>Остаётся на компьютере</h3>
           <ul class="ticks">
@@ -420,21 +416,24 @@
     </section>
 
     <section class="ph-sec" aria-labelledby="inst-h">
-      <h2 id="inst-h">Установка за минуту</h2>
+      <span class="eyebrow"><i class="ph ph-download-simple"></i>Установка</span>
+      <h2 id="inst-h">Минута - <em>и всё работает.</em></h2>
       <ol class="steps">
-        <li><span><b>Скачай</b> Larchik-Setup.exe на компьютере и запусти. Права администратора не нужны.</span></li>
-        <li><span>Если появится окно «Система Windows защитила ваш компьютер» - «Подробнее» → «Выполнить в любом случае». У программы пока нет платной цифровой подписи: это предупреждение о незнакомом издателе, а не об угрозе.</span></li>
-        <li><span>Мастер первого запуска покажет сочетания клавиш и поможет подключить ИИ. Значок Larchik живёт в трее, рядом с часами.</span></li>
+        <li><b>Скачай и запусти</b><p>Larchik-Setup.exe - на компьютере. Права администратора не нужны.</p></li>
+        <li><b>Если Windows предупредит</b><p>В окне «Система Windows защитила ваш компьютер» - «Подробнее» → «Выполнить в любом случае». У программы пока нет платной цифровой подписи: это предупреждение о незнакомом издателе, а не об угрозе.</p></li>
+        <li><b>Познакомься</b><p>Мастер первого запуска покажет сочетания клавиш и поможет подключить ИИ. Значок Larchik живёт в трее, рядом с часами.</p></li>
       </ol>
     </section>
 
     <section class="ph-sec" id="faq" aria-labelledby="faq-h">
-      <h2 id="faq-h">Вопросы</h2>
+      <span class="eyebrow"><i class="ph ph-question"></i>Вопросы</span>
+      <h2 id="faq-h">Коротко <em>о главном.</em></h2>
       <div class="faq" id="faq-list"></div>
     </section>
 
     <section class="ph-sec" aria-labelledby="docs-h">
-      <h2 id="docs-h">Документы</h2>
+      <span class="eyebrow"><i class="ph ph-files"></i>Документы</span>
+      <h2 id="docs-h">Всё <em>на виду.</em></h2>
       <nav class="docs" aria-label="Документы">
         <a href="ai.html"><span class="bubble c-purple"><i class="ph ph-key"></i></span>Как подключить ИИ<i class="ph ph-caret-right"></i></a>
         <a href="license.html"><span class="bubble c-accent"><i class="ph ph-scroll"></i></span>Лицензионное соглашение<i class="ph ph-caret-right"></i></a>
@@ -446,14 +445,26 @@
     </section>
 
     <section class="ph-final">
-      <div class="fig c-accent" data-fig="laptop" data-play="1" data-label="Тонкий ноутбук, крышка открывается"></div>
-      <h2>Larchik - для компьютера</h2>
-      <p>Отправь ссылку себе - и открой сайт на Windows. Там можно попробовать всё на настоящем рабочем столе.</p>
-      <button class="btn primary" type="button" data-share><i class="ph ph-paper-plane-tilt"></i>Отправить ссылку на компьютер</button>
+      <h2>Larchik - <em>для компьютера.</em></h2>
+      <p>Отправь ссылку себе и открой сайт на Windows: там можно попробовать всё на настоящем рабочем столе.</p>
+      <button class="cta" type="button" data-share><span class="cta-ic"><i class="ph ph-paper-plane-tilt"></i></span>Отправить на компьютер</button>
+      <div class="hero-meta">Бесплатно · Windows 10 и 11</div>
     </section>
   </main>
 
-  <footer class="ph-foot ph-wrap">© Belart Product · Larchik - бесплатная программа для Windows<br><a href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Скачать установщик</a></footer>
+  <footer class="ph-foot">
+    <div class="ph-wrap">
+      <div class="foot-brand"><img src="img/larchik-dark.svg" alt="" width="40" height="40"><div><b>Larchik</b><small>Панель для Windows 10 и 11</small></div></div>
+      <p class="foot-epi">А ларчик <em>просто открывался.</em></p>
+      <p>ИИ, заметки, пароли и переводчик - в одном нажатии от любой программы.</p>
+      <nav class="foot-links" aria-label="Ссылки">
+        <a href="#try">Попробовать</a><a href="https://github.com/belart16/larchik/releases/latest/download/Larchik-Setup.exe">Скачать установщик</a>
+        <a href="feedback.html">Обратная связь</a><a href="https://t.me/belartproduct" target="_blank" rel="noopener">Telegram</a>
+      </nav>
+      <div class="foot-word" aria-hidden="true">Larchik</div>
+      <div class="foot-copy">© Belart Product · <a href="privacy.html">Конфиденциальность</a> · <a href="license.html">Лицензия</a></div>
+    </div>
+  </footer>
   <div class="ph-toast" id="ph-toast" role="status"></div>
 </div>
 
