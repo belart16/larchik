@@ -578,7 +578,6 @@
     function applyPrefs() {
       desk.classList.toggle("glass", prefs.glass);
       root.classList.toggle("no-anim", !prefs.anim);
-      $("#panel").classList.toggle("dense", prefs.dense);
       ["tr", "snip", "vault", "pick"].forEach(function (t) { $('.tab[data-tab="' + t + '"]').hidden = !prefs.tabs[t] || (t === "pick" && !prefs.pick); });
       $("#p-pick-btn").hidden = !prefs.pick;
       if (typeof moveThumb === "function") moveThumb();
@@ -592,7 +591,7 @@
     var ST = [
       ["look", "Внешний вид", null, [
         ["ph-sun", "accent", "Тема", "«Как панель задач» - по режиму Windows", { theme: 1 }],
-        ["ph-squares-four", "indigo", "Плотность", "Компактная - всё чуть мельше, в панель помещается больше", { dense: 1 }],
+        ["ph-squares-four", "indigo", "Плотность", "Крупная - всё чуть больше и легче читать. На сайте размер панели не меняется", { dense: 1 }],
         ["ph-lightning", "purple", "Анимации", "Плавное появление и движение. Выключатся сами, если они выключены в Windows", SW("anim")],
         ["ph-drop", "teal", "Стекло", "Панель, островок и пилюля - как матовое стекло: сквозь них размыто видно то, что на экране. Выключено - ровный фон", SW("glass")]]],
       ["panel", "Панель и запуск", null, [
@@ -634,7 +633,7 @@
     ];
     function control(c) {
       if (c.theme) return '<select class="select js-theme" aria-label="Тема"><option value="dark">Тёмная</option><option value="light">Светлая</option><option value="system">Как в Windows</option></select>';
-      if (c.dense) return '<select class="select js-dense" aria-label="Плотность"><option value="0">Обычная</option><option value="1">Компактная</option></select>';
+      if (c.dense) return '<select class="select js-dense" aria-label="Плотность"><option value="0">Обычная</option><option value="1">Крупная</option></select>';
       if (c.keys) return '<span class="kp">' + c.keys + "</span>";
       if (c.text) return '<span class="muted">' + esc(c.text) + "</span>";
       if (c.trok) return '<button class="sw" type="button" role="switch" data-trok aria-checked="' + !!store.get("tr-ok", false) + '" aria-label="Внешний сервис перевода"></button>';

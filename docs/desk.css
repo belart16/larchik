@@ -631,7 +631,6 @@ button.prov:hover { background: var(--card-hover); }
 .pk-recent button:hover { transform: scale(1.1); }
 
 /* Настройки, Внешний вид */
-.dense .p-body { padding: 12px; } .dense .p-body > section { gap: 8px; } .dense .card { padding: 12px; } .dense .p-head { padding: 12px 10px 8px 12px; } .dense .tabs { margin: 0 12px; }
 .no-anim *, .no-anim *::before, .no-anim *::after { transition: none !important; animation: none !important; }
 
 /* FAQ / text documents read in Notepad keep Notepad's look; this is the «Вопросы» reader */
