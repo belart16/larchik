@@ -180,8 +180,6 @@
     $$('img[src^="img/larchik-"]').forEach(function (i) { i.src = src; });
     var t = root.getAttribute("data-theme") || "system";
     $$(".js-theme").forEach(function (s) { s.value = t; });
-    var ic = $("#is-theme i"); if (ic) ic.className = "ph " + (isDark() ? "ph-moon" : "ph-sun");
-    var tt = $("#is-theme"); if (tt) tt.dataset.tip = isDark() ? "Тема: тёмная - сделать светлой" : "Тема: светлая - сделать тёмной";
   }
   function setTheme(t) {
     if (t === "light" || t === "dark") root.setAttribute("data-theme", t); else root.removeAttribute("data-theme");
@@ -252,6 +250,7 @@
       VW = innerWidth / K; VH = innerHeight / K;
       desk.style.zoom = K === 1 ? "" : String(K);
       desk.style.width = VW + "px"; desk.style.height = VH + "px";
+      desk.style.setProperty("--vh", VH + "px");   // 100vh inside the zoomed desktop would be too short
       window.__deskZoom = K;   // embed.js reads it to size the documents
     }
     fit();
@@ -325,8 +324,7 @@
       ai: { title: "Как подключить ИИ", page: "ai.html", small: function () { return '<i class="ph-fill ph-key" style="color:#bf5af2"></i>'; }, big: function () { return '<span class="g-txt blue" style="--b:#bf5af2"></span>'; }, w: 980, h: 680, max: true },
       feedback: { title: "Обратная связь", page: "feedback.html", small: function () { return '<i class="ph-fill ph-chat-circle-dots" style="color:#ff9f0a"></i>'; }, big: function () { return '<span class="g-web"><i class="ph-fill ph-chat-circle-dots"></i></span>'; }, w: 900, h: 680, max: true },
       license: { title: "Лицензионное соглашение", page: "license.html", small: function () { return '<i class="ph-fill ph-scroll" style="color:#0a84ff"></i>'; }, big: function () { return '<span class="g-txt blue"></span>'; }, w: 900, h: 680, max: true },
-      privacy: { title: "Политика конфиденциальности", page: "privacy.html", small: function () { return '<i class="ph-fill ph-shield-check" style="color:#30d158"></i>'; }, big: function () { return '<span class="g-txt blue" style="--b:#30a14e"></span>'; }, w: 900, h: 680, max: true },
-      bin: { title: "Корзина", small: function () { return '<i class="ph-fill ph-trash" style="color:#8e8e93"></i>'; }, big: function () { return '<span class="g-bin"></span>'; }, w: 560, h: 420, render: renderBin }
+      privacy: { title: "Политика конфиденциальности", page: "privacy.html", small: function () { return '<i class="ph-fill ph-shield-check" style="color:#30d158"></i>'; }, big: function () { return '<span class="g-txt blue" style="--b:#30a14e"></span>'; }, w: 900, h: 680, max: true }
     };
     var EXTRA = {
       setup: { title: "Larchik-Setup.exe", big: function () { return '<span class="g-exe"><i class="ph-fill ph-download-simple"></i></span>'; }, run: function () { location.href = DL; toast("ph ph-download-simple", "accent", "Загрузка Larchik-Setup.exe", "Запусти файл, когда скачается. Права администратора не нужны"); } },
@@ -460,7 +458,7 @@
       return b;
     }
     var iconsEl = $("#icons");
-    ["welcome", "notepad", "photo", "docs", "ai", "feedback", "tg", "setup", "bin"].forEach(function (id) {
+    ["welcome", "notepad", "photo", "docs", "ai", "feedback", "tg", "setup"].forEach(function (id) {
       var b = iconButton(id);
       if (id === "welcome") b.querySelector("span:last-child").textContent = "Larchik";
       iconsEl.appendChild(b);
@@ -515,10 +513,6 @@
       body.innerHTML = '<div class="faq-doc">' + FAQ.map(function (f, i) {
         return "<details" + (i === 0 ? " open" : "") + "><summary>" + esc(f[0]) + '<i class="ph ph-caret-down"></i></summary><p>' + f[1] + "</p></details>";
       }).join("") + "</div>";
-    }
-    function renderBin(body) {
-      body.innerHTML = '<div class="plain lk c-accent"><div class="fig" data-fig="basket" data-label="Пустая корзина"></div><b>Корзина пуста</b>' +
-        "<span>Larchik тоже ничего не удаляет без спроса: удалённую заметку можно вернуть кнопкой «Вернуть».</span></div>";
     }
     // ---------------- welcome (WelcomeWindow.cs): three steps in a narrow dialog
     var wlPage = 0;
@@ -605,7 +599,7 @@
         ["ph-keyboard", "accent", "Открыть панель", "Можно поменять на своё сочетание", { keys: "Ctrl + Shift + Space" }],
         ["ph-cursor-click", "accent", "Прятать, когда кликаешь мимо", "Как будто панель потеряла фокус", SW("outside")],
         ["ph-power", "success", "Запускать вместе с Windows", "Иначе сочетания клавиш работают, только пока Larchik открыт", SW("x-auto", true, true)],
-        ["ph-pill", "warning", "Островок", "Сверху в центре: музыка, таймер, микрофон, тема. Перетащи его куда удобно", { text: "Вместе с панелью" }]]],
+        ["ph-pill", "warning", "Островок", "Сверху в центре: музыка и видео из других программ. Перетащи его куда удобно", { text: "Вместе с панелью" }]]],
       ["sections", "Разделы панели", null, [
         ["ph-translate", "accent", "Переводчик", "Своя вкладка в панели", SW("tabs.tr")],
         ["ph-article", "indigo", "Заготовки", "Тексты, которые вставляются сами", SW("tabs.snip")],
@@ -796,14 +790,13 @@
     });
 
     // ---------------- panel
-    var panel = $("#panel"), island = $("#island"), pill = $("#pill");
+    var panel = $("#panel"), island = $("#island");
     var pane = "home", searching = false;
     function panelOpen() { return !panel.classList.contains("closed"); }
     function openPanel(tab) {
       $("#p-date").textContent = longDate();
       panel.classList.remove("closed");
       island.classList.remove("closed");
-      pill.classList.add("closed");
       $("#tray-larchik").classList.add("seen");
       if (tab) showPane(tab);
       done("panel");
@@ -812,8 +805,6 @@
     function closePanel() {
       panel.classList.add("closed");
       island.classList.add("closed");
-      $("#is-timer-row").hidden = true;
-      syncPill();
       if (searching) closeSearch();
     }
     function togglePanel() { if (panelOpen()) closePanel(); else openPanel(); }
@@ -1238,37 +1229,6 @@
     $("#ocr-tr").addEventListener("click", function () { trSrc = null; showPane("tr"); trInput.value = $("#ocr-text").textContent; translate(); });
     $("#ocr-ai").addEventListener("click", function () { setSource({ text: $("#ocr-text").textContent }); $("#p-body").scrollTop = 0; });
 
-    // ---------------- island: timer, mic, theme; and the pill while the timer runs
-    var tmMin = 5, tmLeft = 0, tmRun = false, tmTimer = 0;
-    function tmUi() {
-      var idle = !tmLeft;
-      $("#tm-value").textContent = idle ? tmMin + " мин" : clock(tmLeft);
-      $("#is-timer-text").textContent = idle ? "Таймер" : clock(tmLeft);
-      $("#is-timer").classList.toggle("on", !idle);
-      $("#tm-go").textContent = idle ? "Старт" : tmRun ? "Пауза" : "Дальше";
-      $("#pill-time").textContent = clock(tmLeft);
-      $("#pill-text").textContent = tmRun ? "Таймер" : "Таймер на паузе";
-    }
-    function syncPill() { pill.classList.toggle("closed", !(tmLeft && panelOpen() === false)); }
-    $("#is-timer").addEventListener("click", function () { var r = $("#is-timer-row"); r.hidden = !r.hidden; });
-    $("#tm-minus").addEventListener("click", function () { if (tmLeft) tmLeft = Math.max(1, tmLeft - 60); else tmMin = Math.max(1, tmMin - 1); tmUi(); });
-    $("#tm-plus").addEventListener("click", function () { if (tmLeft) tmLeft += 60; else tmMin = Math.min(180, tmMin + 1); tmUi(); });
-    $("#tm-reset").addEventListener("click", function () { tmLeft = 0; tmRun = false; clearInterval(tmTimer); tmUi(); syncPill(); });
-    $("#tm-go").addEventListener("click", function () {
-      if (!tmLeft) tmLeft = tmMin * 60;
-      tmRun = !tmRun;
-      clearInterval(tmTimer);
-      if (tmRun) tmTimer = setInterval(function () {
-        tmLeft--;
-        if (tmLeft <= 0) { tmLeft = 0; tmRun = false; clearInterval(tmTimer); toast("ph-fill ph-timer", "warning", "Таймер: время вышло", tmMin + " мин"); syncPill(); }
-        tmUi();
-      }, 1000);
-      tmUi();
-    });
-    pill.addEventListener("click", function () { openPanel(); $("#is-timer-row").hidden = false; });
-    $("#is-theme").addEventListener("click", function () { setTheme(isDark() ? "light" : "dark"); });
-    $("#is-mic").addEventListener("click", function () { toast("ph ph-microphone", "accent", "Голосовые команды", "В программе они включаются: Настройки → Инструменты. В демо микрофон не нужен"); });
-    tmUi();
 
     // ---------------- pipette (EyeDropper in Chromium; elsewhere the system colour picker)
     var colors = store.get("colors", ["#0A84FF", "#FF9F0A", "#30D158"]);
@@ -1330,7 +1290,6 @@
     });
     draggable(island, island, "island-pos", function (x, y) {
       island.style.left = x + "px"; island.style.top = y + "px"; island.style.marginLeft = "0";
-      pill.style.left = (x + island.offsetWidth / 2 - 110) + "px"; pill.style.top = y + "px"; pill.style.marginLeft = "0";
     });
 
     // ---------------- start menu
@@ -1467,7 +1426,7 @@
     // clicking outside the panel hides it, like the app does when it loses focus
     document.addEventListener("pointerdown", function (e) {
       if (!prefs.outside || !panelOpen() || snipper || !scrim.classList.contains("closed")) return;
-      if (e.target.closest("#panel,#island,#tray-larchik,#pill,.toast,.quest,.sc,.qa,.hint")) return;
+      if (e.target.closest("#panel,#island,#tray-larchik,.toast,.quest,.sc,.qa,.hint")) return;
       closePanel();
     });
 

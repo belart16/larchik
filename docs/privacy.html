@@ -218,9 +218,12 @@
     function update() {
       var y = window.scrollY + 120, cur = 0;
       targets.forEach(function (t, i) { if (t && t.offsetTop <= y) cur = i; });
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = targets.length - 1;
+      // at the very end the last parts never reach the top: then the one clicked, else the last
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = clicked >= cur ? clicked : targets.length - 1;
       links.forEach(function (a, i) { a.classList.toggle("active", i === cur); });
     }
+    var clicked = -1;
+    links.forEach(function (a, i) { a.addEventListener("click", function () { clicked = i; update(); }); });   // at the end a click may not scroll at all
     window.addEventListener("scroll", update, { passive: true }); update();
     document.querySelectorAll(".toc-mobile a").forEach(function (a) {
       a.addEventListener("click", function () { a.closest("details").open = false; });

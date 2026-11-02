@@ -23,33 +23,6 @@
   --display: var(--font);
   color-scheme: light;
 }
-/* in a window on the site's desktop the page follows the desktop's theme (embed.js copies it) */
-html.embedded[data-theme="dark"] {
-    --bg: #0f0f11; --ground-2: #161618;
-    --surface: rgba(255,255,255,.045); --surface-2: rgba(255,255,255,.07); --border: rgba(255,255,255,.09);
-    --text: #f5f5f7; --text-2: rgba(235,235,245,.70); --text-3: rgba(235,235,245,.48);
-    --accent: #4f8bff; --accent-soft: rgba(79,139,255,.16);
-    --orange-soft: rgba(255,159,10,.10); --orange-line: rgba(255,159,10,.28);
-    --key-bg: rgba(255,255,255,.08); --key-border: rgba(255,255,255,.16);
-    --nav-bg: rgba(15,15,17,.72);
-    --shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 32px rgba(0,0,0,.25);
-    --shadow-hover: 0 1px 0 rgba(255,255,255,.05) inset, 0 18px 40px rgba(0,0,0,.30);
-    --brand-text: linear-gradient(90deg, #7fa6ff, #b39cff);
-    color-scheme: dark;
-}
-@media (prefers-color-scheme: dark) { html.embedded:not([data-theme="light"]) {
-    --bg: #0f0f11; --ground-2: #161618;
-    --surface: rgba(255,255,255,.045); --surface-2: rgba(255,255,255,.07); --border: rgba(255,255,255,.09);
-    --text: #f5f5f7; --text-2: rgba(235,235,245,.70); --text-3: rgba(235,235,245,.48);
-    --accent: #4f8bff; --accent-soft: rgba(79,139,255,.16);
-    --orange-soft: rgba(255,159,10,.10); --orange-line: rgba(255,159,10,.28);
-    --key-bg: rgba(255,255,255,.08); --key-border: rgba(255,255,255,.16);
-    --nav-bg: rgba(15,15,17,.72);
-    --shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 32px rgba(0,0,0,.25);
-    --shadow-hover: 0 1px 0 rgba(255,255,255,.05) inset, 0 18px 40px rgba(0,0,0,.30);
-    --brand-text: linear-gradient(90deg, #7fa6ff, #b39cff);
-    color-scheme: dark;
-} }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 80px; }

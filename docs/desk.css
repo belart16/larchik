@@ -144,10 +144,6 @@ html.is-desk, html.is-desk body { height: 100%; overflow: hidden; }
                    background: linear-gradient(#ffd666, #f7b928); box-shadow: inset 0 1px 0 rgba(255,255,255,.6); }
 .g-exe { width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(150deg, #3d7bff, #1f3fae); display: grid; place-items: center; color: #fff; font-size: 24px;
          box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
-.g-bin { width: 40px; height: 46px; position: relative; }
-.g-bin::before { content: ""; position: absolute; left: 4px; right: 4px; top: 8px; bottom: 0; border-radius: 3px 3px 8px 8px;
-                 background: linear-gradient(90deg, rgba(255,255,255,.55), rgba(220,235,255,.85) 40%, rgba(255,255,255,.5)); box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
-.g-bin::after { content: ""; position: absolute; left: 1px; right: 1px; top: 3px; height: 6px; border-radius: 3px; background: rgba(240,246,255,.95); box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
 .g-web { width: 44px; height: 44px; border-radius: 50%; background: conic-gradient(from 200deg, #0a84ff, #30d158, #0a84ff); display: grid; place-items: center; color: #fff; font-size: 26px; line-height: 1; }
 
 /* ---------------- windows ---------------- */
@@ -168,7 +164,7 @@ html.is-desk, html.is-desk body { height: 100%; overflow: hidden; }
 .tbtn:hover { background: var(--os-hover); }
 .tbtn.close:hover { background: #c42b1c; color: #fff; }
 .wbody { flex: 1; min-height: 0; position: relative; background: var(--os-mica-2); }
-.wbody iframe { width: 100%; height: 100%; border: 0; display: block; background: var(--os-mica-2); }
+.wbody iframe { width: 100%; height: 100%; border: 0; display: block; background: #eff2f8; }
 
 /* Notepad (Windows 11) */
 .np { height: 100%; display: flex; flex-direction: column; background: var(--os-mica-2); }
@@ -346,7 +342,7 @@ html.is-desk, html.is-desk body { height: 100%; overflow: hidden; }
          background: var(--panel); border-radius: 22px; box-shadow: var(--panel-shadow); display: flex; flex-direction: column; overflow: hidden;
          border: 1px solid var(--panel-line); transform-origin: 0 100%;
          transition: opacity .16s var(--ease-out), transform .2s var(--ease-out); }
-.glass .panel, .glass .island, .glass .pill { background: color-mix(in srgb, var(--panel) 80%, transparent); backdrop-filter: blur(30px) saturate(160%); -webkit-backdrop-filter: blur(30px) saturate(160%); }
+.glass .panel, .glass .island { background: color-mix(in srgb, var(--panel) 80%, transparent); backdrop-filter: blur(30px) saturate(160%); -webkit-backdrop-filter: blur(30px) saturate(160%); }
 .panel.closed { opacity: 0; transform: translateY(12px) scale(.985); pointer-events: none; visibility: hidden; transition: opacity .12s, transform .12s, visibility 0s .12s; }
 .p-head { display: flex; align-items: center; gap: 4px; padding: 16px 12px 12px 16px; flex: none; cursor: default; touch-action: none; }
 .p-head img { width: 28px; height: 28px; margin-right: 8px; }
@@ -517,22 +513,6 @@ html.is-desk, html.is-desk body { height: 100%; overflow: hidden; }
 .is-cover { width: 44px; height: 44px; border-radius: 10px; background: var(--control); display: grid; place-items: center; color: var(--text-2); font-size: 20px; }
 .is-media b { display: block; font-size: 13px; font-weight: 600; }
 .is-media small { color: var(--text-2); font-size: 12px; }
-.is-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.is-tool { height: 54px; border: 0; border-radius: 14px; background: var(--control); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11.5px; color: var(--text);
-           transition: background-color .15s, transform .1s; font-variant-numeric: tabular-nums; }
-.is-tool i { font-size: 18px; }
-.is-tool:hover { background: var(--control-hover); }
-.is-tool:active { transform: scale(.96); }
-.is-tool.on { background: var(--accent); color: #fff; }
-.is-timer { display: flex; align-items: center; justify-content: center; gap: 8px; }
-.is-timer .btn { height: 30px; }
-.is-timer b { min-width: 64px; text-align: center; font-size: 15px; font-variant-numeric: tabular-nums; }
-.pill { position: absolute; left: 50%; top: 8px; height: 34px; width: 220px; margin-left: -110px; z-index: 901; border-radius: 17px; border: 1px solid var(--panel-line);
-        background: var(--panel); box-shadow: var(--panel-shadow); display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 12.5px; color: var(--text);
-        transition: opacity .18s, transform .3s var(--spring); }
-.pill.closed { opacity: 0; transform: translateY(-14px) scale(.9); pointer-events: none; }
-.pill i { color: var(--warning); }
-.pill b { margin-left: auto; font-variant-numeric: tabular-nums; }
 
 /* Windows Hello */
 .scrim { position: absolute; inset: 0; z-index: 1250; background: rgba(0,0,0,.36); display: grid; place-items: center; transition: opacity .16s; }
@@ -655,13 +635,15 @@ button.prov:hover { background: var(--card-hover); }
 .no-anim *, .no-anim *::before, .no-anim *::after { transition: none !important; animation: none !important; }
 
 /* FAQ / text documents read in Notepad keep Notepad's look; this is the «Вопросы» reader */
-.faq-doc { height: 100%; overflow: auto; padding: 18px 22px; background: var(--os-mica-2); display: flex; flex-direction: column; gap: 8px; user-select: text; -webkit-user-select: text; }
-.faq-doc details { border-radius: 8px; background: var(--os-hover); }
-.faq-doc summary { cursor: pointer; padding: 12px 14px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+/* a document of the site: light in any theme, as the pages (site.css) */
+.faq-doc { --accent: #2f6bff; height: 100%; overflow: auto; padding: 18px 22px; background: #eff2f8; color: #141a26; font: 15px/1.5 "Inter Tight", var(--font);
+           display: flex; flex-direction: column; gap: 8px; user-select: text; -webkit-user-select: text; }
+.faq-doc details { border-radius: 18px; background: #fff; border: 1px solid rgba(30,45,90,.08); }
+.faq-doc summary { cursor: pointer; padding: 16px 18px; font-weight: 500; font-size: 16px; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
 .faq-doc summary::-webkit-details-marker { display: none; }
-.faq-doc summary i { transition: transform .2s var(--ease-out); color: var(--os-text-2); }
+.faq-doc summary i { transition: transform .2s var(--ease-out); color: #8790a3; }
 .faq-doc details[open] summary i { transform: rotate(180deg); }
-.faq-doc details p { margin: 0; padding: 0 14px 12px; color: var(--os-text-2); }
+.faq-doc details p { margin: 0; padding: 0 18px 16px; color: #5a6274; }
 
 @media (hover: hover) and (pointer: fine) {
   .card { transition: background-color .15s; }
@@ -860,7 +842,7 @@ button.prov:hover { background: var(--card-hover); }
 .win.dialog { height: auto !important; }
 .win.dialog .wbody { flex: none; }
 .win.dialog .welcome { height: auto; }
-.win.dialog .wl-page { max-height: calc(100vh - 230px); }
+.win.dialog .wl-page { max-height: calc(var(--vh, 100vh) - 200px); }
 
 /* questions: answer the mouse, open smoothly */
 :root { interpolate-size: allow-keywords; }
@@ -870,7 +852,7 @@ button.prov:hover { background: var(--card-hover); }
 .faq details[open], .faq-doc details[open] { box-shadow: inset 3px 0 0 var(--accent); }
 @media (hover: hover) and (pointer: fine) {
   .faq details:hover { transform: translateY(-2px); background: var(--card-hover); box-shadow: 0 8px 24px rgba(0,0,0,.18); }
-  .faq-doc details:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--os-text) 9%, transparent); box-shadow: 0 8px 24px rgba(0,0,0,.14); }
+  .faq-doc details:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(30,45,90,.10); }
   .faq details[open]:hover, .faq-doc details[open]:hover { box-shadow: inset 3px 0 0 var(--accent), 0 8px 24px rgba(0,0,0,.16); }
   .faq summary:hover i, .faq-doc summary:hover i { color: var(--accent); }
 }

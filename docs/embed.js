@@ -6,13 +6,6 @@
   root.classList.add("embedded");
   // a document in a window reads at about 88%: more fits, like a page zoomed out (the desktop may already be smaller)
   try { root.style.zoom = String(Math.min(1, 0.88 / (parent.__deskZoom || 1))); } catch (e) {}
-  // the theme picked on the desktop (island, settings), kept in step while the window is open
-  try {
-    var top = parent.document.documentElement;
-    var sync = function () { var t = top.getAttribute("data-theme"); if (t) root.setAttribute("data-theme", t); else root.removeAttribute("data-theme"); };
-    sync();
-    new MutationObserver(sync).observe(top, { attributes: true, attributeFilter: ["data-theme"] });
-  } catch (e) {}
   var PAGES = { "": "faq", "index.html": "faq", "ai.html": "ai", "license.html": "license", "privacy.html": "privacy", "feedback.html": "feedback" };
   var here = location.pathname.split("/").pop();
   document.addEventListener("click", function (e) {
