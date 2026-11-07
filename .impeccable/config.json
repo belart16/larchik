@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-01T14:21:14.888Z",
+        "reason": "agent decision: phone page needs a grotesk with Cyrillic and a true italic to match the twocode.nl reference the user chose; Inter Tight is vendored locally for that"
+      }
+    ]
+  }
+}
